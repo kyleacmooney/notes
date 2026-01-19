@@ -16,6 +16,7 @@
             --section-height: 82px;
             --subsection-height: 54px;
             --body-padding: 48px;
+            --katex-base-size: 1.2em;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -94,7 +95,6 @@
 
         .content {
             max-width: 800px;
-            overflow-x: hidden;
         }
 
         .math-block {
@@ -117,9 +117,61 @@
             flex: 1 1 auto;
             min-width: 0;
             overflow-x: auto;
-            overflow-y: visible;
+            overflow-y: clip;
             max-width: 100%;
+            position: relative;
+            /* Hide scrollbar by default, show on hover */
+            scrollbar-width: none;  /* Firefox */
         }
+
+        .block-content-row .block-math::-webkit-scrollbar {
+            height: 0;  /* Chrome/Safari - hidden by default */
+            transition: height 0.2s;
+        }
+
+        .block-content-row .block-math:hover {
+            scrollbar-width: thin;  /* Firefox */
+        }
+
+        .block-content-row .block-math:hover::-webkit-scrollbar {
+            height: 8px;  /* Show scrollbar on hover */
+        }
+
+        .block-content-row .block-math:hover::-webkit-scrollbar-thumb {
+            background: rgba(139, 69, 79, 0.4);
+            border-radius: 4px;
+        }
+
+        .block-content-row .block-math:hover::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        /* Scroll fade indicators for overflowing math blocks */
+        .block-math::before,
+        .block-math::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 24px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+
+        .block-math::before {
+            left: 0;
+            background: linear-gradient(to right, #1a1a1e 0%, transparent 100%);
+        }
+
+        .block-math::after {
+            right: 0;
+            background: linear-gradient(to left, #1a1a1e 0%, transparent 100%);
+        }
+
+        .block-math.has-overflow::after { opacity: 1; }
+        .block-math.scrolled-right::before { opacity: 1; }
+        .block-math.scrolled-end::after { opacity: 0; }
 
         .math-block .block-annotation {
             flex: 0 0 auto;
@@ -203,11 +255,11 @@
             z-index: var(--z-index, 100);
             background: linear-gradient(165deg, #1a1a1e 0%, #222226 100%);
             border-bottom: 1px solid rgba(139, 69, 79, 0.2);
-            /* Extend beyond content but not to viewport edges (like LaTeX viewer) */
-            width: calc(100% + 80px);
-            margin-left: -40px;
-            padding-left: 40px;
-            padding-right: 40px;
+            /* Full-width: extend into body padding on both sides */
+            width: 100vw;
+            margin-left: calc(-1 * var(--body-padding));
+            padding-left: var(--body-padding);
+            padding-right: var(--body-padding);
             box-sizing: border-box;
         }
 
@@ -276,12 +328,12 @@
         .katex-display {
             margin: 0;
             overflow-x: auto;
-            overflow-y: visible;
+            overflow-y: clip;
             max-width: 100%;
         }
 
         .katex {
-            font-size: 1.2em;
+            font-size: var(--katex-base-size);
             color: #f0ebe3;
         }
 
@@ -663,6 +715,9 @@
 
         /* Mobile responsiveness */
         @media (max-width: 900px) {
+            :root {
+                --katex-base-size: 1em;
+            }
             .outline-panel {
                 display: none;
             }
@@ -677,6 +732,7 @@
                 --nav-height: 40px;
                 --section-height: 90px;
                 --subsection-height: 60px;
+                --katex-base-size: 0.9em;
             }
 
             body {
@@ -735,13 +791,15 @@
                 font-size: 15px;
             }
 
-            .katex {
-                font-size: 1em;
-            }
-
             .math-block .block-annotation {
                 max-width: none;
                 flex-basis: 100%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            :root {
+                --katex-base-size: 0.8em;
             }
         }
     </style>
@@ -814,6 +872,7 @@
                 requestAnimationFrame(() => {
                     document.body.style.visibility = 'visible';
                     detectWrappedAnnotations();
+                    initScrollIndicators();
                 });
             });
         });
@@ -833,6 +892,26 @@
         }
 
         window.addEventListener('resize', detectWrappedAnnotations);
+
+        // Scroll fade indicators for overflowing math blocks
+        function initScrollIndicators() {
+            document.querySelectorAll('.block-math').forEach(el => {
+                const updateIndicators = () => {
+                    const hasOverflow = el.scrollWidth > el.clientWidth;
+                    const scrolledRight = el.scrollLeft > 0;
+                    const scrolledEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+
+                    el.classList.toggle('has-overflow', hasOverflow);
+                    el.classList.toggle('scrolled-right', scrolledRight);
+                    el.classList.toggle('scrolled-end', scrolledEnd);
+                };
+
+                updateIndicators();
+                el.addEventListener('scroll', updateIndicators);
+            });
+        }
+
+        window.addEventListener('resize', initScrollIndicators);
 
         // Outline toggle
         let outlineVisible = true;
