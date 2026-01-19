@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardinality  Set Functions - Quick Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        :root {
+            --nav-height: 44px;
+            --section-height: 82px;
+            --subsection-height: 54px;
+            --body-padding: 48px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: "Source Sans 3", -apple-system, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(165deg, #1a1a1e 0%, #222226 40%, #1e1e22 100%);
+            color: #c8c8d0;
+            padding: var(--body-padding);
+            padding-top: calc(var(--nav-height) + 36px);
+            line-height: 1.7;
+            visibility: hidden;
+            overflow-x: hidden;
+        }
+
+        /* Fixed navigation header */
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            background: rgba(26, 26, 30, 0.98);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(139, 69, 79, 0.2);
+            padding: 0 var(--body-padding);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .breadcrumbs {
+            font-size: 13px;
+            color: #909098;
+        }
+
+        .breadcrumbs a {
+            color: #6b8cce;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .breadcrumbs a:hover {
+            color: #8bacd0;
+            text-decoration: underline;
+        }
+
+        .header {
+            margin-bottom: 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(139, 69, 79, 0.3);
+        }
+
+        h1 {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 28px;
+            font-weight: 500;
+            color: #f0ebe3;
+            letter-spacing: 0.01em;
+            margin-bottom: 4px;
+        }
+
+        .header::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #8b454f 0%, transparent 100%);
+            margin-top: 4px;
+        }
+
+        .content {
+            max-width: 800px;
+            overflow-x: hidden;
+        }
+
+        .math-block {
+            margin: 12px 0;
+            padding: 8px 0 8px 14px;
+            background: none;
+            border: none;
+            border-left: 2px solid var(--accent-color, #8b454f);
+            position: relative;
+        }
+
+        .block-content-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 4px 20px;
+        }
+
+        .block-content-row .block-math {
+            flex: 1 1 auto;
+            min-width: 0;
+            overflow-x: auto;
+            overflow-y: visible;
+            max-width: 100%;
+        }
+
+        .math-block .block-annotation {
+            flex: 0 0 auto;
+            max-width: 220px;
+            font-size: 11px;
+            color: #606068;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .math-block .block-annotation.wrapped {
+            max-width: none;
+            flex-basis: 100%;
+        }
+
+        .block-label {
+            font-size: 9px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0.7;
+        }
+
+        .block-icon {
+            font-size: 10px;
+            opacity: 0.9;
+        }
+
+        .block-note .block-math {
+            font-size: 0.95em;
+        }
+
+        .block-result {
+            border-left-width: 3px;
+            padding-left: 18px;
+        }
+
+        .text-block {
+            margin: 16px 0;
+            padding: 0 4px;
+            background: none;
+            border: none;
+        }
+
+        .text-block .block-label {
+            font-size: 9px;
+            margin-bottom: 4px;
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .text-block .block-content {
+            font-size: 14px;
+            line-height: 1.65;
+            color: #a0a0a8;
+            font-style: italic;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        .text-block .block-content p {
+            margin: 0 0 8px 0;
+        }
+
+        .text-block .block-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            position: sticky;
+            z-index: var(--z-index, 100);
+            background: linear-gradient(165deg, #1a1a1e 0%, #222226 100%);
+            border-bottom: 1px solid rgba(139, 69, 79, 0.2);
+            /* Extend beyond content but not to viewport edges (like LaTeX viewer) */
+            width: calc(100% + 80px);
+            margin-left: -40px;
+            padding-left: 40px;
+            padding-right: 40px;
+            box-sizing: border-box;
+        }
+
+        .section-header.section-level-1 {
+            top: var(--nav-height);
+            padding-top: 12px;
+            padding-bottom: 24px;
+            margin-top: 40px;
+            margin-bottom: 16px;
+        }
+
+        .section-container:first-child .section-header.section-level-1 {
+            margin-top: 24px;  /* Gap after page header */
+            margin-bottom: 24px;  /* Slightly more than default 16px to prevent overlap */
+        }
+
+        .section-header.section-level-2 {
+            top: calc(var(--nav-height) + var(--section-height));
+            padding-top: 20px;
+            padding-bottom: 18px;
+            margin-top: 28px;
+            border-bottom-color: rgba(139, 69, 79, 0.15);
+        }
+
+        .section-header.section-level-3 {
+            top: calc(var(--nav-height) + var(--section-height) + var(--subsection-height));
+            padding-top: 14px;
+            padding-bottom: 14px;
+            margin-top: 20px;
+            border-bottom-color: rgba(139, 69, 79, 0.1);
+        }
+
+        .section-title {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            margin: 0;
+        }
+
+        .section-level-1 .section-title {
+            font-size: 24px;
+            color: #f0ebe3;
+        }
+
+        .section-level-2 .section-title {
+            font-size: 20px;
+            color: #d8d3cb;
+        }
+
+        .section-level-3 .section-title {
+            font-size: 17px;
+            color: #c0bbb3;
+            font-weight: 400;
+        }
+
+        .section-level-1::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #8b454f 0%, transparent 100%);
+            margin-top: 12px;
+        }
+
+
+        .katex-display {
+            margin: 0;
+            overflow-x: auto;
+            overflow-y: visible;
+            max-width: 100%;
+        }
+
+        .katex {
+            font-size: 1.2em;
+            color: #f0ebe3;
+        }
+
+        .katex-display > .katex {
+            text-shadow: 0 0 40px rgba(139, 69, 79, 0.12);
+        }
+
+        /* Outline panel */
+        .outline-panel {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            width: 220px;
+            max-height: calc(100vh - 120px);
+            background: rgba(26, 26, 30, 0.95);
+            border: 1px solid rgba(139, 69, 79, 0.25);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            overflow: hidden;
+            z-index: 500;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .outline-panel.hidden {
+            opacity: 0;
+            transform: translateX(20px);
+            pointer-events: none;
+        }
+
+        .outline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(139, 69, 79, 0.2);
+            background: rgba(139, 69, 79, 0.08);
+        }
+
+        .outline-title {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #c8c8d0;
+            letter-spacing: 0.03em;
+        }
+
+        .outline-close {
+            width: 20px;
+            height: 20px;
+            border: none;
+            background: transparent;
+            color: #707078;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+
+        .outline-close:hover {
+            background: rgba(139, 69, 79, 0.3);
+            color: #f0ebe3;
+        }
+
+        .outline-nav {
+            padding: 8px 0;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+
+        .outline-item {
+            display: block;
+            padding: 8px 16px;
+            color: #909098;
+            text-decoration: none;
+            font-size: 13px;
+            line-height: 1.4;
+            transition: all 0.15s;
+            border-left: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .outline-item:hover {
+            color: #d0d0d8;
+            background: rgba(139, 69, 79, 0.1);
+        }
+
+        .outline-item.active {
+            color: #f0ebe3;
+            background: rgba(139, 69, 79, 0.15);
+            border-left-color: #8b454f;
+        }
+
+        .outline-level-1 {
+            font-weight: 500;
+            color: #b8b8c0;
+        }
+
+        .outline-level-2 {
+            padding-left: 28px;
+            font-size: 12px;
+        }
+
+        .outline-level-3 {
+            padding-left: 40px;
+            font-size: 11px;
+            color: #808088;
+        }
+
+        .outline-top {
+            font-size: 12px;
+            color: #707078;
+            font-style: italic;
+        }
+
+        .outline-top:hover {
+            color: #b8b8c0;
+        }
+
+        .outline-top.active {
+            color: #c8c8d0;
+            border-left-color: #8b454f;
+        }
+
+        .outline-divider {
+            height: 1px;
+            background: rgba(139, 69, 79, 0.2);
+            margin: 6px 16px;
+        }
+
+        .outline-toggle-btn {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(139, 69, 79, 0.3);
+            border-radius: 8px;
+            background: rgba(26, 26, 30, 0.9);
+            color: #909098;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 499;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .outline-toggle-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .outline-toggle-btn:hover {
+            background: rgba(139, 69, 79, 0.2);
+            color: #f0ebe3;
+            border-color: rgba(139, 69, 79, 0.5);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(139, 69, 79, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(139, 69, 79, 0.5);
+        }
+
+        /* Explanation blocks (read-only display of saved explanations) */
+        .block-explanation {
+            margin-top: 16px;
+            margin-left: 0;
+            padding: 0;
+            background: transparent;
+            border-radius: 0;
+            position: relative;
+            max-width: none;
+            width: 100%;
+        }
+
+        .block-explanation::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            bottom: 4px;
+            width: 2px;
+            background: linear-gradient(180deg, rgba(107, 140, 206, 0.6) 0%, rgba(107, 140, 206, 0.1) 100%);
+            border-radius: 1px;
+            opacity: 1;
+        }
+
+        .explanation-header {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 15px;
+            font-weight: 500;
+            font-style: italic;
+            color: #8090a8;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            border-radius: 6px;
+            transition: background 0.15s;
+        }
+
+        .explanation-header:hover {
+            background: rgba(107, 140, 206, 0.08);
+        }
+
+        .explanation-header .toggle-icon {
+            font-style: normal;
+            font-size: 10px;
+            color: #606878;
+            transition: transform 0.2s;
+        }
+
+        .block-explanation.expanded .explanation-header .toggle-icon {
+            transform: rotate(90deg);
+        }
+
+        .explanation-header .icon {
+            font-style: normal;
+            opacity: 0.7;
+        }
+
+        .explanation-content {
+            display: none;
+            font-size: 14.5px;
+            color: #b0b0b8;
+            line-height: 1.85;
+            margin-left: 14px;
+            border-radius: 0 8px 8px 0;
+            padding: 16px 18px;
+            background: rgba(107, 140, 206, 0.03);
+            max-width: none;
+            width: calc(100% - 14px);
+        }
+
+        .block-explanation.expanded .explanation-content {
+            display: block;
+        }
+
+        .explanation-content p {
+            margin: 14px 0;
+        }
+
+        .explanation-content p:first-child {
+            margin-top: 0;
+        }
+
+        .explanation-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .explanation-content strong {
+            color: #d0d0d8;
+            font-weight: 500;
+        }
+
+        .explanation-content .katex {
+            font-size: 1.1em;
+        }
+
+        .block-explanation.is-error::before {
+            background: linear-gradient(180deg, rgba(180, 100, 100, 0.6) 0%, rgba(180, 100, 100, 0.1) 100%);
+        }
+
+        .block-explanation.is-error .explanation-header {
+            color: #b08080;
+        }
+
+        /* Chat panel (collapsible discussion at top) */
+        .context-area {
+            margin-top: 20px;
+            margin-bottom: 12px;
+            background: rgba(139, 69, 79, 0.08);
+            border-radius: 8px;
+            border-left: 3px solid #8b454f;
+            overflow: hidden;
+        }
+
+        .chat-toggle-row {
+            padding: 12px 20px;
+        }
+
+        .chat-link {
+            font-size: 13px;
+            color: #6b8cce;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-decoration: none;
+        }
+
+        .chat-link:hover {
+            color: #8bacd0;
+        }
+
+        .chat-panel {
+            display: none;
+            background: rgba(20, 20, 24, 0.6);
+            border-top: 1px solid rgba(139, 69, 79, 0.2);
+        }
+
+        .chat-panel.visible {
+            display: block;
+        }
+
+        .chat-messages {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-message {
+        }
+
+        .chat-message.user {
+            text-align: right;
+        }
+
+        .chat-message.user .message-content {
+            display: inline-block;
+            background: rgba(139, 69, 79, 0.2);
+            color: #e0e0e8;
+            padding: 8px 14px;
+            border-radius: 16px 16px 4px 16px;
+            font-size: 14px;
+            max-width: 85%;
+            text-align: left;
+        }
+
+        .chat-message.assistant .message-content {
+            background: rgba(107, 140, 206, 0.08);
+            color: #b8b8c0;
+            padding: 12px 16px;
+            border-radius: 4px 16px 16px 16px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .chat-message.assistant .message-content p {
+            margin: 10px 0;
+        }
+
+        .chat-message.assistant .message-content p:first-child {
+            margin-top: 0;
+        }
+
+        .chat-message.assistant .message-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .chat-message.assistant .message-content strong {
+            color: #d0d0d8;
+            font-weight: 500;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 900px) {
+            .outline-panel {
+                display: none;
+            }
+            .outline-toggle-btn {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            :root {
+                --body-padding: 20px;
+                --nav-height: 40px;
+                --section-height: 90px;
+                --subsection-height: 60px;
+            }
+
+            body {
+                padding: var(--body-padding);
+                padding-top: calc(var(--nav-height) + 30px);
+            }
+
+            .content {
+                overflow-x: visible;  /* Allow section headers to extend edge-to-edge */
+            }
+
+            .nav-header {
+                padding: 0 var(--body-padding);
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .section-header {
+                /* Full-width on mobile: extend into body padding on both sides */
+                width: calc(100% + 2 * var(--body-padding));
+                margin-left: calc(-1 * var(--body-padding));
+                padding-left: var(--body-padding);
+                padding-right: var(--body-padding);
+            }
+
+            .section-header.section-level-1 {
+                padding-top: 16px;
+                padding-bottom: 18px;
+            }
+
+            .section-container:first-child .section-header.section-level-1 {
+                margin-top: 0;
+            }
+
+            .section-header.section-level-2 {
+                padding-top: 16px;
+                padding-bottom: 14px;
+            }
+
+            .section-header.section-level-3 {
+                padding-top: 12px;
+                padding-bottom: 12px;
+            }
+
+            .section-level-1 .section-title {
+                font-size: 20px;
+            }
+
+            .section-level-2 .section-title {
+                font-size: 17px;
+            }
+
+            .section-level-3 .section-title {
+                font-size: 15px;
+            }
+
+            .katex {
+                font-size: 1em;
+            }
+
+            .math-block .block-annotation {
+                max-width: none;
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-header">
+        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Quick Notes</a> / <a href="#">Cardinality  Set Functions</a></div>
+    </nav>
+    <div class="header">
+        <h1>Cardinality  Set Functions</h1>
+    </div>
+    <div class="content">
+        
+        
+        <div class="math-block block-definition" id="block-0" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Function Composition</div>
+            <div class="block-content-row">
+                <div class="block-math">$$(g \circ f)(x) = g(f(x))$$</div>
+                <div class="block-annotation">Composition applies f first, then g to the result.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-1" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Inverse Function</div>
+            <div class="block-content-row">
+                <div class="block-math">$$f^{-1} \text{ exists} \iff f \text{ is bijective}$$</div>
+                <div class="block-annotation">Only bijections have true inverse functions.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-2" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Same Cardinality</div>
+            <div class="block-content-row">
+                <div class="block-math">$$|A| = |B| \iff \exists \text{ bijection } f: A \to B$$</div>
+                <div class="block-annotation">Two sets have the same size exactly when their elements can be perfectly paired.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-3" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Finite Cardinality</div>
+            <div class="block-content-row">
+                <div class="block-math">$$|A| = n \iff \exists \text{ bijection } A \to \{1, 2, \ldots, n\}$$</div>
+                <div class="block-annotation">A set has n elements if it pairs perfectly with the first n natural numbers.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-4" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Cardinality Inequality</div>
+            <div class="block-content-row">
+                <div class="block-math">$$|A| \leq |B| \iff \exists \text{ injection } f: A \hookrightarrow B$$</div>
+                <div class="block-annotation">An injection means A&#x27;s elements can pair with some (not necessarily all) of B&#x27;s elements.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-5" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Strict Inequality</div>
+            <div class="block-content-row">
+                <div class="block-math">$$|A| < |B| \iff |A| \leq |B| \land |A| \neq |B|$$</div>
+                <div class="block-annotation">Strict inequality means injection exists but no bijection does.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-6" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Cantor-Schröder-Bernstein</div>
+            <div class="block-content-row">
+                <div class="block-math">$$|A| \leq |B| \land |B| \leq |A| \implies |A| = |B|$$</div>
+                <div class="block-annotation">Two injections in opposite directions guarantee a bijection exists—often easier than constructing one directly.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-note" id="block-7" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Notation Ambiguity</div>
+            <div class="block-content-row">
+                <div class="block-math">$$f^{-1}(D) \text{ (inverse image of set)} \neq f^{-1} \text{ (inverse function)}$$</div>
+                <div class="block-annotation">Inverse image always exists for any function; inverse function requires bijectivity.</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Render KaTeX when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false}
+                ],
+                throwOnError: false
+            });
+
+            document.fonts.ready.then(() => {
+                requestAnimationFrame(() => {
+                    document.body.style.visibility = 'visible';
+                    detectWrappedAnnotations();
+                });
+            });
+        });
+
+        function detectWrappedAnnotations() {
+            document.querySelectorAll('.block-content-row').forEach(row => {
+                const math = row.querySelector('.block-math');
+                const annotation = row.querySelector('.block-annotation');
+                if (math && annotation) {
+                    if (annotation.offsetTop > math.offsetTop + 10) {
+                        annotation.classList.add('wrapped');
+                    } else {
+                        annotation.classList.remove('wrapped');
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('resize', detectWrappedAnnotations);
+
+        // Outline toggle
+        let outlineVisible = true;
+        function toggleOutline() {
+            const panel = document.getElementById('outlinePanel');
+            const btn = document.getElementById('outlineToggleBtn');
+            if (!panel) return;
+
+            outlineVisible = !outlineVisible;
+            if (outlineVisible) {
+                panel.classList.remove('hidden');
+                btn.classList.remove('visible');
+            } else {
+                panel.classList.add('hidden');
+                btn.classList.add('visible');
+            }
+        }
+
+        // Smooth scroll for outline links
+        document.querySelectorAll('.outline-item').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const blockId = this.dataset.blockId;
+                if (blockId === 'top') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    const target = document.getElementById('block-' + blockId);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+
+        // Track active section in outline
+        const observerOptions = {
+            rootMargin: '-100px 0px -70% 0px',
+            threshold: 0
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const blockId = entry.target.id.replace('block-', '');
+                    document.querySelectorAll('.outline-item').forEach(item => {
+                        item.classList.remove('active');
+                        if (item.dataset.blockId === blockId) {
+                            item.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-header').forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // Toggle explanation expanded/collapsed on header click
+        document.querySelectorAll('.explanation-header').forEach(header => {
+            header.addEventListener('click', function() {
+                this.parentElement.classList.toggle('expanded');
+            });
+        });
+
+        // Toggle chat panel visibility
+        function toggleChat() {
+            const panel = document.getElementById('chatPanel');
+            const link = document.querySelector('.chat-link');
+            if (!panel) return;
+
+            const isVisible = panel.classList.contains('visible');
+            panel.classList.toggle('visible');
+
+            if (link) {
+                const msgCount = panel.querySelectorAll('.chat-message').length;
+                if (isVisible) {
+                    link.textContent = '💬 Discussion (' + msgCount + ' messages)';
+                } else {
+                    link.textContent = '✕ Close discussion';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

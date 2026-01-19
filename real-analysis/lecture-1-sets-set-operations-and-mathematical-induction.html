@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 1 Sets Set Operations And Mathematical Induction - Real Analysis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        :root {
+            --nav-height: 44px;
+            --section-height: 82px;
+            --subsection-height: 54px;
+            --body-padding: 48px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: "Source Sans 3", -apple-system, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(165deg, #1a1a1e 0%, #222226 40%, #1e1e22 100%);
+            color: #c8c8d0;
+            padding: var(--body-padding);
+            padding-top: calc(var(--nav-height) + 36px);
+            line-height: 1.7;
+            visibility: hidden;
+            overflow-x: hidden;
+        }
+
+        /* Fixed navigation header */
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            background: rgba(26, 26, 30, 0.98);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(139, 69, 79, 0.2);
+            padding: 0 var(--body-padding);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .breadcrumbs {
+            font-size: 13px;
+            color: #909098;
+        }
+
+        .breadcrumbs a {
+            color: #6b8cce;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .breadcrumbs a:hover {
+            color: #8bacd0;
+            text-decoration: underline;
+        }
+
+        .header {
+            margin-bottom: 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(139, 69, 79, 0.3);
+        }
+
+        h1 {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 28px;
+            font-weight: 500;
+            color: #f0ebe3;
+            letter-spacing: 0.01em;
+            margin-bottom: 4px;
+        }
+
+        .header::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #8b454f 0%, transparent 100%);
+            margin-top: 4px;
+        }
+
+        .content {
+            max-width: 800px;
+            overflow-x: hidden;
+        }
+
+        .math-block {
+            margin: 12px 0;
+            padding: 8px 0 8px 14px;
+            background: none;
+            border: none;
+            border-left: 2px solid var(--accent-color, #8b454f);
+            position: relative;
+        }
+
+        .block-content-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 4px 20px;
+        }
+
+        .block-content-row .block-math {
+            flex: 1 1 auto;
+            min-width: 0;
+            overflow-x: auto;
+            overflow-y: visible;
+            max-width: 100%;
+        }
+
+        .math-block .block-annotation {
+            flex: 0 0 auto;
+            max-width: 220px;
+            font-size: 11px;
+            color: #606068;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .math-block .block-annotation.wrapped {
+            max-width: none;
+            flex-basis: 100%;
+        }
+
+        .block-label {
+            font-size: 9px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0.7;
+        }
+
+        .block-icon {
+            font-size: 10px;
+            opacity: 0.9;
+        }
+
+        .block-note .block-math {
+            font-size: 0.95em;
+        }
+
+        .block-result {
+            border-left-width: 3px;
+            padding-left: 18px;
+        }
+
+        .text-block {
+            margin: 16px 0;
+            padding: 0 4px;
+            background: none;
+            border: none;
+        }
+
+        .text-block .block-label {
+            font-size: 9px;
+            margin-bottom: 4px;
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .text-block .block-content {
+            font-size: 14px;
+            line-height: 1.65;
+            color: #a0a0a8;
+            font-style: italic;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        .text-block .block-content p {
+            margin: 0 0 8px 0;
+        }
+
+        .text-block .block-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            position: sticky;
+            z-index: var(--z-index, 100);
+            background: linear-gradient(165deg, #1a1a1e 0%, #222226 100%);
+            border-bottom: 1px solid rgba(139, 69, 79, 0.2);
+            /* Extend beyond content but not to viewport edges (like LaTeX viewer) */
+            width: calc(100% + 80px);
+            margin-left: -40px;
+            padding-left: 40px;
+            padding-right: 40px;
+            box-sizing: border-box;
+        }
+
+        .section-header.section-level-1 {
+            top: var(--nav-height);
+            padding-top: 12px;
+            padding-bottom: 24px;
+            margin-top: 40px;
+            margin-bottom: 16px;
+        }
+
+        .section-container:first-child .section-header.section-level-1 {
+            margin-top: 24px;  /* Gap after page header */
+            margin-bottom: 24px;  /* Slightly more than default 16px to prevent overlap */
+        }
+
+        .section-header.section-level-2 {
+            top: calc(var(--nav-height) + var(--section-height));
+            padding-top: 20px;
+            padding-bottom: 18px;
+            margin-top: 28px;
+            border-bottom-color: rgba(139, 69, 79, 0.15);
+        }
+
+        .section-header.section-level-3 {
+            top: calc(var(--nav-height) + var(--section-height) + var(--subsection-height));
+            padding-top: 14px;
+            padding-bottom: 14px;
+            margin-top: 20px;
+            border-bottom-color: rgba(139, 69, 79, 0.1);
+        }
+
+        .section-title {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            margin: 0;
+        }
+
+        .section-level-1 .section-title {
+            font-size: 24px;
+            color: #f0ebe3;
+        }
+
+        .section-level-2 .section-title {
+            font-size: 20px;
+            color: #d8d3cb;
+        }
+
+        .section-level-3 .section-title {
+            font-size: 17px;
+            color: #c0bbb3;
+            font-weight: 400;
+        }
+
+        .section-level-1::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #8b454f 0%, transparent 100%);
+            margin-top: 12px;
+        }
+
+
+        .katex-display {
+            margin: 0;
+            overflow-x: auto;
+            overflow-y: visible;
+            max-width: 100%;
+        }
+
+        .katex {
+            font-size: 1.2em;
+            color: #f0ebe3;
+        }
+
+        .katex-display > .katex {
+            text-shadow: 0 0 40px rgba(139, 69, 79, 0.12);
+        }
+
+        /* Outline panel */
+        .outline-panel {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            width: 220px;
+            max-height: calc(100vh - 120px);
+            background: rgba(26, 26, 30, 0.95);
+            border: 1px solid rgba(139, 69, 79, 0.25);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            overflow: hidden;
+            z-index: 500;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .outline-panel.hidden {
+            opacity: 0;
+            transform: translateX(20px);
+            pointer-events: none;
+        }
+
+        .outline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(139, 69, 79, 0.2);
+            background: rgba(139, 69, 79, 0.08);
+        }
+
+        .outline-title {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #c8c8d0;
+            letter-spacing: 0.03em;
+        }
+
+        .outline-close {
+            width: 20px;
+            height: 20px;
+            border: none;
+            background: transparent;
+            color: #707078;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+
+        .outline-close:hover {
+            background: rgba(139, 69, 79, 0.3);
+            color: #f0ebe3;
+        }
+
+        .outline-nav {
+            padding: 8px 0;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+
+        .outline-item {
+            display: block;
+            padding: 8px 16px;
+            color: #909098;
+            text-decoration: none;
+            font-size: 13px;
+            line-height: 1.4;
+            transition: all 0.15s;
+            border-left: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .outline-item:hover {
+            color: #d0d0d8;
+            background: rgba(139, 69, 79, 0.1);
+        }
+
+        .outline-item.active {
+            color: #f0ebe3;
+            background: rgba(139, 69, 79, 0.15);
+            border-left-color: #8b454f;
+        }
+
+        .outline-level-1 {
+            font-weight: 500;
+            color: #b8b8c0;
+        }
+
+        .outline-level-2 {
+            padding-left: 28px;
+            font-size: 12px;
+        }
+
+        .outline-level-3 {
+            padding-left: 40px;
+            font-size: 11px;
+            color: #808088;
+        }
+
+        .outline-top {
+            font-size: 12px;
+            color: #707078;
+            font-style: italic;
+        }
+
+        .outline-top:hover {
+            color: #b8b8c0;
+        }
+
+        .outline-top.active {
+            color: #c8c8d0;
+            border-left-color: #8b454f;
+        }
+
+        .outline-divider {
+            height: 1px;
+            background: rgba(139, 69, 79, 0.2);
+            margin: 6px 16px;
+        }
+
+        .outline-toggle-btn {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(139, 69, 79, 0.3);
+            border-radius: 8px;
+            background: rgba(26, 26, 30, 0.9);
+            color: #909098;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 499;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .outline-toggle-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .outline-toggle-btn:hover {
+            background: rgba(139, 69, 79, 0.2);
+            color: #f0ebe3;
+            border-color: rgba(139, 69, 79, 0.5);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(139, 69, 79, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(139, 69, 79, 0.5);
+        }
+
+        /* Explanation blocks (read-only display of saved explanations) */
+        .block-explanation {
+            margin-top: 16px;
+            margin-left: 0;
+            padding: 0;
+            background: transparent;
+            border-radius: 0;
+            position: relative;
+            max-width: none;
+            width: 100%;
+        }
+
+        .block-explanation::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            bottom: 4px;
+            width: 2px;
+            background: linear-gradient(180deg, rgba(107, 140, 206, 0.6) 0%, rgba(107, 140, 206, 0.1) 100%);
+            border-radius: 1px;
+            opacity: 1;
+        }
+
+        .explanation-header {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 15px;
+            font-weight: 500;
+            font-style: italic;
+            color: #8090a8;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            border-radius: 6px;
+            transition: background 0.15s;
+        }
+
+        .explanation-header:hover {
+            background: rgba(107, 140, 206, 0.08);
+        }
+
+        .explanation-header .toggle-icon {
+            font-style: normal;
+            font-size: 10px;
+            color: #606878;
+            transition: transform 0.2s;
+        }
+
+        .block-explanation.expanded .explanation-header .toggle-icon {
+            transform: rotate(90deg);
+        }
+
+        .explanation-header .icon {
+            font-style: normal;
+            opacity: 0.7;
+        }
+
+        .explanation-content {
+            display: none;
+            font-size: 14.5px;
+            color: #b0b0b8;
+            line-height: 1.85;
+            margin-left: 14px;
+            border-radius: 0 8px 8px 0;
+            padding: 16px 18px;
+            background: rgba(107, 140, 206, 0.03);
+            max-width: none;
+            width: calc(100% - 14px);
+        }
+
+        .block-explanation.expanded .explanation-content {
+            display: block;
+        }
+
+        .explanation-content p {
+            margin: 14px 0;
+        }
+
+        .explanation-content p:first-child {
+            margin-top: 0;
+        }
+
+        .explanation-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .explanation-content strong {
+            color: #d0d0d8;
+            font-weight: 500;
+        }
+
+        .explanation-content .katex {
+            font-size: 1.1em;
+        }
+
+        .block-explanation.is-error::before {
+            background: linear-gradient(180deg, rgba(180, 100, 100, 0.6) 0%, rgba(180, 100, 100, 0.1) 100%);
+        }
+
+        .block-explanation.is-error .explanation-header {
+            color: #b08080;
+        }
+
+        /* Chat panel (collapsible discussion at top) */
+        .context-area {
+            margin-top: 20px;
+            margin-bottom: 12px;
+            background: rgba(139, 69, 79, 0.08);
+            border-radius: 8px;
+            border-left: 3px solid #8b454f;
+            overflow: hidden;
+        }
+
+        .chat-toggle-row {
+            padding: 12px 20px;
+        }
+
+        .chat-link {
+            font-size: 13px;
+            color: #6b8cce;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-decoration: none;
+        }
+
+        .chat-link:hover {
+            color: #8bacd0;
+        }
+
+        .chat-panel {
+            display: none;
+            background: rgba(20, 20, 24, 0.6);
+            border-top: 1px solid rgba(139, 69, 79, 0.2);
+        }
+
+        .chat-panel.visible {
+            display: block;
+        }
+
+        .chat-messages {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-message {
+        }
+
+        .chat-message.user {
+            text-align: right;
+        }
+
+        .chat-message.user .message-content {
+            display: inline-block;
+            background: rgba(139, 69, 79, 0.2);
+            color: #e0e0e8;
+            padding: 8px 14px;
+            border-radius: 16px 16px 4px 16px;
+            font-size: 14px;
+            max-width: 85%;
+            text-align: left;
+        }
+
+        .chat-message.assistant .message-content {
+            background: rgba(107, 140, 206, 0.08);
+            color: #b8b8c0;
+            padding: 12px 16px;
+            border-radius: 4px 16px 16px 16px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .chat-message.assistant .message-content p {
+            margin: 10px 0;
+        }
+
+        .chat-message.assistant .message-content p:first-child {
+            margin-top: 0;
+        }
+
+        .chat-message.assistant .message-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .chat-message.assistant .message-content strong {
+            color: #d0d0d8;
+            font-weight: 500;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 900px) {
+            .outline-panel {
+                display: none;
+            }
+            .outline-toggle-btn {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            :root {
+                --body-padding: 20px;
+                --nav-height: 40px;
+                --section-height: 90px;
+                --subsection-height: 60px;
+            }
+
+            body {
+                padding: var(--body-padding);
+                padding-top: calc(var(--nav-height) + 30px);
+            }
+
+            .content {
+                overflow-x: visible;  /* Allow section headers to extend edge-to-edge */
+            }
+
+            .nav-header {
+                padding: 0 var(--body-padding);
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .section-header {
+                /* Full-width on mobile: extend into body padding on both sides */
+                width: calc(100% + 2 * var(--body-padding));
+                margin-left: calc(-1 * var(--body-padding));
+                padding-left: var(--body-padding);
+                padding-right: var(--body-padding);
+            }
+
+            .section-header.section-level-1 {
+                padding-top: 16px;
+                padding-bottom: 18px;
+            }
+
+            .section-container:first-child .section-header.section-level-1 {
+                margin-top: 0;
+            }
+
+            .section-header.section-level-2 {
+                padding-top: 16px;
+                padding-bottom: 14px;
+            }
+
+            .section-header.section-level-3 {
+                padding-top: 12px;
+                padding-bottom: 12px;
+            }
+
+            .section-level-1 .section-title {
+                font-size: 20px;
+            }
+
+            .section-level-2 .section-title {
+                font-size: 17px;
+            }
+
+            .section-level-3 .section-title {
+                font-size: 15px;
+            }
+
+            .katex {
+                font-size: 1em;
+            }
+
+            .math-block .block-annotation {
+                max-width: none;
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-header">
+        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Real Analysis</a> / <a href="#">Lecture 1 Sets Set Operations And Mathematical Induction</a></div>
+    </nav>
+    <div class="header">
+        <h1>Lecture 1 Sets Set Operations And Mathematical Induction</h1>
+    </div>
+    <div class="content">
+        
+        <div class="context-area">
+            <div class="chat-toggle-row">
+                <a class="chat-link" onclick="toggleChat()">💬 Discussion (6 messages)</a>
+            </div>
+            <div class="chat-panel" id="chatPanel">
+                <div class="chat-messages">
+                    
+                <div class="chat-message user">
+                    <div class="message-content">Briefly what is the Axiom of choice.</div>
+                </div>
+
+                <div class="chat-message assistant">
+                    <div class="message-content"><p>Great question! The <strong>Axiom of Choice</strong> is one of the most famous (and controversial) axioms in set theory. Informally, it states: <em>given any collection of nonempty sets, you can simultaneously choose one element from each set to form a new set</em>.</p>
+
+<p>More precisely, if you have a family of nonempty sets $\{A_i\}_{i \in I}$ (where $I$ is some index set, possibly infinite), the Axiom of Choice guarantees the existence of a "choice function" $f$ such that $f(i) \in A_i$ for every $i \in I$. This seems obvious for finite collections—you just pick elements one by one. But for infinite collections, especially uncountable ones, there's no recipe for how to make these choices, yet the axiom asserts the choice function exists anyway.</p>
+
+<p>As mentioned in the document's discussion of the Well-Ordering Property, the Axiom of Choice is equivalent to the <strong>Well-Ordering Theorem</strong>—the claim that every set (including $\mathbb{R}$!) can be well-ordered. This leads to some bizarre non-constructive results: we can prove things exist without being able to explicitly describe them. The Banach-Tarski Paradox, where a ball can be decomposed and reassembled into two identical balls, is a famous consequence. Most mathematicians accept the Axiom of Choice because it's incredibly useful, but it remains philosophically provocative because it allows proving existence without construction.</p></div>
+                </div>
+
+                <div class="chat-message user">
+                    <div class="message-content">Very concisely answer this question: what is an index set?</div>
+                </div>
+
+                <div class="chat-message assistant">
+                    <div class="message-content"><p>An <strong>index set</strong> is simply a set whose elements are used as "labels" or "addresses" to identify members of a collection. When we write a family of sets $\{A_i\}_{i \in I}$, the set $I$ is the index set—it tells us which subscripts $i$ are valid.</p>
+
+<p>For example, if $I = \{1, 2, 3\}$, then $\{A_i\}_{i \in I}$ means we have three sets: $A_1$, $A_2$, and $A_3$. But $I$ could also be infinite—like $I = \mathbb{N}$ for a countable collection, or even uncountable like $I = \mathbb{R}$. The index set is just the "catalog" of labels we use to organize and refer to the objects in our collection.</p></div>
+                </div>
+
+                <div class="chat-message user">
+                    <div class="message-content">Briefly, what do we mean by constructive vs. non-constructive mathematics?</div>
+                </div>
+
+                <div class="chat-message assistant">
+                    <div class="message-content"><p>The distinction between <strong>constructive</strong> and <strong>non-constructive</strong> mathematics centers on what it means to prove something "exists."</p>
+
+<p>In <strong>constructive mathematics</strong>, to prove that an object exists, you must actually <em>build</em> or <em>exhibit</em> it explicitly. For example, when we prove the geometric series formula $1 + c + c^2 + \cdots + c^n = \frac{1 - c^{n+1}}{1 - c}$ by induction in the document, we're being constructive—we can actually compute the sum for any specific $n$ and $c$.</p>
+
+<p>In <strong>non-constructive mathematics</strong>, we can prove something exists without ever describing <em>what</em> it is or <em>how</em> to find it. The classic example from the document's discussion: the Well-Ordering Theorem (via the Axiom of Choice) proves that $\mathbb{R}$ can be well-ordered, meaning there's <em>some</em> ordering where every nonempty subset has a least element. But we cannot actually describe this ordering—we can't say which real number comes "first." The proof shows existence through logical argument (often contradiction) without providing any construction.</p>
+
+<p>This tension is philosophically significant: non-constructive proofs tell us <em>that</em> something exists, but not <em>what</em> it is. Some mathematicians (called constructivists or intuitionists) reject such proofs entirely, while most accept them as valid but acknowledge their limitations.</p></div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-container">
+        
+        <div class="section-header section-level-1" id="block-0" style="--z-index: 103;">
+            <h2 class="section-title">1. Sets and Basic Notation</h2>
+        </div>
+        
+        <div class="math-block block-definition" id="block-1" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Set</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{A } \textit{set} \text{ is a collection of objects called } \textit{elements} \text{ or } \textit{members.}$$</div>
+                <div class="block-annotation">The primitive notion upon which all of analysis is built.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-2" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Empty Set</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{The } \textit{empty set} \text{ is the set with no elements, denoted } \emptyset.$$</div>
+                <div class="block-annotation">The unique set containing nothing.</div>
+            </div>
+        </div>
+        
+        <div class="text-block block-text" id="block-3" style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Standard Notation</div>
+            <div class="block-content"><p>We use the following logical symbols throughout the course:
+• a ∈ S means &quot;a is an element of S&quot;
+• a ∉ S means &quot;a is not an element of S&quot;
+• ∀ means &quot;for all&quot;
+• ∃ means &quot;there exists&quot;
+• ⇒ means &quot;implies&quot;
+• ⇔ means &quot;if and only if&quot; (P ⇔ Q means P ⇒ Q and Q ⇒ P)</p></div>
+        </div>
+        
+        <div class="section-header section-level-2" id="block-4" style="--z-index: 102;">
+            <h3 class="section-title">1.1. Subsets and Equality</h3>
+        </div>
+        
+        <div class="math-block block-definition" id="block-5" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Subset</div>
+            <div class="block-content-row">
+                <div class="block-math">$$A \subset B \iff (a \in A \Rightarrow a \in B)$$</div>
+                <div class="block-annotation">A is a subset of B if every element of A is also in B.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-6" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Set Equality</div>
+            <div class="block-content-row">
+                <div class="block-math">$$A = B \iff (A \subset B \text{ and } B \subset A)$$</div>
+                <div class="block-annotation">Two sets are equal iff each is a subset of the other—this is the standard proof strategy for set equality.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-7" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Proper Subset</div>
+            <div class="block-content-row">
+                <div class="block-math">$$A \subsetneq B \iff (A \subset B \text{ and } A \neq B)$$</div>
+                <div class="block-annotation">A is contained in B but is not all of B.</div>
+            </div>
+        </div>
+        
+        <div class="section-header section-level-2" id="block-8" style="--z-index: 102;">
+            <h3 class="section-title">1.2. Describing Sets</h3>
+        </div>
+        
+        <div class="text-block block-text" id="block-9" style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Set Notation Methods</div>
+            <div class="block-content"><p>Sets can be described in two ways:
+• Listing elements: {1, 2, 3}
+• Set-builder notation: {x ∈ A : P(x)} or {x : P(x)}, read as &quot;all x (in A) satisfying property P(x)&quot;</p></div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-10" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Fundamental Number Sets</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\begin{aligned}
+\mathbb{N} &= \{1, 2, 3, 4, \ldots\} && \text{(natural numbers)} \\
+\mathbb{Z} &= \{0, 1, -1, 2, -2, \ldots\} && \text{(integers)} \\
+\mathbb{Q} &= \left\{\frac{m}{n} : m, n \in \mathbb{Z}, n \neq 0\right\} && \text{(rationals)} \\
+\mathbb{R} &= \mathbb{Q} \cup \{\text{irrationals like } \pi, \sqrt{2}, \ldots\} && \text{(reals)}
+\end{aligned}$$</div>
+                <div class="block-annotation">Each number system extends the previous to solve equations that had no solutions before.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-11" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Number Set Inclusions</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R}$$</div>
+                <div class="block-annotation">The chain of proper inclusions among the standard number systems.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-note" id="block-12" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Historical Motivation</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\begin{array}{lll}
+\mathbb{Z} & \text{solves } x + 1 = 0 & \text{(no solution in } \mathbb{N}\text{)} \\
+\mathbb{Q} & \text{solves } 2x + 1 = 0 & \text{(no solution in } \mathbb{Z}\text{)} \\
+\mathbb{R} & \text{solves } x^2 - 2 = 0 & \text{(no solution in } \mathbb{Q}\text{)} \\
+\mathbb{C} & \text{solves } x^2 + 1 = 0 & \text{(no solution in } \mathbb{R}\text{)}
+\end{array}$$</div>
+                <div class="block-annotation">Each number system was invented to close algebraic gaps in the previous one.</div>
+            </div>
+        </div>
+        </div><!-- end section-container -->
+        <div class="section-container">
+        
+        <div class="section-header section-level-1" id="block-13" style="--z-index: 103;">
+            <h2 class="section-title">2. Set Operations</h2>
+        </div>
+        
+        <div class="math-block block-definition" id="block-14" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Union</div>
+            <div class="block-content-row">
+                <div class="block-math">$$A \cup B = \{x : x \in A \text{ or } x \in B\}$$</div>
+                <div class="block-annotation">Collects all elements from both sets.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-15" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Intersection</div>
+            <div class="block-content-row">
+                <div class="block-math">$$A \cap B = \{x : x \in A \text{ and } x \in B\}$$</div>
+                <div class="block-annotation">Keeps only elements common to both sets.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-16" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Set Difference</div>
+            <div class="block-content-row">
+                <div class="block-math">$$A \setminus B = \{x \in A : x \notin B\}$$</div>
+                <div class="block-annotation">Elements in A that are not in B.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-17" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Complement</div>
+            <div class="block-content-row">
+                <div class="block-math">$$A^C = \{x : x \notin A\}$$</div>
+                <div class="block-annotation">Everything in the ambient universe not in A.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-18" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Disjoint Sets</div>
+            <div class="block-content-row">
+                <div class="block-math">$$A \text{ and } B \text{ are } \textit{disjoint} \iff A \cap B = \emptyset$$</div>
+                <div class="block-annotation">Two sets with no elements in common.</div>
+            </div>
+        </div>
+        </div><!-- end section-container -->
+        <div class="section-container">
+        
+        <div class="section-header section-level-1" id="block-19" style="--z-index: 103;">
+            <h2 class="section-title">3. De Morgan&#x27;s Laws</h2>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-20" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> De Morgan&#x27;s Laws</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{If } A, B, C \text{ are sets, then:} \\
+\begin{aligned}
+(1) \quad & (B \cup C)^C = B^C \cap C^C \\
+(2) \quad & (B \cap C)^C = B^C \cup C^C \\
+(3) \quad & A \setminus (B \cup C) = (A \setminus B) \cap (A \setminus C) \\
+(4) \quad & A \setminus (B \cap C) = (A \setminus B) \cup (A \setminus C)
+\end{aligned}$$</div>
+                <div class="block-annotation">Complements convert unions to intersections and vice versa. (3) and (4) are special cases where the complement is relative to A.</div>
+            </div>
+        </div>
+        
+        <div class="text-block block-text" id="block-21" style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Proof Strategy</div>
+            <div class="block-content"><p>To prove two sets are equal, we show each is a subset of the other. This reduces set equality to verifying element membership in both directions.</p></div>
+        </div>
+        
+        <div class="section-header section-level-2" id="block-22" style="--z-index: 102;">
+            <h3 class="section-title">3.1. Proof of De Morgan&#x27;s Law (1)</h3>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-23" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Goal</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{WTS: } (B \cup C)^C \subset B^C \cap C^C \text{ and } B^C \cap C^C \subset (B \cup C)^C$$</div>
+                <div class="block-annotation">We prove both subset inclusions to establish equality.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-24" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Part 1: Forward Inclusion</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\begin{aligned}
+\text{Let } x \in (B \cup C)^C &\Rightarrow x \notin B \cup C && \text{(def. of complement)} \\
+&\Rightarrow x \notin B \text{ and } x \notin C && \text{(De Morgan for logic)} \\
+&\Rightarrow x \in B^C \text{ and } x \in C^C && \text{(def. of complement)} \\
+&\Rightarrow x \in B^C \cap C^C && \text{(def. of intersection)}
+\end{aligned}$$</div>
+                <div class="block-annotation">The key step uses De Morgan&#x27;s law for propositional logic: ¬(P ∨ Q) ⇔ (¬P ∧ ¬Q).</div>
+            </div>
+        </div>
+        
+        <div class="block-explanation">
+            <div class="explanation-header">
+                <span class="toggle-icon">▶</span>
+                <span class="icon">✦</span>
+                <span>De Morgan&#x27;s Law for Logic</span>
+            </div>
+            <div class="explanation-content"><p>The key step here applies <strong>De Morgan's Law from propositional logic</strong> to break apart the negation of a disjunction (an "or" statement). In logic, De Morgan's Laws state:</p>
+
+<p>$$\neg(P \lor Q) \equiv \neg P \land \neg Q$$</p>
+
+<p>In plain English: "not (P or Q)" is logically equivalent to "(not P) and (not Q)." Think about it this way—if it's <em>not</em> the case that at least one of P or Q is true, then <em>both</em> P and Q must be false.</p>
+
+<p>In the proof, when we say $x \notin B \cup C$, we're really saying "it is NOT the case that ($x \in B$ OR $x \in C$)." Applying De Morgan's Law, this becomes "($x \notin B$) AND ($x \notin C$)." The union $\cup$ corresponds to logical "or" (an element is in the union if it's in one set <em>or</em> the other), so negating membership in a union naturally splits into negating membership in each individual set, connected by "and."</p>
+
+<p>This is why De Morgan's Laws are so powerful in set theory proofs—they let us translate between the complement of unions/intersections and the intersection/union of complements, bridging logic and set operations.</p></div>
+        </div>
+        
+        <div class="block-explanation">
+            <div class="explanation-header">
+                <span class="toggle-icon">▶</span>
+                <span class="icon">✦</span>
+                <span>From Logic to Set Theory</span>
+            </div>
+            <div class="explanation-content"><p>Exactly right! What you're seeing here is a beautiful example of how <strong>set theory is built on top of logic</strong>. We're not really "extrapolating" De Morgan's Laws—we're actually <em>deriving</em> the set-theoretic version from the logical version by carefully unpacking definitions.</p>
+
+<p>Here's the key insight: every set operation has a logical counterpart hiding inside it. When we define set membership:
+$$x \in A \cup B \iff (x \in A) \lor (x \in B)$$
+$$x \in A \cap B \iff (x \in A) \land (x \in B)$$
+$$x \in A^C \iff \neg(x \in A)$$
+The set operations ($\cup$, $\cap$, complement) are really just logical operations ($\lor$, $\land$, $\neg$) in disguise, applied to membership statements.</p>
+
+<p>So this proof is doing something clever: it "drops down" from set language to logic (using definitions), applies the logical De Morgan's Law where we already know it works, then "lifts back up" to set language. This is why you end up with the set-theoretic De Morgan's Law: $(B \cup C)^C = B^C \cap C^C$. You're not assuming it—you're <em>proving</em> it from first principles.</p>
+
+<p>This pattern—reducing set theory to logic, doing the work there, and translating back—is fundamental to rigorous mathematics. It shows that set theory inherits its structure from logic, which is why the two have such elegant parallel laws.</p></div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-25" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Part 2: Reverse Inclusion</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\begin{aligned}
+\text{Let } x \in B^C \cap C^C &\Rightarrow x \in B^C \text{ and } x \in C^C && \text{(def. of intersection)} \\
+&\Rightarrow x \notin B \text{ and } x \notin C && \text{(def. of complement)} \\
+&\Rightarrow x \notin B \cup C && \text{(De Morgan for logic)} \\
+&\Rightarrow x \in (B \cup C)^C && \text{(def. of complement)}
+\end{aligned}$$</div>
+                <div class="block-annotation">The argument reverses exactly, which is not always the case in set proofs.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-result" id="block-26" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Conclusion</div>
+            <div class="block-content-row">
+                <div class="block-math">$$(B \cup C)^C = B^C \cap C^C \quad \square$$</div>
+                <div class="block-annotation">Both inclusions established, so the sets are equal by definition.</div>
+            </div>
+        </div>
+        </div><!-- end section-container -->
+        <div class="section-container">
+        
+        <div class="section-header section-level-1" id="block-27" style="--z-index: 103;">
+            <h2 class="section-title">4. Mathematical Induction</h2>
+        </div>
+        
+        <div class="text-block block-text" id="block-28" style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Motivation</div>
+            <div class="block-content"><p>Induction is a proof technique for establishing that a statement P(n) holds for all natural numbers. It relies on the well-ordering property of ℕ.</p></div>
+        </div>
+        
+        <div class="math-block block-axiom" id="block-29" style="--accent-color: #9b7bb8">
+            <div class="block-label" style="color: #9b7bb8"><span class="block-icon">⊢</span> Well-Ordering Property of ℕ</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{If } S \subset \mathbb{N} \text{ and } S \neq \emptyset, \text{ then } S \text{ has a } \textit{least element}. \\
+\text{i.e., } \exists x \in S \text{ such that } x \leq y \text{ for all } y \in S.$$</div>
+                <div class="block-annotation">Every nonempty subset of ℕ contains a smallest element—a fundamental property we take as given.</div>
+            </div>
+        </div>
+        
+        <div class="block-explanation">
+            <div class="explanation-header">
+                <span class="toggle-icon">▶</span>
+                <span class="icon">✦</span>
+                <span>Surprising Consequences of Well-Ordering</span>
+            </div>
+            <div class="explanation-content"><p>Yes, this is absolutely true! The Well-Ordering Property seems almost trivially obvious for $\mathbb{N}$—of course every nonempty set of natural numbers has a smallest element. But when mathematicians generalize this idea, things get philosophically wild.</p>
+
+<p><strong>The Well-Ordering Theorem:</strong> Using the Axiom of Choice (a foundational but controversial axiom in set theory), one can prove that <em>every</em> set can be well-ordered—including $\mathbb{R}$, the real numbers. This means there exists some ordering of the reals where every nonempty subset has a least element. The catch? This well-ordering is completely non-constructive. We can prove it exists, but we cannot actually describe or visualize it. You cannot say which real number comes "first" or "second" in this ordering.</p>
+
+<p><strong>Connection to Paradoxes:</strong> The Axiom of Choice (which implies well-ordering) leads to results like the <em>Banach-Tarski Paradox</em>: you can decompose a solid ball into finitely many pieces and reassemble them into <em>two</em> balls identical to the original. This isn't a trick—it's a theorem. The "pieces" are so bizarre (non-measurable sets) that they can only exist via the Axiom of Choice.</p>
+
+<p><strong>Why It Matters:</strong> The well-ordering of $\mathbb{N}$ is the foundation of mathematical induction and recursive definitions. But its generalization forces us to confront deep questions: What does it mean for something to "exist" in mathematics if we can't construct it? This tension between constructive and non-constructive mathematics remains a live debate in the foundations of math.</p></div>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-30" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Principle of Mathematical Induction (Pascal, 1665)</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Let } P(n) \text{ be a statement depending on } n \in \mathbb{N}. \text{ Assume:} \\
+\begin{aligned}
+(1) &\quad P(1) \text{ is true} && \text{(Base case)} \\
+(2) &\quad P(m) \text{ true } \Rightarrow P(m+1) \text{ true} && \text{(Inductive step)}
+\end{aligned} \\
+\text{Then } P(n) \text{ is true for all } n \in \mathbb{N}.$$</div>
+                <div class="block-annotation">The base case starts the chain; the inductive step propagates truth from each n to n+1.</div>
+            </div>
+        </div>
+        
+        <div class="section-header section-level-2" id="block-31" style="--z-index: 102;">
+            <h3 class="section-title">4.1. Proof of Induction Principle</h3>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-32" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Setup</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Let } S = \{n \in \mathbb{N} : P(n) \text{ is false}\}. \quad \text{WTS: } S = \emptyset.$$</div>
+                <div class="block-annotation">We collect all &quot;bad&quot; natural numbers and show this set must be empty.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-33" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Contradiction Assumption</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Suppose } S \neq \emptyset. \text{ By WOP, } S \text{ has a least element } x.$$</div>
+                <div class="block-annotation">Proof by contradiction: assume S is nonempty and derive a false statement.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-34" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> x ≠ 1</div>
+            <div class="block-content-row">
+                <div class="block-math">$$P(1) \text{ is true (base case)} \Rightarrow 1 \notin S \Rightarrow x \neq 1 \Rightarrow x > 1$$</div>
+                <div class="block-annotation">The least element of S cannot be 1 since P(1) holds.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-35" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Deriving the Contradiction</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\begin{aligned}
+x \text{ is least in } S &\Rightarrow x - 1 \notin S && \text{(since } x - 1 < x\text{)} \\
+&\Rightarrow P(x-1) \text{ is true} && \text{(def. of } S\text{)} \\
+&\Rightarrow P(x) \text{ is true} && \text{(inductive step)} \\
+&\Rightarrow x \notin S && \text{(def. of } S\text{)}
+\end{aligned}$$</div>
+                <div class="block-annotation">But x was chosen as an element of S, so x ∈ S and x ∉ S simultaneously—contradiction.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-result" id="block-36" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Conclusion</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\therefore S = \emptyset, \text{ so } P(n) \text{ is true for all } n \in \mathbb{N}. \quad \square$$</div>
+                <div class="block-annotation">The contradiction forces S to be empty, meaning P(n) holds universally.</div>
+            </div>
+        </div>
+        </div><!-- end section-container -->
+        <div class="section-container">
+        
+        <div class="section-header section-level-1" id="block-37" style="--z-index: 103;">
+            <h2 class="section-title">5. Applications of Induction</h2>
+        </div>
+        
+        <div class="section-header section-level-2" id="block-38" style="--z-index: 102;">
+            <h3 class="section-title">5.1. Geometric Series Formula</h3>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-39" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Geometric Series</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{For all } c \neq 1 \text{ and } n \in \mathbb{N}: \quad 1 + c + c^2 + \cdots + c^n = \frac{1 - c^{n+1}}{1 - c}$$</div>
+                <div class="block-annotation">The closed form for a finite geometric sum.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-40" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Base Case (n = 1)</div>
+            <div class="block-content-row">
+                <div class="block-math">$$1 + c = \frac{1 - c^2}{1 - c} = \frac{(1-c)(1+c)}{1-c} = 1 + c \quad \checkmark$$</div>
+                <div class="block-annotation">Direct verification by factoring the numerator.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-41" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Inductive Hypothesis</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Assume for } n = m: \quad 1 + c + \cdots + c^m = \frac{1 - c^{m+1}}{1 - c}$$</div>
+                <div class="block-annotation">This is what we assume to prove the n = m + 1 case.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-42" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Inductive Step</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\begin{aligned}
+1 + c + \cdots + c^m + c^{m+1} &= \frac{1 - c^{m+1}}{1 - c} + c^{m+1} && \text{(by IH)} \\
+&= \frac{1 - c^{m+1} + c^{m+1}(1-c)}{1 - c} \\
+&= \frac{1 - c^{m+1} + c^{m+1} - c^{m+2}}{1 - c} \\
+&= \frac{1 - c^{m+2}}{1 - c} = \frac{1 - c^{(m+1)+1}}{1 - c} \quad \checkmark
+\end{aligned}$$</div>
+                <div class="block-annotation">Adding c^{m+1} to both sides and simplifying gives the formula for n = m + 1.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-result" id="block-43" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Conclusion</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{By induction, the formula holds for all } n \in \mathbb{N}. \quad \square$$</div>
+                <div class="block-annotation">Both base case and inductive step verified.</div>
+            </div>
+        </div>
+        
+        <div class="section-header section-level-2" id="block-44" style="--z-index: 102;">
+            <h3 class="section-title">5.2. Bernoulli&#x27;s Inequality</h3>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-45" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Bernoulli&#x27;s Inequality</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{If } c \geq -1, \text{ then } \forall n \in \mathbb{N}: \quad (1 + c)^n \geq 1 + nc$$</div>
+                <div class="block-annotation">A fundamental inequality relating exponential growth to linear growth.</div>
+            </div>
+        </div>
+        
+        <div class="block-explanation">
+            <div class="explanation-header">
+                <span class="toggle-icon">▶</span>
+                <span class="icon">✦</span>
+                <span>Bernoulli&#x27;s Inequality Explained</span>
+            </div>
+            <div class="explanation-content"><p>Bernoulli's Inequality tells us that <strong>exponential growth is always at least as fast as linear growth</strong> when we're dealing with expressions of the form $(1 + c)^n$. The left side represents repeated multiplication (exponential), while the right side $1 + nc$ is just a simple linear approximation.</p>
+
+<p>Think of it this way: if you invest money at an interest rate $c$ compounded $n$ times, you'll always earn at least as much as if you just got simple interest $n$ times. For example, with $c = 0.1$ and $n = 3$:
+$$(1.1)^3 = 1.331 \geq 1 + 3(0.1) = 1.3$$
+The exponential version "compounds" and pulls ahead, while the linear version just adds the same amount each time.</p>
+
+<p>The condition $c \geq -1$ is crucial because if $c < -1$, then $(1 + c)$ becomes negative, and raising a negative number to various powers alternates between positive and negative values—breaking the inequality. When $c = -1$, the left side becomes $0^n = 0$ (for $n \geq 1$), which still satisfies $0 \geq 1 + n(-1) = 1 - n$ when $n \geq 1$.</p>
+
+<p>This inequality is surprisingly powerful in analysis and is often used to prove limits, establish bounds, and as a stepping stone to more complex results like the binomial theorem. The intuition is simple: compounding effects accumulate, so the "curved" exponential function always stays above its tangent line approximation at $n = 0$.</p></div>
+        </div>
+        
+        <div class="block-explanation">
+            <div class="explanation-header">
+                <span class="toggle-icon">▶</span>
+                <span class="icon">✦</span>
+                <span>The Binomial Theorem</span>
+            </div>
+            <div class="explanation-content"><p>The <strong>Binomial Theorem</strong> gives us a complete expansion of $(1 + c)^n$ when $n$ is a positive integer:</p>
+
+<p>$$(1 + c)^n = \sum_{k=0}^{n} \binom{n}{k} c^k = 1 + nc + \frac{n(n-1)}{2}c^2 + \frac{n(n-1)(n-2)}{6}c^3 + \cdots + c^n$$</p>
+
+<p>Notice how Bernoulli's Inequality connects: the right side $1 + nc$ is just the <em>first two terms</em> of this full expansion. When $c \geq 0$, all the remaining terms $\frac{n(n-1)}{2}c^2 + \cdots$ are non-negative, which is exactly why $(1 + c)^n \geq 1 + nc$. Bernoulli is essentially saying "the full sum is at least as big as its first two terms."</p>
+
+<p>The binomial coefficients $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ count the number of ways to choose $k$ items from $n$—these are the famous numbers in Pascal's Triangle. So while Bernoulli gives us a useful <em>bound</em>, the Binomial Theorem gives us the <em>exact</em> answer.</p></div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-46" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Base Case (n = 1)</div>
+            <div class="block-content-row">
+                <div class="block-math">$$(1 + c)^1 = 1 + 1 \cdot c \quad \checkmark$$</div>
+                <div class="block-annotation">Equality holds in the base case.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-47" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Inductive Hypothesis</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Assume for } n = m: \quad (1 + c)^m \geq 1 + mc$$</div>
+                <div class="block-annotation">The inequality we assume holds at step m.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-48" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Key Observation</div>
+            <div class="block-content-row">
+                <div class="block-math">$$c \geq -1 \Rightarrow 1 + c \geq 0$$</div>
+                <div class="block-annotation">This ensures multiplying by (1+c) preserves the inequality direction.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-49" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Inductive Step</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\begin{aligned}
+(1 + c)^{m+1} &= (1 + c)(1 + c)^m \\
+&\geq (1 + c)(1 + mc) && \text{(by IH, since } 1+c \geq 0\text{)} \\
+&= 1 + mc + c + mc^2 \\
+&= 1 + (m+1)c + mc^2 \\
+&\geq 1 + (m+1)c && \text{(since } mc^2 \geq 0\text{)} \quad \checkmark
+\end{aligned}$$</div>
+                <div class="block-annotation">The extra mc² term only strengthens the inequality.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-result" id="block-50" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Conclusion</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{By induction, Bernoulli's inequality holds for all } n \in \mathbb{N}. \quad \square$$</div>
+                <div class="block-annotation">Both base case and inductive step verified.</div>
+            </div>
+        </div>
+        </div><!-- end section-container -->
+        <div class="section-container">
+        
+        <div class="section-header section-level-1" id="block-51" style="--z-index: 103;">
+            <h2 class="section-title">What You Can Assume</h2>
+        </div>
+        
+        <div class="math-block block-note" id="block-52" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Allowed Assumptions</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{You may use:} \\
+\bullet \text{ All algebraic properties of } \mathbb{R} \text{ and } \mathbb{Q} \text{ (e.g., } a + b = c \Rightarrow (a+b)d = cd\text{)} \\
+\bullet \text{ Properties of inequalities (e.g., } a \leq b, c > 0 \Rightarrow ac \leq bc\text{)}$$</div>
+                <div class="block-annotation">Basic algebra and inequality manipulation are fair game.</div>
+            </div>
+        </div>
+        
+        <div class="math-block block-note" id="block-53" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Not Allowed</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{You may NOT use results from calculus (continuity, derivatives, integrals).}$$</div>
+                <div class="block-annotation">The course will prove these concepts rigorously, so they cannot be assumed.</div>
+            </div>
+        </div>
+        </div><!-- end section-container -->
+    </div>
+    
+    <div class="outline-panel" id="outlinePanel">
+        <div class="outline-header">
+            <span class="outline-title">Contents</span>
+            <button class="outline-close" onclick="toggleOutline()" title="Hide outline">×</button>
+        </div>
+        <nav class="outline-nav">
+            <a class="outline-item outline-top" href="#" data-block-id="top">Top</a>
+                <div class="outline-divider"></div>
+                <a class="outline-item outline-level-1" href="#block-0" data-block-id="0">1. Sets and Basic Notation</a>
+                <a class="outline-item outline-level-2" href="#block-4" data-block-id="4">1.1. Subsets and Equality</a>
+                <a class="outline-item outline-level-2" href="#block-8" data-block-id="8">1.2. Describing Sets</a>
+                <a class="outline-item outline-level-1" href="#block-13" data-block-id="13">2. Set Operations</a>
+                <a class="outline-item outline-level-1" href="#block-19" data-block-id="19">3. De Morgan&#x27;s Laws</a>
+                <a class="outline-item outline-level-2" href="#block-22" data-block-id="22">3.1. Proof of De Morgan&#x27;s Law (1)</a>
+                <a class="outline-item outline-level-1" href="#block-27" data-block-id="27">4. Mathematical Induction</a>
+                <a class="outline-item outline-level-2" href="#block-31" data-block-id="31">4.1. Proof of Induction Principle</a>
+                <a class="outline-item outline-level-1" href="#block-37" data-block-id="37">5. Applications of Induction</a>
+                <a class="outline-item outline-level-2" href="#block-38" data-block-id="38">5.1. Geometric Series Formula</a>
+                <a class="outline-item outline-level-2" href="#block-44" data-block-id="44">5.2. Bernoulli&#x27;s Inequality</a>
+                <a class="outline-item outline-level-1" href="#block-51" data-block-id="51">What You Can Assume</a>
+        </nav>
+    </div>
+    <button class="outline-toggle-btn visible" id="outlineToggleBtn" onclick="toggleOutline()" title="Show outline">☰</button>
+
+    <script>
+        // Render KaTeX when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "\\(", right: "\\)", display: false}
+                ],
+                throwOnError: false
+            });
+
+            document.fonts.ready.then(() => {
+                requestAnimationFrame(() => {
+                    document.body.style.visibility = 'visible';
+                    detectWrappedAnnotations();
+                });
+            });
+        });
+
+        function detectWrappedAnnotations() {
+            document.querySelectorAll('.block-content-row').forEach(row => {
+                const math = row.querySelector('.block-math');
+                const annotation = row.querySelector('.block-annotation');
+                if (math && annotation) {
+                    if (annotation.offsetTop > math.offsetTop + 10) {
+                        annotation.classList.add('wrapped');
+                    } else {
+                        annotation.classList.remove('wrapped');
+                    }
+                }
+            });
+        }
+
+        window.addEventListener('resize', detectWrappedAnnotations);
+
+        // Outline toggle
+        let outlineVisible = true;
+        function toggleOutline() {
+            const panel = document.getElementById('outlinePanel');
+            const btn = document.getElementById('outlineToggleBtn');
+            if (!panel) return;
+
+            outlineVisible = !outlineVisible;
+            if (outlineVisible) {
+                panel.classList.remove('hidden');
+                btn.classList.remove('visible');
+            } else {
+                panel.classList.add('hidden');
+                btn.classList.add('visible');
+            }
+        }
+
+        // Smooth scroll for outline links
+        document.querySelectorAll('.outline-item').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const blockId = this.dataset.blockId;
+                if (blockId === 'top') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    const target = document.getElementById('block-' + blockId);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+
+        // Track active section in outline
+        const observerOptions = {
+            rootMargin: '-100px 0px -70% 0px',
+            threshold: 0
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const blockId = entry.target.id.replace('block-', '');
+                    document.querySelectorAll('.outline-item').forEach(item => {
+                        item.classList.remove('active');
+                        if (item.dataset.blockId === blockId) {
+                            item.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-header').forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // Toggle explanation expanded/collapsed on header click
+        document.querySelectorAll('.explanation-header').forEach(header => {
+            header.addEventListener('click', function() {
+                this.parentElement.classList.toggle('expanded');
+            });
+        });
+
+        // Toggle chat panel visibility
+        function toggleChat() {
+            const panel = document.getElementById('chatPanel');
+            const link = document.querySelector('.chat-link');
+            if (!panel) return;
+
+            const isVisible = panel.classList.contains('visible');
+            panel.classList.toggle('visible');
+
+            if (link) {
+                const msgCount = panel.querySelectorAll('.chat-message').length;
+                if (isVisible) {
+                    link.textContent = '💬 Discussion (' + msgCount + ' messages)';
+                } else {
+                    link.textContent = '✕ Close discussion';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
