@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a1a1e">
     <title>Observation Space Notation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -260,6 +263,165 @@
         }
 
 
+        /* Outline panel */
+        .outline-panel {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            width: 220px;
+            max-height: calc(100vh - 120px);
+            background: rgba(26, 26, 30, 0.95);
+            border: 1px solid rgba(139, 69, 79, 0.25);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            overflow: hidden;
+            z-index: 500;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .outline-panel.hidden {
+            opacity: 0;
+            transform: translateX(20px);
+            pointer-events: none;
+        }
+
+        .outline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(139, 69, 79, 0.2);
+            background: rgba(139, 69, 79, 0.08);
+        }
+
+        .outline-title {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #c8c8d0;
+            letter-spacing: 0.03em;
+        }
+
+        .outline-close {
+            width: 20px;
+            height: 20px;
+            border: none;
+            background: transparent;
+            color: #707078;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+
+        .outline-close:hover {
+            background: rgba(139, 69, 79, 0.3);
+            color: #f0ebe3;
+        }
+
+        .outline-nav {
+            padding: 8px 0;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+
+        .outline-item {
+            display: block;
+            padding: 8px 16px;
+            color: #909098;
+            text-decoration: none;
+            font-size: 13px;
+            line-height: 1.4;
+            transition: all 0.15s;
+            border-left: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .outline-item:hover {
+            color: #d0d0d8;
+            background: rgba(139, 69, 79, 0.1);
+        }
+
+        .outline-item.active {
+            color: #f0ebe3;
+            background: rgba(139, 69, 79, 0.15);
+            border-left-color: #8b454f;
+        }
+
+        .outline-level-1 {
+            font-weight: 500;
+            color: #b8b8c0;
+        }
+
+        .outline-level-2 {
+            padding-left: 28px;
+            font-size: 12px;
+        }
+
+        .outline-level-3 {
+            padding-left: 40px;
+            font-size: 11px;
+            color: #808088;
+        }
+
+        .outline-top {
+            font-size: 12px;
+            color: #707078;
+            font-style: italic;
+        }
+
+        .outline-top:hover {
+            color: #b8b8c0;
+        }
+
+        .outline-top.active {
+            color: #c8c8d0;
+            border-left-color: #8b454f;
+        }
+
+        .outline-divider {
+            height: 1px;
+            background: rgba(139, 69, 79, 0.2);
+            margin: 6px 16px;
+        }
+
+        .outline-toggle-btn {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(139, 69, 79, 0.3);
+            border-radius: 8px;
+            background: rgba(26, 26, 30, 0.9);
+            color: #909098;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 499;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .outline-toggle-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .outline-toggle-btn:hover {
+            background: rgba(139, 69, 79, 0.2);
+            color: #f0ebe3;
+            border-color: rgba(139, 69, 79, 0.5);
+        }
+
+
         /* Explanation blocks */
         .block-explanation {
             margin-top: 16px;
@@ -458,7 +620,12 @@
         }
 
         html {
-            overflow-x: hidden;
+            scroll-padding-top: calc(var(--nav-height) + 16px);
+        }
+
+        /* Offset for anchor scrolling to account for fixed nav */
+        [id^="block-"] {
+            scroll-margin-top: calc(var(--nav-height) + 16px);
         }
 
         body {
@@ -508,14 +675,17 @@
 
         /* Fixed sticky positions for nav header offset */
         .section-header {
-            width: 100vw;
+            position: sticky;
+            z-index: 100;
             margin-left: calc(-1 * var(--body-padding));
+            margin-right: calc(-1 * var(--body-padding));
             padding-left: var(--body-padding);
             padding-right: var(--body-padding);
             box-sizing: border-box;
         }
 
         .section-header.section-level-1 {
+            z-index: 103;
             top: var(--nav-height);
             padding-top: 12px;
             padding-bottom: 24px;
@@ -529,12 +699,14 @@
         }
 
         .section-header.section-level-2 {
+            z-index: 102;
             top: calc(var(--nav-height) + var(--section-height));
             padding-top: 20px;
             padding-bottom: 18px;
         }
 
         .section-header.section-level-3 {
+            z-index: 101;
             top: calc(var(--nav-height) + var(--section-height) + var(--subsection-height));
             padding-top: 14px;
             padding-bottom: 14px;
@@ -543,6 +715,12 @@
         @media (max-width: 900px) {
             :root {
                 --katex-base-size: 1em;
+            }
+            .outline-panel {
+                display: none;
+            }
+            .outline-toggle-btn {
+                display: none;
             }
         }
 
@@ -565,7 +743,7 @@
             }
 
             .section-header {
-                width: calc(100% + 2 * var(--body-padding));
+                position: static;
             }
 
             .section-container:first-child .section-header.section-level-1 {
@@ -723,6 +901,24 @@
         </div><!-- end section-container -->
     </div>
     
+    <!-- Section Navigation Outline -->
+    <div class="outline-panel" id="outlinePanel">
+        <div class="outline-header">
+            <span class="outline-title">Contents</span>
+            <button class="outline-close" onclick="toggleOutline()" title="Hide outline">×</button>
+        </div>
+        <nav class="outline-nav">
+            <a class="outline-item outline-top" href="#" data-block-id="top">Top</a>
+                <div class="outline-divider"></div>
+                <a class="outline-item outline-level-1" href="#block-0" data-block-id="0">Single Observations vs Sequences</a>
+                <a class="outline-item outline-level-1" href="#block-4" data-block-id="4">Cartesian Product Notation</a>
+                <a class="outline-item outline-level-1" href="#block-8" data-block-id="8">Kleene Star</a>
+                <a class="outline-item outline-level-1" href="#block-11" data-block-id="11">Function Space Notation</a>
+                <a class="outline-item outline-level-1" href="#block-16" data-block-id="16">Key Distinction</a>
+        </nav>
+    </div>
+    <button class="outline-toggle-btn" id="outlineToggleBtn" onclick="toggleOutline()" title="Show outline">☰</button>
+
     
     <script>
         
@@ -759,6 +955,23 @@
             });
         }
 
+        // Outline toggle
+        let outlineVisible = true;
+        function toggleOutline() {
+            const panel = document.getElementById('outlinePanel');
+            const btn = document.getElementById('outlineToggleBtn');
+            if (!panel) return;
+
+            outlineVisible = !outlineVisible;
+            if (outlineVisible) {
+                panel.classList.remove('hidden');
+                btn.classList.remove('visible');
+            } else {
+                panel.classList.add('hidden');
+                btn.classList.add('visible');
+            }
+        }
+
 
         document.addEventListener('DOMContentLoaded', function() {
             
@@ -783,7 +996,72 @@
 
             // Outline navigation
             
+        // Smooth scroll for outline links - accounts for nav bar and sticky headers
+        // Skip in PyQt viewer (viewer has its own implementation via QWebChannel)
+        if (typeof qt === 'undefined') {
+            function staticSiteScrollToSection(target) {
+                // Temporarily remove sticky to get true positions
+                const allHeaders = document.querySelectorAll('.section-header');
+                allHeaders.forEach(h => h.style.position = 'static');
+
+                // Force reflow
+                void target.offsetTop;
+
+                // Get target position and its sticky top offset
+                const rect = target.getBoundingClientRect();
+                const targetPosition = rect.top + window.scrollY;
+                const topStyle = getComputedStyle(target).top;
+                const topOffset = topStyle !== 'auto' ? parseInt(topStyle) || 0 : 0;
+
+                // Restore sticky positioning
+                allHeaders.forEach(h => h.style.position = '');
+
+                // Scroll with offset (8px buffer for visual breathing room)
+                const scrollTarget = targetPosition - topOffset - 8;
+                window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+            }
+
+            document.querySelectorAll('.outline-item').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const blockId = this.dataset.blockId;
+                    if (blockId === 'top') {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        const target = document.getElementById('block-' + blockId);
+                        if (target) {
+                            staticSiteScrollToSection(target);
+                        }
+                    }
+                });
+            });
+        }
+
             
+        // Track active section in outline
+        const observerOptions = {
+            rootMargin: '-100px 0px -70% 0px',
+            threshold: 0
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const blockId = entry.target.id.replace('block-', '');
+                    document.querySelectorAll('.outline-item').forEach(item => {
+                        item.classList.remove('active');
+                        if (item.dataset.blockId === blockId) {
+                            item.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-header').forEach(section => {
+            sectionObserver.observe(section);
+        });
+
             
         });
 
