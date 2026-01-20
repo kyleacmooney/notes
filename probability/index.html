@@ -105,6 +105,32 @@
             color: #707078;
         }
 
+        .card-preview {
+            display: none;
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 12px 0;
+            font-size: 13px;
+            color: #909098;
+            line-height: 1.5;
+        }
+
+        .card-preview li {
+            padding-left: 14px;
+            position: relative;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-preview li::before {
+            content: "\2022";
+            position: absolute;
+            left: 0;
+            color: #8b454f;
+        }
+
         @media (max-width: 600px) {
             body {
                 padding: 20px;
@@ -127,6 +153,12 @@
                 font-size: 16px;
             }
         }
+
+        @media (min-width: 601px) {
+            .card-preview {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
@@ -140,21 +172,25 @@
         
         <a href="lecture-3-independence.html" class="lecture-card">
             <h3>Lecture 3 Independence</h3>
+            <ul class="card-preview"><li>Review: Conditional Probability Foundations</li><li>Practice: Three Coin Tosses</li><li>The Concept of Independence</li><li>Independence vs. Disjointness</li></ul>
             <span class="block-count">50 blocks</span>
         </a>
 
         <a href="lecture-1-probability-models-and-axioms.html" class="lecture-card">
             <h3>Lecture 1 Probability Models And Axioms</h3>
+            <ul class="card-preview"><li>The Two Components of a Probabilistic Model</li><li>The Sample Space</li><li>Events and Set Operations</li><li>The Three Axioms of Probability</li></ul>
             <span class="block-count">52 blocks</span>
         </a>
 
         <a href="lecture-2-conditioning-and-bayes-rule.html" class="lecture-card">
             <h3>Lecture 2 Conditioning And Bayes Rule</h3>
+            <ul class="card-preview"><li>Review: Countable Additivity and Continuous Models</li><li>Conditional Probability</li><li>The Multiplication Rule</li><li>The Total Probability Theorem</li></ul>
             <span class="block-count">27 blocks</span>
         </a>
 
         <a href="lecture-4-counting.html" class="lecture-card">
             <h3>Lecture 4 Counting</h3>
+            <ul class="card-preview"><li>The Discrete Uniform Law</li><li>The Basic Counting Principle</li><li>Permutations</li><li>Counting Subsets</li></ul>
             <span class="block-count">64 blocks</span>
         </a>
     </div>

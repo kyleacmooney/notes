@@ -105,6 +105,32 @@
             color: #707078;
         }
 
+        .card-preview {
+            display: none;
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 12px 0;
+            font-size: 13px;
+            color: #909098;
+            line-height: 1.5;
+        }
+
+        .card-preview li {
+            padding-left: 14px;
+            position: relative;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-preview li::before {
+            content: "\2022";
+            position: absolute;
+            left: 0;
+            color: #8b454f;
+        }
+
         @media (max-width: 600px) {
             body {
                 padding: 20px;
@@ -127,6 +153,12 @@
                 font-size: 16px;
             }
         }
+
+        @media (min-width: 601px) {
+            .card-preview {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
@@ -140,76 +172,91 @@
         
         <a href="cantors-diagonal-argument.html" class="lecture-card">
             <h3>Cantors Diagonal Argument</h3>
+            
             <span class="block-count">6 blocks</span>
         </a>
 
         <a href="russells-paradox.html" class="lecture-card">
             <h3>Russells Paradox</h3>
+            <ul class="card-preview"><li>Russell Set</li></ul>
             <span class="block-count">5 blocks</span>
         </a>
 
         <a href="gödels-incompleteness-theorems.html" class="lecture-card">
             <h3>Gödels Incompleteness Theorems</h3>
+            <ul class="card-preview"><li>Setup</li><li>Gödel Sentence</li><li>Second Incompleteness Theorem</li></ul>
             <span class="block-count">8 blocks</span>
         </a>
 
         <a href="function-composition.html" class="lecture-card">
             <h3>Function Composition</h3>
+            <ul class="card-preview"><li>Composition Definition</li><li>Associativity</li></ul>
             <span class="block-count">2 blocks</span>
         </a>
 
         <a href="cardinality-set-functions.html" class="lecture-card">
             <h3>Cardinality  Set Functions</h3>
+            <ul class="card-preview"><li>Function Composition</li><li>Inverse Function</li><li>Same Cardinality</li><li>Finite Cardinality</li></ul>
             <span class="block-count">8 blocks</span>
         </a>
 
         <a href="gödels-incompleteness-theorems.html" class="lecture-card">
             <h3>Gödels Incompleteness Theorems</h3>
+            <ul class="card-preview"><li>Setup</li><li>Gödel Sentence</li><li>Second Theorem</li></ul>
             <span class="block-count">9 blocks</span>
         </a>
 
         <a href="gödels-incompleteness-theorem.html" class="lecture-card">
             <h3>Gödels Incompleteness Theorem</h3>
+            <ul class="card-preview"><li>Formal System T</li><li>Gödel Numbering</li><li>First Incompleteness Theorem</li></ul>
             <span class="block-count">12 blocks</span>
         </a>
 
         <a href="pi-definition.html" class="lecture-card">
             <h3>Pi Definition</h3>
+            <ul class="card-preview"><li>Definition of π</li></ul>
             <span class="block-count">1 blocks</span>
         </a>
 
         <a href="bayesian-inference-framework.html" class="lecture-card">
             <h3>Bayesian Inference Framework</h3>
+            <ul class="card-preview"><li>The Foundation</li><li>Computing the Marginal Likelihood</li><li>Alternative Formulations</li><li>Sequential Updating</li></ul>
             <span class="block-count">32 blocks</span>
         </a>
 
         <a href="observation-space-notation.html" class="lecture-card">
             <h3>Observation Space Notation</h3>
+            <ul class="card-preview"><li>Single Observations vs Sequences</li><li>Cartesian Product Notation</li><li>Kleene Star</li><li>Function Space Notation</li></ul>
             <span class="block-count">18 blocks</span>
         </a>
 
         <a href="prompt-caching-break-even.html" class="lecture-card">
             <h3>Prompt Caching Break Even</h3>
+            <ul class="card-preview"><li>Pricing Model</li><li>Break-Even Analysis</li><li>Cumulative Comparison</li></ul>
             <span class="block-count">12 blocks</span>
         </a>
 
         <a href="associativity-of-intersection.html" class="lecture-card">
             <h3>Associativity Of Intersection</h3>
+            <ul class="card-preview"><li>Proof</li><li>Key Insight</li></ul>
             <span class="block-count">12 blocks</span>
         </a>
 
         <a href="base-rate-fallacy-example.html" class="lecture-card">
             <h3>Base Rate Fallacy Example</h3>
+            <ul class="card-preview"><li>The Radar Detection Problem</li><li>The Surprising Result</li><li>The Tree Method</li></ul>
             <span class="block-count">9 blocks</span>
         </a>
 
         <a href="independence-definition.html" class="lecture-card">
             <h3>Independence Definition</h3>
+            <ul class="card-preview"><li>Independence Condition</li></ul>
             <span class="block-count">3 blocks</span>
         </a>
 
         <a href="probability-independence-lecture.html" class="lecture-card">
             <h3>Probability Independence Lecture</h3>
+            <ul class="card-preview"><li>Review of Conditional Probability</li><li>Models and Inference</li><li>Independence of Two Events</li><li>Conditional Independence</li></ul>
             <span class="block-count">36 blocks</span>
         </a>
     </div>

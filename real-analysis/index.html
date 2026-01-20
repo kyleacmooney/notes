@@ -105,6 +105,32 @@
             color: #707078;
         }
 
+        .card-preview {
+            display: none;
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 12px 0;
+            font-size: 13px;
+            color: #909098;
+            line-height: 1.5;
+        }
+
+        .card-preview li {
+            padding-left: 14px;
+            position: relative;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-preview li::before {
+            content: "\2022";
+            position: absolute;
+            left: 0;
+            color: #8b454f;
+        }
+
         @media (max-width: 600px) {
             body {
                 padding: 20px;
@@ -127,6 +153,12 @@
                 font-size: 16px;
             }
         }
+
+        @media (min-width: 601px) {
+            .card-preview {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
@@ -140,11 +172,13 @@
         
         <a href="lecture-1-sets-set-operations-and-mathematical-induction.html" class="lecture-card">
             <h3>Lecture 1 Sets Set Operations And Mathematical Induction</h3>
+            <ul class="card-preview"><li>Sets and Basic Notation</li><li>Set Operations</li><li>De Morgan&#x27;s Laws</li><li>Mathematical Induction</li></ul>
             <span class="block-count">54 blocks</span>
         </a>
 
         <a href="lecture-2-cantors-theory-of-cardinality.html" class="lecture-card">
             <h3>Lecture 2 Cantors Theory Of Cardinality</h3>
+            <ul class="card-preview"><li>The Central Question</li><li>Functions</li><li>Cardinality</li><li>Countable and Uncountable Sets</li></ul>
             <span class="block-count">32 blocks</span>
         </a>
     </div>
