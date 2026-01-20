@@ -791,6 +791,23 @@
             </div>
             
         </div>
+        <div class="block-explanation">
+            <div class="explanation-header">
+                <span class="toggle-icon">▶</span>
+                <span class="icon">✦</span>
+                <span>Why the Discrete Uniform Law Works</span>
+            </div>
+            <div class="explanation-content"><p>The Discrete Uniform Law follows directly from two foundational axioms of probability combined with the assumption that all outcomes are <strong>equally likely</strong>. Let's build this up step by step.</p>
+
+<p><strong>Starting Point:</strong> Suppose our sample space $\Omega$ has $n$ elements: $\Omega = \{\omega_1, \omega_2, \ldots, \omega_n\}$. The "uniform" assumption means each outcome has the same probability: $P(\{\omega_i\}) = p$ for all $i$. By the normalization axiom, all probabilities must sum to 1:
+$$P(\Omega) = \sum_{i=1}^{n} P(\{\omega_i\}) = n \cdot p = 1$$
+Solving gives us $p = \frac{1}{n} = \frac{1}{|\Omega|}$. So each individual outcome has probability $\frac{1}{|\Omega|}$.</p>
+
+<p><strong>Extending to Any Event:</strong> Now consider any event $A \subseteq \Omega$ with $|A| = k$ elements. Since $A$ is a union of $k$ disjoint singleton events, the additivity axiom tells us:
+$$P(A) = \sum_{\omega \in A} P(\{\omega\}) = \sum_{\omega \in A} \frac{1}{|\Omega|} = \frac{k}{|\Omega|} = \frac{|A|}{|\Omega|}$$</p>
+
+<p><strong>The Key Insight:</strong> This formula works because uniformity converts probability into a counting problem. When all outcomes are equally likely, the probability of an event is simply the fraction of the sample space that the event occupies. This is why combinatorics (counting techniques) becomes so central to probability—under uniform distributions, computing $P(A)$ reduces to counting $|A|$ and $|\Omega|$.</p></div>
+        </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
@@ -810,6 +827,21 @@
                 <div class="block-annotation">The fundamental counting tool for multi-stage processes.</div>
             </div>
             
+        </div>
+        <div class="block-explanation">
+            <div class="explanation-header">
+                <span class="toggle-icon">▶</span>
+                <span class="icon">✦</span>
+                <span>Why the Multiplication Principle Works</span>
+            </div>
+            <div class="explanation-content"><p>The Multiplication Principle can be proven using <strong>mathematical induction</strong> on the number of stages $r$.</p>
+
+<p><strong>Base Case ($r = 2$):</strong> Consider an experiment with two stages, where stage 1 has $n_1$ choices and stage 2 has $n_2$ choices. For <em>each</em> of the $n_1$ choices in stage 1, we can pair it with <em>any</em> of the $n_2$ choices in stage 2. This creates $n_1$ groups, each containing $n_2$ outcomes. The total number of outcomes is therefore $n_1 \cdot n_2$.</p>
+
+<p><strong>Inductive Step:</strong> Assume the principle holds for $r = k$ stages, giving us $n_1 \cdot n_2 \cdots n_k$ total outcomes. Now consider $r = k + 1$ stages. We can treat the first $k$ stages as a single "super-stage" with $n_1 \cdot n_2 \cdots n_k$ outcomes (by our assumption). Applying the base case to this super-stage and stage $k+1$, the total outcomes become:
+$$(n_1 \cdot n_2 \cdots n_k) \cdot n_{k+1} = n_1 \cdot n_2 \cdots n_{k+1}$$</p>
+
+<p><strong>Intuitive Understanding:</strong> Think of building a tree diagram. Each choice at stage 1 branches into $n_2$ choices at stage 2, which each branch into $n_3$ choices, and so on. The total number of paths from root to leaf (complete outcomes) is the product of all branching factors. This is why we multiply rather than add—we're counting all possible <em>combinations</em> of independent choices, not alternatives.</p></div>
         </div>
         
         <div class="section-header section-level-2" id="block-6" style="--z-index: 102;">
@@ -946,6 +978,20 @@
                 <div class="block-annotation">Only about 1.5% chance of rolling all different numbers.</div>
             </div>
             
+        </div>
+        <div class="block-explanation">
+            <div class="explanation-header">
+                <span class="toggle-icon">▶</span>
+                <span class="icon">✦</span>
+                <span>Counting With vs. Without Order</span>
+            </div>
+            <div class="explanation-content"><p>Great question! This gets at a subtle but important point in probability: <strong>you can count without considering order, but you must be consistent in both the numerator and denominator</strong>.</p>
+
+<p>In your proposed approach, you're saying there's 1 way to choose 6 different numbers (the set $\{1,2,3,4,5,6\}$), but the denominator $6!$ doesn't represent "total ways to roll 6 dice without order." If we ignore order, we need to count <em>multisets</em>—combinations with repetition allowed. The number of ways to roll 6 dice when order doesn't matter is $\binom{6+6-1}{6} = \binom{11}{6} = 462$, not $6! = 720$.</p>
+
+<p>Here's the critical issue: <strong>these unordered outcomes are not equally likely</strong>. The multiset $\{1,1,1,1,1,1\}$ (all ones) can occur in only 1 way, while $\{1,2,3,4,5,6\}$ can occur in $6! = 720$ ways. When outcomes aren't equally likely, we can't simply divide favorable by total outcomes.</p>
+
+<p>So your instinct about order "not mattering" is correct for <em>what we care about</em>, but the standard approach works because ordered outcomes <em>are</em> equally likely—each specific sequence has probability $\frac{1}{6^6}$. The formula $\frac{6!}{6^6}$ elegantly counts the 720 ordered arrangements that give us all different numbers, divided by the $6^6$ equally-likely ordered outcomes.</p></div>
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
@@ -1423,6 +1469,13 @@
         });
 
             
+        // Toggle explanation expanded/collapsed on header click
+        document.querySelectorAll('.explanation-header').forEach(header => {
+            header.addEventListener('click', function() {
+                this.parentElement.classList.toggle('expanded');
+            });
+        });
+
         });
 
         window.addEventListener('resize', detectWrappedAnnotations);
