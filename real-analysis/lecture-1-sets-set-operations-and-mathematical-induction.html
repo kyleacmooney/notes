@@ -263,6 +263,69 @@
         }
 
 
+        /* Section header layout for collapse button */
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        /* Clickable section title - scrolls header to top */
+        .section-title {
+            cursor: pointer;
+            transition: color 0.15s;
+        }
+
+        .section-title:hover {
+            color: #8b454f !important;
+        }
+
+        /* Collapse/expand button */
+        .section-collapse-btn {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            border: none;
+            background: transparent;
+            color: #606068;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+            margin-left: -28px;
+        }
+
+        /* Mobile: position button inline instead of negative margin */
+        @media (max-width: 700px) {
+            .section-collapse-btn {
+                margin-left: 0;
+                margin-right: 4px;
+                width: 18px;
+                height: 18px;
+                font-size: 11px;
+                order: -1; /* Put button before title */
+            }
+        }
+
+        .section-collapse-btn:hover {
+            background: rgba(139, 69, 79, 0.2);
+            color: #c8c8d0;
+        }
+
+        /* Collapsed state - rotate arrow */
+        .section-header.collapsed .section-collapse-btn {
+            transform: rotate(-90deg);
+        }
+
+        /* Hidden by collapse - applied via JavaScript */
+        .section-collapsed-hidden {
+            display: none !important;
+        }
+
+
         /* Read-only chat display (static site) */
         .chat-link {
             font-size: 13px;
@@ -688,8 +751,8 @@
         /* Fixed navigation header (static site) */
         :root {
             --nav-height: 44px;
-            --section-height: 82px;
-            --subsection-height: 54px;
+            --section-height: 70px;  /* Must match actual level-1 header height: 12px + ~34px text + 24px = 70px */
+            --subsection-height: 64px;  /* Must match actual level-2 header height: 20px + ~26px text + 18px = 64px */
             --body-padding: 48px;
         }
 
@@ -777,6 +840,7 @@
             top: calc(var(--nav-height) + var(--section-height));
             padding-top: 20px;
             padding-bottom: 18px;
+            margin-top: 0; /* Override base margin - spacing comes from previous section's margin-bottom */
         }
 
         .section-header.section-level-3 {
@@ -784,6 +848,7 @@
             top: calc(var(--nav-height) + var(--section-height) + var(--subsection-height));
             padding-top: 14px;
             padding-bottom: 14px;
+            margin-top: 0; /* Override base margin - spacing comes from previous section's margin-bottom */
         }
 
         @media (max-width: 900px) {
@@ -831,11 +896,37 @@
             .section-container:first-child .section-header.section-level-1 {
                 margin-top: 0;
             }
+
+            .section-level-1 .section-title {
+                font-size: 20px;
+            }
+
+            .section-level-2 .section-title {
+                font-size: 17px;
+            }
+
+            .section-level-3 .section-title {
+                font-size: 15px;
+            }
         }
 
         @media (max-width: 400px) {
             :root {
                 --katex-base-size: 0.8em;
+                --section-height: 80px;
+                --subsection-height: 52px;
+            }
+
+            .section-level-1 .section-title {
+                font-size: 18px;
+            }
+
+            .section-level-2 .section-title {
+                font-size: 15px;
+            }
+
+            .section-level-3 .section-title {
+                font-size: 14px;
             }
         }
 
@@ -900,7 +991,7 @@
         <div class="section-container">
 
         <div class="section-header section-level-1" id="block-0" style="--z-index: 103;">
-            <h2 class="section-title">1. Sets and Basic Notation</h2>
+            <button class="section-collapse-btn" data-block-id="0" title="Collapse section">▾</button><h2 class="section-title" data-block-id="0">1. Sets and Basic Notation</h2>
         </div>
         
         <div class="math-block block-definition" id="block-1" data-latex="\text{A } \textit{set} \text{ is a collection of objects called } \textit{elements} \text{ or } \textit{members.}" data-label="Set" style="--accent-color: #6b8cce">
@@ -933,7 +1024,7 @@
         </div>
         
         <div class="section-header section-level-2" id="block-4" style="--z-index: 102;">
-            <h3 class="section-title">1.1. Subsets and Equality</h3>
+            <button class="section-collapse-btn" data-block-id="4" title="Collapse section">▾</button><h3 class="section-title" data-block-id="4">1.1. Subsets and Equality</h3>
         </div>
         
         <div class="math-block block-definition" id="block-5" data-latex="A \subset B \iff (a \in A \Rightarrow a \in B)" data-label="Subset" style="--accent-color: #6b8cce">
@@ -964,7 +1055,7 @@
         </div>
         
         <div class="section-header section-level-2" id="block-8" style="--z-index: 102;">
-            <h3 class="section-title">1.2. Describing Sets</h3>
+            <button class="section-collapse-btn" data-block-id="8" title="Collapse section">▾</button><h3 class="section-title" data-block-id="8">1.2. Describing Sets</h3>
         </div>
         
         <div class="text-block block-text" id="block-9"  style="--accent-color: #909098">
@@ -1014,7 +1105,7 @@
 <div class="section-container">
 
         <div class="section-header section-level-1" id="block-13" style="--z-index: 103;">
-            <h2 class="section-title">2. Set Operations</h2>
+            <button class="section-collapse-btn" data-block-id="13" title="Collapse section">▾</button><h2 class="section-title" data-block-id="13">2. Set Operations</h2>
         </div>
         
         <div class="math-block block-definition" id="block-14" data-latex="A \cup B = \{x : x \in A \text{ or } x \in B\}" data-label="Union" style="--accent-color: #6b8cce">
@@ -1065,7 +1156,7 @@
 <div class="section-container">
 
         <div class="section-header section-level-1" id="block-19" style="--z-index: 103;">
-            <h2 class="section-title">3. De Morgan&#x27;s Laws</h2>
+            <button class="section-collapse-btn" data-block-id="19" title="Collapse section">▾</button><h2 class="section-title" data-block-id="19">3. De Morgan&#x27;s Laws</h2>
         </div>
         
         <div class="math-block block-theorem" id="block-20" data-latex="\text{If } A, B, C \text{ are sets, then:} \\ \begin{aligned} (1) \quad & (B \cup C)^C = B^C \cap C^C \\ (2) \quad & (B \cap C)^C = B^C \cup C^C \\ (3) \quad & A \setminus (B \cup C) = (A \setminus B) \cap (A \setminus C) \\ (4) \quad & A \setminus (B \cap C) = (A \setminus B) \cup (A \setminus C) \end{aligned}" data-label="De Morgan&#x27;s Laws" style="--accent-color: #c9a227">
@@ -1089,7 +1180,7 @@
         </div>
         
         <div class="section-header section-level-2" id="block-22" style="--z-index: 102;">
-            <h3 class="section-title">3.1. Proof of De Morgan&#x27;s Law (1)</h3>
+            <button class="section-collapse-btn" data-block-id="22" title="Collapse section">▾</button><h3 class="section-title" data-block-id="22">3.1. Proof of De Morgan&#x27;s Law (1)</h3>
         </div>
         
         <div class="math-block block-proof-step" id="block-23" data-latex="\text{WTS: } (B \cup C)^C \subset B^C \cap C^C \text{ and } B^C \cap C^C \subset (B \cup C)^C" data-label="Goal" style="--accent-color: #8b454f">
@@ -1113,7 +1204,6 @@
                 <div class="block-annotation">The key step uses De Morgan&#x27;s law for propositional logic: ¬(P ∨ Q) ⇔ (¬P ∧ ¬Q).</div>
             </div>
             
-        </div>
         <div class="block-explanation">
             <div class="explanation-header">
                 <span class="toggle-icon">▶</span>
@@ -1149,6 +1239,7 @@ The set operations ($\cup$, $\cap$, complement) are really just logical operatio
 
 <p>This pattern—reducing set theory to logic, doing the work there, and translating back—is fundamental to rigorous mathematics. It shows that set theory inherits its structure from logic, which is why the two have such elegant parallel laws.</p></div>
         </div>
+        </div>
         
         <div class="math-block block-proof-step" id="block-25" data-latex="\begin{aligned} \text{Let } x \in B^C \cap C^C &\Rightarrow x \in B^C \text{ and } x \in C^C && \text{(def. of intersection)} \\ &\Rightarrow x \notin B \text{ and } x \notin C && \text{(def. of complement)} \\ &\Rightarrow x \notin B \cup C && \text{(De Morgan for logic)} \\ &\Rightarrow x \in (B \cup C)^C && \text{(def. of complement)} \end{aligned}" data-label="Part 2: Reverse Inclusion" style="--accent-color: #8b454f">
             <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Part 2: Reverse Inclusion</div>
@@ -1176,7 +1267,7 @@ The set operations ($\cup$, $\cap$, complement) are really just logical operatio
 <div class="section-container">
 
         <div class="section-header section-level-1" id="block-27" style="--z-index: 103;">
-            <h2 class="section-title">4. Mathematical Induction</h2>
+            <button class="section-collapse-btn" data-block-id="27" title="Collapse section">▾</button><h2 class="section-title" data-block-id="27">4. Mathematical Induction</h2>
         </div>
         
         <div class="text-block block-text" id="block-28"  style="--accent-color: #909098">
@@ -1192,7 +1283,6 @@ The set operations ($\cup$, $\cap$, complement) are really just logical operatio
                 <div class="block-annotation">Every nonempty subset of ℕ contains a smallest element—a fundamental property we take as given.</div>
             </div>
             
-        </div>
         <div class="block-explanation">
             <div class="explanation-header">
                 <span class="toggle-icon">▶</span>
@@ -1206,6 +1296,7 @@ The set operations ($\cup$, $\cap$, complement) are really just logical operatio
 <p><strong>Connection to Paradoxes:</strong> The Axiom of Choice (which implies well-ordering) leads to results like the <em>Banach-Tarski Paradox</em>: you can decompose a solid ball into finitely many pieces and reassemble them into <em>two</em> balls identical to the original. This isn't a trick—it's a theorem. The "pieces" are so bizarre (non-measurable sets) that they can only exist via the Axiom of Choice.</p>
 
 <p><strong>Why It Matters:</strong> The well-ordering of $\mathbb{N}$ is the foundation of mathematical induction and recursive definitions. But its generalization forces us to confront deep questions: What does it mean for something to "exist" in mathematics if we can't construct it? This tension between constructive and non-constructive mathematics remains a live debate in the foundations of math.</p></div>
+        </div>
         </div>
         
         <div class="math-block block-theorem" id="block-30" data-latex="\text{Let } P(n) \text{ be a statement depending on } n \in \mathbb{N}. \text{ Assume:} \\ \begin{aligned} (1) &\quad P(1) \text{ is true} && \text{(Base case)} \\ (2) &\quad P(m) \text{ true } \Rightarrow P(m+1) \text{ true} && \text{(Inductive step)} \end{aligned} \\ \text{Then } P(n) \text{ is true for all } n \in \mathbb{N}." data-label="Principle of Mathematical Induction (Pascal, 1665)" style="--accent-color: #c9a227">
@@ -1223,7 +1314,7 @@ The set operations ($\cup$, $\cap$, complement) are really just logical operatio
         </div>
         
         <div class="section-header section-level-2" id="block-31" style="--z-index: 102;">
-            <h3 class="section-title">4.1. Proof of Induction Principle</h3>
+            <button class="section-collapse-btn" data-block-id="31" title="Collapse section">▾</button><h3 class="section-title" data-block-id="31">4.1. Proof of Induction Principle</h3>
         </div>
         
         <div class="math-block block-proof-step" id="block-32" data-latex="\text{Let } S = \{n \in \mathbb{N} : P(n) \text{ is false}\}. \quad \text{WTS: } S = \emptyset." data-label="Setup" style="--accent-color: #8b454f">
@@ -1279,11 +1370,11 @@ x \text{ is least in } S &\Rightarrow x - 1 \notin S && \text{(since } x - 1 < x
 <div class="section-container">
 
         <div class="section-header section-level-1" id="block-37" style="--z-index: 103;">
-            <h2 class="section-title">5. Applications of Induction</h2>
+            <button class="section-collapse-btn" data-block-id="37" title="Collapse section">▾</button><h2 class="section-title" data-block-id="37">5. Applications of Induction</h2>
         </div>
         
         <div class="section-header section-level-2" id="block-38" style="--z-index: 102;">
-            <h3 class="section-title">5.1. Geometric Series Formula</h3>
+            <button class="section-collapse-btn" data-block-id="38" title="Collapse section">▾</button><h3 class="section-title" data-block-id="38">5.1. Geometric Series Formula</h3>
         </div>
         
         <div class="math-block block-theorem" id="block-39" data-latex="\text{For all } c \neq 1 \text{ and } n \in \mathbb{N}: \quad 1 + c + c^2 + \cdots + c^n = \frac{1 - c^{n+1}}{1 - c}" data-label="Geometric Series" style="--accent-color: #c9a227">
@@ -1337,7 +1428,7 @@ x \text{ is least in } S &\Rightarrow x - 1 \notin S && \text{(since } x - 1 < x
         </div>
         
         <div class="section-header section-level-2" id="block-44" style="--z-index: 102;">
-            <h3 class="section-title">5.2. Bernoulli&#x27;s Inequality</h3>
+            <button class="section-collapse-btn" data-block-id="44" title="Collapse section">▾</button><h3 class="section-title" data-block-id="44">5.2. Bernoulli&#x27;s Inequality</h3>
         </div>
         
         <div class="math-block block-theorem" id="block-45" data-latex="\text{If } c \geq -1, \text{ then } \forall n \in \mathbb{N}: \quad (1 + c)^n \geq 1 + nc" data-label="Bernoulli&#x27;s Inequality" style="--accent-color: #c9a227">
@@ -1347,7 +1438,6 @@ x \text{ is least in } S &\Rightarrow x - 1 \notin S && \text{(since } x - 1 < x
                 <div class="block-annotation">A fundamental inequality relating exponential growth to linear growth.</div>
             </div>
             
-        </div>
         <div class="block-explanation">
             <div class="explanation-header">
                 <span class="toggle-icon">▶</span>
@@ -1378,6 +1468,7 @@ The exponential version "compounds" and pulls ahead, while the linear version ju
 <p>Notice how Bernoulli's Inequality connects: the right side $1 + nc$ is just the <em>first two terms</em> of this full expansion. When $c \geq 0$, all the remaining terms $\frac{n(n-1)}{2}c^2 + \cdots$ are non-negative, which is exactly why $(1 + c)^n \geq 1 + nc$. Bernoulli is essentially saying "the full sum is at least as big as its first two terms."</p>
 
 <p>The binomial coefficients $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ count the number of ways to choose $k$ items from $n$—these are the famous numbers in Pascal's Triangle. So while Bernoulli gives us a useful <em>bound</em>, the Binomial Theorem gives us the <em>exact</em> answer.</p></div>
+        </div>
         </div>
         
         <div class="math-block block-proof-step" id="block-46" data-latex="(1 + c)^1 = 1 + 1 \cdot c \quad \checkmark" data-label="Base Case (n = 1)" style="--accent-color: #8b454f">
@@ -1434,7 +1525,7 @@ The exponential version "compounds" and pulls ahead, while the linear version ju
 <div class="section-container">
 
         <div class="section-header section-level-1" id="block-51" style="--z-index: 103;">
-            <h2 class="section-title">What You Can Assume</h2>
+            <button class="section-collapse-btn" data-block-id="51" title="Collapse section">▾</button><h2 class="section-title" data-block-id="51">What You Can Assume</h2>
         </div>
         
         <div class="math-block block-note" id="block-52" data-latex="\text{You may use:} \\ \bullet \text{ All algebraic properties of } \mathbb{R} \text{ and } \mathbb{Q} \text{ (e.g., } a + b = c \Rightarrow (a+b)d = cd\text{)} \\ \bullet \text{ Properties of inequalities (e.g., } a \leq b, c > 0 \Rightarrow ac \leq bc\text{)}" data-label="Allowed Assumptions" style="--accent-color: #707078">
@@ -1653,6 +1744,51 @@ The exponential version "compounds" and pulls ahead, while the linear version ju
                 this.parentElement.classList.toggle('expanded');
             });
         });
+
+
+            // Section collapse and title click
+            
+        // Section collapse functionality - skip in PyQt viewer (has its own implementation)
+        if (typeof qt === 'undefined') {
+            document.querySelectorAll('.section-collapse-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const header = btn.closest('.section-header');
+                    if (!header) return;
+
+                    const isCollapsed = header.classList.toggle('collapsed');
+                    btn.title = isCollapsed ? 'Expand section' : 'Collapse section';
+
+                    const headerLevel = header.classList.contains('section-level-1') ? 1
+                        : header.classList.contains('section-level-2') ? 2 : 3;
+
+                    let sibling = header.nextElementSibling;
+                    while (sibling) {
+                        if (sibling.classList.contains('section-header')) {
+                            const siblingLevel = sibling.classList.contains('section-level-1') ? 1
+                                : sibling.classList.contains('section-level-2') ? 2 : 3;
+                            if (siblingLevel <= headerLevel) break;
+                        }
+                        sibling.classList.toggle('section-collapsed-hidden', isCollapsed);
+                        sibling = sibling.nextElementSibling;
+                    }
+                });
+            });
+        }
+
+            
+        // Section title click to scroll - skip in PyQt viewer (has its own implementation)
+        if (typeof qt === 'undefined') {
+            document.querySelectorAll('.section-title').forEach(title => {
+                title.addEventListener('click', (e) => {
+                    if (window.getSelection().toString()) return;
+                    const header = title.closest('.section-header');
+                    if (header) {
+                        staticSiteScrollToSection(header);
+                    }
+                });
+            });
+        }
 
         });
 

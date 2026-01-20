@@ -263,6 +263,69 @@
         }
 
 
+        /* Section header layout for collapse button */
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        /* Clickable section title - scrolls header to top */
+        .section-title {
+            cursor: pointer;
+            transition: color 0.15s;
+        }
+
+        .section-title:hover {
+            color: #8b454f !important;
+        }
+
+        /* Collapse/expand button */
+        .section-collapse-btn {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            border: none;
+            background: transparent;
+            color: #606068;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+            margin-left: -28px;
+        }
+
+        /* Mobile: position button inline instead of negative margin */
+        @media (max-width: 700px) {
+            .section-collapse-btn {
+                margin-left: 0;
+                margin-right: 4px;
+                width: 18px;
+                height: 18px;
+                font-size: 11px;
+                order: -1; /* Put button before title */
+            }
+        }
+
+        .section-collapse-btn:hover {
+            background: rgba(139, 69, 79, 0.2);
+            color: #c8c8d0;
+        }
+
+        /* Collapsed state - rotate arrow */
+        .section-header.collapsed .section-collapse-btn {
+            transform: rotate(-90deg);
+        }
+
+        /* Hidden by collapse - applied via JavaScript */
+        .section-collapsed-hidden {
+            display: none !important;
+        }
+
+
         /* Read-only chat display (static site) */
         .chat-link {
             font-size: 13px;
@@ -688,8 +751,8 @@
         /* Fixed navigation header (static site) */
         :root {
             --nav-height: 44px;
-            --section-height: 82px;
-            --subsection-height: 54px;
+            --section-height: 70px;  /* Must match actual level-1 header height: 12px + ~34px text + 24px = 70px */
+            --subsection-height: 64px;  /* Must match actual level-2 header height: 20px + ~26px text + 18px = 64px */
             --body-padding: 48px;
         }
 
@@ -777,6 +840,7 @@
             top: calc(var(--nav-height) + var(--section-height));
             padding-top: 20px;
             padding-bottom: 18px;
+            margin-top: 0; /* Override base margin - spacing comes from previous section's margin-bottom */
         }
 
         .section-header.section-level-3 {
@@ -784,6 +848,7 @@
             top: calc(var(--nav-height) + var(--section-height) + var(--subsection-height));
             padding-top: 14px;
             padding-bottom: 14px;
+            margin-top: 0; /* Override base margin - spacing comes from previous section's margin-bottom */
         }
 
         @media (max-width: 900px) {
@@ -831,11 +896,37 @@
             .section-container:first-child .section-header.section-level-1 {
                 margin-top: 0;
             }
+
+            .section-level-1 .section-title {
+                font-size: 20px;
+            }
+
+            .section-level-2 .section-title {
+                font-size: 17px;
+            }
+
+            .section-level-3 .section-title {
+                font-size: 15px;
+            }
         }
 
         @media (max-width: 400px) {
             :root {
                 --katex-base-size: 0.8em;
+                --section-height: 80px;
+                --subsection-height: 52px;
+            }
+
+            .section-level-1 .section-title {
+                font-size: 18px;
+            }
+
+            .section-level-2 .section-title {
+                font-size: 15px;
+            }
+
+            .section-level-3 .section-title {
+                font-size: 14px;
             }
         }
 
@@ -881,7 +972,6 @@
                 <div class="block-annotation">The property we want to establish for arbitrary sets A, B, C.</div>
             </div>
             
-        </div>
         <div class="block-explanation">
             <div class="explanation-header">
                 <span class="toggle-icon">▶</span>
@@ -898,6 +988,7 @@ $$A \cap (B \cap C) = (A \cap B) \cap C$$
 
 <p>This is analogous to addition of numbers: we write $2 + 3 + 4$ without parentheses because $(2 + 3) + 4 = 2 + (3 + 4) = 9$. Operations that lack associativity, like subtraction, <em>require</em> parentheses to avoid ambiguity since $(8 - 3) - 2 \neq 8 - (3 - 2)$.</p></div>
         </div>
+        </div>
         
         <div class="text-block block-text" id="block-1"  style="--accent-color: #909098">
             <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Method</div>
@@ -906,7 +997,7 @@ $$A \cap (B \cap C) = (A \cap B) \cap C$$
         <div class="section-container">
 
         <div class="section-header section-level-1" id="block-2" style="--z-index: 103;">
-            <h2 class="section-title">Proof</h2>
+            <button class="section-collapse-btn" data-block-id="2" title="Collapse section">▾</button><h2 class="section-title" data-block-id="2">Proof</h2>
         </div>
         
         <div class="math-block block-proof-step" id="block-3" data-latex="x \in A \cap (B \cap C)" data-label="Step 1" style="--accent-color: #8b454f">
@@ -966,7 +1057,7 @@ $$A \cap (B \cap C) = (A \cap B) \cap C$$
 <div class="section-container">
 
         <div class="section-header section-level-1" id="block-9" style="--z-index: 103;">
-            <h2 class="section-title">Key Insight</h2>
+            <button class="section-collapse-btn" data-block-id="9" title="Collapse section">▾</button><h2 class="section-title" data-block-id="9">Key Insight</h2>
         </div>
         
         <div class="math-block block-note" id="block-10" data-latex="\cap \longleftrightarrow \land \qquad \cup \longleftrightarrow \lor" data-label="Logic-Set Correspondence" style="--accent-color: #707078">
@@ -1169,6 +1260,51 @@ $$A \cap (B \cap C) = (A \cap B) \cap C$$
                 this.parentElement.classList.toggle('expanded');
             });
         });
+
+
+            // Section collapse and title click
+            
+        // Section collapse functionality - skip in PyQt viewer (has its own implementation)
+        if (typeof qt === 'undefined') {
+            document.querySelectorAll('.section-collapse-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const header = btn.closest('.section-header');
+                    if (!header) return;
+
+                    const isCollapsed = header.classList.toggle('collapsed');
+                    btn.title = isCollapsed ? 'Expand section' : 'Collapse section';
+
+                    const headerLevel = header.classList.contains('section-level-1') ? 1
+                        : header.classList.contains('section-level-2') ? 2 : 3;
+
+                    let sibling = header.nextElementSibling;
+                    while (sibling) {
+                        if (sibling.classList.contains('section-header')) {
+                            const siblingLevel = sibling.classList.contains('section-level-1') ? 1
+                                : sibling.classList.contains('section-level-2') ? 2 : 3;
+                            if (siblingLevel <= headerLevel) break;
+                        }
+                        sibling.classList.toggle('section-collapsed-hidden', isCollapsed);
+                        sibling = sibling.nextElementSibling;
+                    }
+                });
+            });
+        }
+
+            
+        // Section title click to scroll - skip in PyQt viewer (has its own implementation)
+        if (typeof qt === 'undefined') {
+            document.querySelectorAll('.section-title').forEach(title => {
+                title.addEventListener('click', (e) => {
+                    if (window.getSelection().toString()) return;
+                    const header = title.closest('.section-header');
+                    if (header) {
+                        staticSiteScrollToSection(header);
+                    }
+                });
+            });
+        }
 
         });
 

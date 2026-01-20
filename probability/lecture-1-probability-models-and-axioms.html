@@ -263,6 +263,69 @@
         }
 
 
+        /* Section header layout for collapse button */
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        /* Clickable section title - scrolls header to top */
+        .section-title {
+            cursor: pointer;
+            transition: color 0.15s;
+        }
+
+        .section-title:hover {
+            color: #8b454f !important;
+        }
+
+        /* Collapse/expand button */
+        .section-collapse-btn {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            border: none;
+            background: transparent;
+            color: #606068;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+            margin-left: -28px;
+        }
+
+        /* Mobile: position button inline instead of negative margin */
+        @media (max-width: 700px) {
+            .section-collapse-btn {
+                margin-left: 0;
+                margin-right: 4px;
+                width: 18px;
+                height: 18px;
+                font-size: 11px;
+                order: -1; /* Put button before title */
+            }
+        }
+
+        .section-collapse-btn:hover {
+            background: rgba(139, 69, 79, 0.2);
+            color: #c8c8d0;
+        }
+
+        /* Collapsed state - rotate arrow */
+        .section-header.collapsed .section-collapse-btn {
+            transform: rotate(-90deg);
+        }
+
+        /* Hidden by collapse - applied via JavaScript */
+        .section-collapsed-hidden {
+            display: none !important;
+        }
+
+
         /* Outline panel */
         .outline-panel {
             position: fixed;
@@ -614,8 +677,8 @@
         /* Fixed navigation header (static site) */
         :root {
             --nav-height: 44px;
-            --section-height: 82px;
-            --subsection-height: 54px;
+            --section-height: 70px;  /* Must match actual level-1 header height: 12px + ~34px text + 24px = 70px */
+            --subsection-height: 64px;  /* Must match actual level-2 header height: 20px + ~26px text + 18px = 64px */
             --body-padding: 48px;
         }
 
@@ -703,6 +766,7 @@
             top: calc(var(--nav-height) + var(--section-height));
             padding-top: 20px;
             padding-bottom: 18px;
+            margin-top: 0; /* Override base margin - spacing comes from previous section's margin-bottom */
         }
 
         .section-header.section-level-3 {
@@ -710,6 +774,7 @@
             top: calc(var(--nav-height) + var(--section-height) + var(--subsection-height));
             padding-top: 14px;
             padding-bottom: 14px;
+            margin-top: 0; /* Override base margin - spacing comes from previous section's margin-bottom */
         }
 
         @media (max-width: 900px) {
@@ -757,11 +822,37 @@
             .section-container:first-child .section-header.section-level-1 {
                 margin-top: 0;
             }
+
+            .section-level-1 .section-title {
+                font-size: 20px;
+            }
+
+            .section-level-2 .section-title {
+                font-size: 17px;
+            }
+
+            .section-level-3 .section-title {
+                font-size: 15px;
+            }
         }
 
         @media (max-width: 400px) {
             :root {
                 --katex-base-size: 0.8em;
+                --section-height: 80px;
+                --subsection-height: 52px;
+            }
+
+            .section-level-1 .section-title {
+                font-size: 18px;
+            }
+
+            .section-level-2 .section-title {
+                font-size: 15px;
+            }
+
+            .section-level-3 .section-title {
+                font-size: 14px;
             }
         }
 
@@ -783,7 +874,7 @@
         <div class="section-container">
 
         <div class="section-header section-level-1" id="block-0" style="--z-index: 103;">
-            <h2 class="section-title">1. The Two Components of a Probabilistic Model</h2>
+            <button class="section-collapse-btn" data-block-id="0" title="Collapse section">▾</button><h2 class="section-title" data-block-id="0">1. The Two Components of a Probabilistic Model</h2>
         </div>
         
         <div class="text-block block-text" id="block-1"  style="--accent-color: #909098">
@@ -803,7 +894,7 @@
 <div class="section-container">
 
         <div class="section-header section-level-1" id="block-3" style="--z-index: 103;">
-            <h2 class="section-title">2. The Sample Space</h2>
+            <button class="section-collapse-btn" data-block-id="3" title="Collapse section">▾</button><h2 class="section-title" data-block-id="3">2. The Sample Space</h2>
         </div>
         
         <div class="math-block block-definition" id="block-4" data-latex="\Omega = \{\text{all possible outcomes of an experiment}\}" data-label="Sample Space" style="--accent-color: #6b8cce">
@@ -816,7 +907,7 @@
         </div>
         
         <div class="section-header section-level-2" id="block-5" style="--z-index: 102;">
-            <h3 class="section-title">2.1. Requirements for a Valid Sample Space</h3>
+            <button class="section-collapse-btn" data-block-id="5" title="Collapse section">▾</button><h3 class="section-title" data-block-id="5">2.1. Requirements for a Valid Sample Space</h3>
         </div>
         
         <div class="math-block block-axiom" id="block-6" data-latex="\text{At most one outcome can occur}" data-label="Mutually Exclusive" style="--accent-color: #9b7bb8">
@@ -847,7 +938,7 @@
         </div>
         
         <div class="section-header section-level-2" id="block-9" style="--z-index: 102;">
-            <h3 class="section-title">2.2. Discrete Example: Two Rolls of a Tetrahedral Die</h3>
+            <button class="section-collapse-btn" data-block-id="9" title="Collapse section">▾</button><h3 class="section-title" data-block-id="9">2.2. Discrete Example: Two Rolls of a Tetrahedral Die</h3>
         </div>
         
         <div class="math-block block-definition" id="block-10" data-latex="\Omega = \{(x, y) : x, y \in \{1, 2, 3, 4\}\}" data-label="Sample Space (Tetrahedral Die)" style="--accent-color: #6b8cce">
@@ -860,7 +951,7 @@
         </div>
         
         <div class="section-header section-level-2" id="block-11" style="--z-index: 102;">
-            <h3 class="section-title">2.3. Continuous Example: Darts on a Unit Square</h3>
+            <button class="section-collapse-btn" data-block-id="11" title="Collapse section">▾</button><h3 class="section-title" data-block-id="11">2.3. Continuous Example: Darts on a Unit Square</h3>
         </div>
         
         <div class="math-block block-definition" id="block-12" data-latex="\Omega = \{(x, y) : 0 \leq x \leq 1,\; 0 \leq y \leq 1\}" data-label="Sample Space (Unit Square)" style="--accent-color: #6b8cce">
@@ -875,7 +966,7 @@
 <div class="section-container">
 
         <div class="section-header section-level-1" id="block-13" style="--z-index: 103;">
-            <h2 class="section-title">3. Events and Set Operations</h2>
+            <button class="section-collapse-btn" data-block-id="13" title="Collapse section">▾</button><h2 class="section-title" data-block-id="13">3. Events and Set Operations</h2>
         </div>
         
         <div class="math-block block-definition" id="block-14" data-latex="\text{An \textbf{event} is a subset } A \subseteq \Omega" data-label="Event" style="--accent-color: #6b8cce">
@@ -904,7 +995,7 @@
 <div class="section-container">
 
         <div class="section-header section-level-1" id="block-17" style="--z-index: 103;">
-            <h2 class="section-title">4. The Three Axioms of Probability</h2>
+            <button class="section-collapse-btn" data-block-id="17" title="Collapse section">▾</button><h2 class="section-title" data-block-id="17">4. The Three Axioms of Probability</h2>
         </div>
         
         <div class="text-block block-text" id="block-18"  style="--accent-color: #909098">
@@ -940,7 +1031,7 @@
         </div>
         
         <div class="section-header section-level-2" id="block-22" style="--z-index: 102;">
-            <h3 class="section-title">4.1. Deriving P(A) ≤ 1 from the Axioms</h3>
+            <button class="section-collapse-btn" data-block-id="22" title="Collapse section">▾</button><h3 class="section-title" data-block-id="22">4.1. Deriving P(A) ≤ 1 from the Axioms</h3>
         </div>
         
         <div class="math-block block-theorem" id="block-23" data-latex="P(A) \leq 1 \quad \text{for all events } A" data-label="Probability Bound" style="--accent-color: #c9a227">
@@ -989,7 +1080,7 @@
         </div>
         
         <div class="section-header section-level-2" id="block-28" style="--z-index: 102;">
-            <h3 class="section-title">4.2. Finite Additivity</h3>
+            <button class="section-collapse-btn" data-block-id="28" title="Collapse section">▾</button><h3 class="section-title" data-block-id="28">4.2. Finite Additivity</h3>
         </div>
         
         <div class="math-block block-theorem" id="block-29" data-latex="\text{If } A_1, \ldots, A_n \text{ are pairwise disjoint, then } P\!\left(\bigcup_{i=1}^{n} A_i\right) = \sum_{i=1}^{n} P(A_i)" data-label="Finite Additivity" style="--accent-color: #c9a227">
@@ -1013,7 +1104,7 @@
 <div class="section-container">
 
         <div class="section-header section-level-1" id="block-31" style="--z-index: 103;">
-            <h2 class="section-title">5. The Discrete Uniform Law</h2>
+            <button class="section-collapse-btn" data-block-id="31" title="Collapse section">▾</button><h2 class="section-title" data-block-id="31">5. The Discrete Uniform Law</h2>
         </div>
         
         <div class="math-block block-definition" id="block-32" data-latex="\text{If all } n \text{ outcomes are equally likely: } P(A) = \frac{|A|}{n}" data-label="Discrete Uniform Law" style="--accent-color: #6b8cce">
@@ -1060,7 +1151,7 @@
 <div class="section-container">
 
         <div class="section-header section-level-1" id="block-37" style="--z-index: 103;">
-            <h2 class="section-title">6. The Continuous Uniform Law</h2>
+            <button class="section-collapse-btn" data-block-id="37" title="Collapse section">▾</button><h2 class="section-title" data-block-id="37">6. The Continuous Uniform Law</h2>
         </div>
         
         <div class="math-block block-definition" id="block-38" data-latex="\text{For the unit square with uniform distribution: } P(A) = \text{Area}(A)" data-label="Continuous Uniform Law" style="--accent-color: #6b8cce">
@@ -1093,7 +1184,7 @@
 <div class="section-container">
 
         <div class="section-header section-level-1" id="block-41" style="--z-index: 103;">
-            <h2 class="section-title">7. Countable Additivity</h2>
+            <button class="section-collapse-btn" data-block-id="41" title="Collapse section">▾</button><h2 class="section-title" data-block-id="41">7. Countable Additivity</h2>
         </div>
         
         <div class="text-block block-text" id="block-42"  style="--accent-color: #909098">
@@ -1111,7 +1202,7 @@
         </div>
         
         <div class="section-header section-level-2" id="block-44" style="--z-index: 102;">
-            <h3 class="section-title">7.1. Example: Geometric Distribution</h3>
+            <button class="section-collapse-btn" data-block-id="44" title="Collapse section">▾</button><h3 class="section-title" data-block-id="44">7.1. Example: Geometric Distribution</h3>
         </div>
         
         <div class="text-block block-text" id="block-45"  style="--accent-color: #909098">
@@ -1149,7 +1240,7 @@
 <div class="section-container">
 
         <div class="section-header section-level-1" id="block-49" style="--z-index: 103;">
-            <h2 class="section-title">8. Key Takeaways</h2>
+            <button class="section-collapse-btn" data-block-id="49" title="Collapse section">▾</button><h2 class="section-title" data-block-id="49">8. Key Takeaways</h2>
         </div>
         
         <div class="text-block block-text" id="block-50"  style="--accent-color: #909098">
@@ -1339,6 +1430,51 @@
         });
 
             
+
+            // Section collapse and title click
+            
+        // Section collapse functionality - skip in PyQt viewer (has its own implementation)
+        if (typeof qt === 'undefined') {
+            document.querySelectorAll('.section-collapse-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const header = btn.closest('.section-header');
+                    if (!header) return;
+
+                    const isCollapsed = header.classList.toggle('collapsed');
+                    btn.title = isCollapsed ? 'Expand section' : 'Collapse section';
+
+                    const headerLevel = header.classList.contains('section-level-1') ? 1
+                        : header.classList.contains('section-level-2') ? 2 : 3;
+
+                    let sibling = header.nextElementSibling;
+                    while (sibling) {
+                        if (sibling.classList.contains('section-header')) {
+                            const siblingLevel = sibling.classList.contains('section-level-1') ? 1
+                                : sibling.classList.contains('section-level-2') ? 2 : 3;
+                            if (siblingLevel <= headerLevel) break;
+                        }
+                        sibling.classList.toggle('section-collapsed-hidden', isCollapsed);
+                        sibling = sibling.nextElementSibling;
+                    }
+                });
+            });
+        }
+
+            
+        // Section title click to scroll - skip in PyQt viewer (has its own implementation)
+        if (typeof qt === 'undefined') {
+            document.querySelectorAll('.section-title').forEach(title => {
+                title.addEventListener('click', (e) => {
+                    if (window.getSelection().toString()) return;
+                    const header = title.closest('.section-header');
+                    if (header) {
+                        staticSiteScrollToSection(header);
+                    }
+                });
+            });
+        }
+
         });
 
         window.addEventListener('resize', detectWrappedAnnotations);
