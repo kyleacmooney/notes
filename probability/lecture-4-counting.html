@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 4 Counting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    
+    <style>
+
+        :root {
+            --katex-base-size: 1.2em;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Source Sans 3", -apple-system, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(165deg, #1a1a1e 0%, #222226 40%, #1e1e22 100%);
+            color: #c8c8d0;
+            padding: 48px;
+            line-height: 1.7;
+            visibility: hidden;
+        }
+
+        .header {
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(139, 69, 79, 0.3);
+        }
+
+        h1 {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 28px;
+            font-weight: 500;
+            color: #f0ebe3;
+            letter-spacing: 0.01em;
+            margin-bottom: 4px;
+        }
+
+        .header::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #8b454f 0%, transparent 100%);
+            margin-top: 16px;
+        }
+
+        .content {
+            max-width: 800px;
+        }
+
+        /* Section containers */
+        .section-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Math blocks */
+        .math-block {
+            margin: 4px 0;
+            padding: 8px 0 8px 14px;
+            background: none;
+            border: none;
+            border-left: 2px solid var(--accent-color, #8b454f);
+            position: relative;
+        }
+
+        .block-content-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 4px 20px;
+        }
+
+        .block-content-row .block-math {
+            flex: 1 0 auto;
+        }
+
+        .math-block .block-annotation {
+            flex: 0 0 auto;
+            max-width: 220px;
+            font-size: 11px;
+            color: #606068;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .math-block .block-annotation.wrapped {
+            max-width: none;
+            flex-basis: 100%;
+        }
+
+        /* Block labels (Step 1, Theorem, etc.) */
+        .block-label {
+            font-size: 9px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0.7;
+        }
+
+        .block-icon {
+            font-size: 10px;
+            opacity: 0.9;
+        }
+
+        .block-note .block-math {
+            font-size: 0.95em;
+        }
+
+        .block-result {
+            border-left-width: 3px;
+            padding-left: 18px;
+        }
+
+        /* Text blocks */
+        .text-block {
+            margin: 12px 0;
+            padding: 0 4px;
+            background: none;
+            border: none;
+        }
+
+        .text-block .block-label {
+            font-size: 9px;
+            margin-bottom: 4px;
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .text-block .block-content {
+            font-size: 14px;
+            line-height: 1.65;
+            color: #a0a0a8;
+            font-style: italic;
+        }
+
+        .text-block .block-content p {
+            margin: 0 0 8px 0;
+        }
+
+        .text-block .block-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Section headers */
+        .section-header {
+            position: sticky;
+            top: var(--top-offset, 0);
+            z-index: var(--z-index, 100);
+            background: linear-gradient(165deg, #1a1a1e 0%, #222226 100%);
+            margin: 0 -48px;
+            padding: 0 48px;
+            border-bottom: 1px solid rgba(139, 69, 79, 0.2);
+        }
+
+        .section-header.section-level-1 {
+            padding-top: 32px;
+            padding-bottom: 16px;
+            margin-top: 40px;
+        }
+
+        .section-header.section-level-1:first-child {
+            margin-top: 0;
+        }
+
+        .section-header.section-level-2 {
+            padding-top: 20px;
+            padding-bottom: 12px;
+            margin-top: 28px;
+            border-bottom-color: rgba(139, 69, 79, 0.15);
+        }
+
+        .section-header.section-level-3 {
+            padding-top: 14px;
+            padding-bottom: 10px;
+            margin-top: 20px;
+            border-bottom-color: rgba(139, 69, 79, 0.1);
+        }
+
+        .section-title {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            margin: 0;
+        }
+
+        .section-level-1 .section-title {
+            font-size: 24px;
+            color: #f0ebe3;
+        }
+
+        .section-level-2 .section-title {
+            font-size: 20px;
+            color: #d8d3cb;
+        }
+
+        .section-level-3 .section-title {
+            font-size: 17px;
+            color: #c0bbb3;
+            font-weight: 400;
+        }
+
+        .section-level-1::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #8b454f 0%, transparent 100%);
+            margin-top: 12px;
+        }
+
+        /* KaTeX */
+        .katex-display {
+            margin: 0;
+        }
+
+        .katex {
+            font-size: var(--katex-base-size);
+            color: #f0ebe3;
+        }
+
+        .katex-display > .katex {
+            text-shadow: 0 0 40px rgba(139, 69, 79, 0.12);
+        }
+
+
+        .context-area {
+            margin-bottom: 28px;
+            background: rgba(139, 69, 79, 0.08);
+            border-radius: 8px;
+            border-left: 3px solid #8b454f;
+            overflow: hidden;
+        }
+
+        .context {
+            font-size: 15px;
+            font-weight: 300;
+            color: #909098;
+            padding: 16px 20px 12px 20px;
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        .chat-toggle-row {
+            padding: 0 20px 12px 20px;
+        }
+
+
+        /* Explanation blocks */
+        .block-explanation {
+            margin-top: 16px;
+            padding: 0;
+            background: transparent;
+            border-radius: 0;
+            position: relative;
+        }
+
+        .block-explanation::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            bottom: 4px;
+            width: 2px;
+            background: linear-gradient(180deg, rgba(107, 140, 206, 0.6) 0%, rgba(107, 140, 206, 0.1) 100%);
+            border-radius: 1px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .block-explanation.expanded::before {
+            opacity: 1;
+        }
+
+        .explanation-header {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 15px;
+            font-weight: 500;
+            font-style: italic;
+            color: #8090a8;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            border-radius: 6px;
+            transition: background 0.15s;
+        }
+
+        .explanation-header:hover {
+            background: rgba(107, 140, 206, 0.08);
+        }
+
+        .explanation-header .toggle-icon {
+            font-style: normal;
+            font-size: 10px;
+            color: #606878;
+            transition: transform 0.2s;
+        }
+
+        .block-explanation.expanded .explanation-header .toggle-icon {
+            transform: rotate(90deg);
+        }
+
+        .explanation-header .icon {
+            font-style: normal;
+            opacity: 0.7;
+        }
+
+        .explanation-content {
+            display: none;
+            font-size: 14.5px;
+            color: #b0b0b8;
+            line-height: 1.85;
+            margin-left: 14px;
+            border-radius: 0 8px 8px 0;
+            padding: 16px 18px;
+            background: rgba(107, 140, 206, 0.03);
+        }
+
+        .block-explanation.expanded .explanation-content {
+            display: block;
+        }
+
+        .explanation-content p {
+            margin: 14px 0;
+        }
+
+        .explanation-content p:first-child {
+            margin-top: 0;
+        }
+
+        .explanation-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .explanation-content strong {
+            color: #d0d0d8;
+            font-weight: 500;
+        }
+
+        .explanation-content .katex {
+            font-size: 1.1em;
+        }
+
+        .block-explanation.is-error {
+            opacity: 0.8;
+        }
+
+        .block-explanation.is-error::before {
+            background: linear-gradient(180deg, rgba(180, 100, 100, 0.6) 0%, rgba(180, 100, 100, 0.1) 100%);
+        }
+
+        .block-explanation.is-error .explanation-header {
+            color: #b08080;
+        }
+
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(139, 69, 79, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(139, 69, 79, 0.5);
+        }
+
+
+        /* Scroll fade indicators for overflowing math blocks */
+        .block-math {
+            position: relative;
+            overflow-x: auto;
+            overflow-y: clip;
+            max-width: 100%;
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        .block-math::-webkit-scrollbar {
+            height: 0;  /* Chrome/Safari - hidden by default */
+        }
+
+        .block-math:hover {
+            scrollbar-width: thin;  /* Firefox */
+        }
+
+        .block-math:hover::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .block-math:hover::-webkit-scrollbar-thumb {
+            background: rgba(139, 69, 79, 0.4);
+            border-radius: 4px;
+        }
+
+        .block-math:hover::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .block-math::before,
+        .block-math::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 24px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+
+        .block-math::before {
+            left: 0;
+            background: linear-gradient(to right, #1a1a1e 0%, transparent 100%);
+        }
+
+        .block-math::after {
+            right: 0;
+            background: linear-gradient(to left, #1a1a1e 0%, transparent 100%);
+        }
+
+        .block-math.has-overflow::after { opacity: 1; }
+        .block-math.scrolled-right::before { opacity: 1; }
+        .block-math.scrolled-end::after { opacity: 0; }
+
+
+        /* Fixed navigation header (static site) */
+        :root {
+            --nav-height: 44px;
+            --section-height: 82px;
+            --subsection-height: 54px;
+            --body-padding: 48px;
+        }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            padding-top: calc(var(--nav-height) + 36px);
+            overflow-x: hidden;
+        }
+
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            background: rgba(26, 26, 30, 0.98);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(139, 69, 79, 0.2);
+            padding: 0 var(--body-padding);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .breadcrumbs {
+            font-size: 13px;
+            color: #909098;
+        }
+
+        .breadcrumbs a {
+            color: #6b8cce;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .breadcrumbs a:hover {
+            color: #8bacd0;
+            text-decoration: underline;
+        }
+
+        .header {
+            margin-bottom: 1.5em;
+            padding-bottom: 8px;
+        }
+
+        .header::after {
+            margin-top: 4px;
+        }
+
+        /* Fixed sticky positions for nav header offset */
+        .section-header {
+            width: 100vw;
+            margin-left: calc(-1 * var(--body-padding));
+            padding-left: var(--body-padding);
+            padding-right: var(--body-padding);
+            box-sizing: border-box;
+        }
+
+        .section-header.section-level-1 {
+            top: var(--nav-height);
+            padding-top: 12px;
+            padding-bottom: 24px;
+            margin-top: 40px;
+            margin-bottom: 16px;
+        }
+
+        .section-container:first-child .section-header.section-level-1 {
+            margin-top: 24px;
+            margin-bottom: 24px;
+        }
+
+        .section-header.section-level-2 {
+            top: calc(var(--nav-height) + var(--section-height));
+            padding-top: 20px;
+            padding-bottom: 18px;
+        }
+
+        .section-header.section-level-3 {
+            top: calc(var(--nav-height) + var(--section-height) + var(--subsection-height));
+            padding-top: 14px;
+            padding-bottom: 14px;
+        }
+
+        @media (max-width: 900px) {
+            :root {
+                --katex-base-size: 1em;
+            }
+        }
+
+        @media (max-width: 600px) {
+            :root {
+                --body-padding: 20px;
+                --nav-height: 40px;
+                --section-height: 90px;
+                --subsection-height: 60px;
+                --katex-base-size: 0.9em;
+            }
+
+            body {
+                padding: var(--body-padding);
+                padding-top: calc(var(--nav-height) + 30px);
+            }
+
+            .nav-header {
+                padding: 0 var(--body-padding);
+            }
+
+            .section-header {
+                width: calc(100% + 2 * var(--body-padding));
+            }
+
+            .section-container:first-child .section-header.section-level-1 {
+                margin-top: 0;
+            }
+        }
+
+        @media (max-width: 400px) {
+            :root {
+                --katex-base-size: 0.8em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    
+    <nav class="nav-header">
+        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Probability</a> / <a href="#">Lecture 4 Counting</a></div>
+    </nav>
+    <div class="header">
+        <h1>Lecture 4 Counting</h1>
+    </div>
+    <div class="content">
+        
+        <div class="context-area">
+            <p class="context">Fundamental counting techniques for computing probabilities in discrete uniform sample spaces, including permutations, combinations, and multinomial coefficients.</p>
+        </div>
+        <div class="section-container">
+
+        <div class="section-header section-level-1" id="block-0" style="--z-index: 103;">
+            <h2 class="section-title">1. The Discrete Uniform Law</h2>
+        </div>
+        
+        <div class="text-block block-text" id="block-1"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Motivation</div>
+            <div class="block-content"><p>Counting methods apply when we have a finite number of outcomes that are all equally likely. In this setting, computing probabilities reduces to counting cardinalities of sets.</p></div>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-2" data-latex="P(A) = \frac{|A|}{|\Omega|} = \frac{\text{number of elements in } A}{\text{total number of sample points}}" data-label="Discrete Uniform Law" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Discrete Uniform Law</div>
+            <div class="block-content-row">
+                <div class="block-math">$$P(A) = \frac{|A|}{|\Omega|} = \frac{\text{number of elements in } A}{\text{total number of sample points}}$$</div>
+                <div class="block-annotation">Reduces probability to counting when all outcomes are equally likely.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-3" style="--z-index: 103;">
+            <h2 class="section-title">2. The Basic Counting Principle</h2>
+        </div>
+        
+        <div class="text-block block-text" id="block-4"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Sequential Construction</div>
+            <div class="block-content"><p>When outcomes are described implicitly, we use sequential construction, which can be visualized as a tree diagram. Each branch represents a choice at a given stage.</p></div>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-5" data-latex="\text{For an experiment with } r \text{ stages where stage } i \text{ has } n_i \text{ choices:} \\ \text{Total outcomes} = n_1 \cdot n_2 \cdot \ldots \cdot n_r" data-label="Multiplication Principle" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Multiplication Principle</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{For an experiment with } r \text{ stages where stage } i \text{ has } n_i \text{ choices:} \\ \text{Total outcomes} = n_1 \cdot n_2 \cdot \ldots \cdot n_r$$</div>
+                <div class="block-annotation">The fundamental counting tool for multi-stage processes.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-6" style="--z-index: 102;">
+            <h3 class="section-title">Example: License Plates</h3>
+        </div>
+        
+        <div class="text-block block-text" id="block-7"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Problem Setup</div>
+            <div class="block-content"><p>How many license plates consist of 3 letters followed by 4 digits?</p></div>
+        </div>
+        
+        <div class="math-block block-result" id="block-8" data-latex="26^3 \cdot 10^4" data-label="With Repetition" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> With Repetition</div>
+            <div class="block-content-row">
+                <div class="block-math">$$26^3 \cdot 10^4$$</div>
+                <div class="block-annotation">Each position is an independent choice from all possibilities.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-9" data-latex="26 \cdot 25 \cdot 24 \cdot 10 \cdot 9 \cdot 8 \cdot 7" data-label="Without Repetition" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Without Repetition</div>
+            <div class="block-content-row">
+                <div class="block-math">$$26 \cdot 25 \cdot 24 \cdot 10 \cdot 9 \cdot 8 \cdot 7$$</div>
+                <div class="block-annotation">Each choice reduces the available options for subsequent positions.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-10" style="--z-index: 103;">
+            <h2 class="section-title">3. Permutations</h2>
+        </div>
+        
+        <div class="math-block block-definition" id="block-11" data-latex="\text{A } \textbf{permutation} \text{ is a specific ordering (arrangement) of a set of elements.}" data-label="Permutation" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Permutation</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{A } \textbf{permutation} \text{ is a specific ordering (arrangement) of a set of elements.}$$</div>
+                <div class="block-annotation">Order matters; we count distinct sequences.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-12" data-latex="\begin{aligned} &\text{Slot 1: } n \text{ choices} \\ &\text{Slot 2: } n-1 \text{ choices} \\ &\text{Slot 3: } n-2 \text{ choices} \\ &\vdots \\ &\text{Slot } n\text{: } 1 \text{ choice} \end{aligned}" data-label="Counting Argument" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Counting Argument</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\begin{aligned} &\text{Slot 1: } n \text{ choices} \\ &\text{Slot 2: } n-1 \text{ choices} \\ &\text{Slot 3: } n-2 \text{ choices} \\ &\vdots \\ &\text{Slot } n\text{: } 1 \text{ choice} \end{aligned}$$</div>
+                <div class="block-annotation">Each placement reduces the pool of remaining elements by one.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-theorem" id="block-13" data-latex="n! = n \cdot (n-1) \cdot (n-2) \cdot \ldots \cdot 2 \cdot 1" data-label="Number of Permutations" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Number of Permutations</div>
+            <div class="block-content-row">
+                <div class="block-math">$$n! = n \cdot (n-1) \cdot (n-2) \cdot \ldots \cdot 2 \cdot 1$$</div>
+                <div class="block-annotation">The number of ways to arrange n distinct elements into a sequence.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-14" style="--z-index: 103;">
+            <h2 class="section-title">4. Counting Subsets</h2>
+        </div>
+        
+        <div class="text-block block-text" id="block-15"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Problem</div>
+            <div class="block-content"><p>How many subsets does an n-element set have?</p></div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-16" data-latex="\text{For each element, make a binary choice (in or out):} \\ \underbrace{2 \times 2 \times \cdots \times 2}_{n \text{ elements}}" data-label="Binary Choice Argument" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Binary Choice Argument</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{For each element, make a binary choice (in or out):} \\ \underbrace{2 \times 2 \times \cdots \times 2}_{n \text{ elements}}$$</div>
+                <div class="block-annotation">Each element independently either belongs to the subset or doesn&#x27;t.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-theorem" id="block-17" data-latex="\text{Number of subsets of an } n\text{-element set} = 2^n" data-label="Number of Subsets" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Number of Subsets</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Number of subsets of an } n\text{-element set} = 2^n$$</div>
+                <div class="block-annotation">Includes both the empty set and the full set.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-18" data-latex="\text{If } n=1, \text{ set } = \{1\}. \text{ Subsets: } \{1\}, \emptyset. \text{ Formula: } 2^1 = 2. \checkmark" data-label="Sanity Check" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Sanity Check</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{If } n=1, \text{ set } = \{1\}. \text{ Subsets: } \{1\}, \emptyset. \text{ Formula: } 2^1 = 2. \checkmark$$</div>
+                <div class="block-annotation">Always verify formulas on simple cases.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-19" style="--z-index: 103;">
+            <h2 class="section-title">5. Example: Dice Rolls</h2>
+        </div>
+        
+        <div class="text-block block-text" id="block-20"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Problem</div>
+            <div class="block-content"><p>What is the probability that 6 rolls of a fair die all give different numbers? We assume rolls are independent and the die is fair (equally likely outcomes).</p></div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-21" data-latex="|\Omega| = 6^6" data-label="Sample Space Size" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Sample Space Size</div>
+            <div class="block-content-row">
+                <div class="block-math">$$|\Omega| = 6^6$$</div>
+                <div class="block-annotation">Each of 6 rolls has 6 possible outcomes.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-22" data-latex="|A| = 6!" data-label="Event Size" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Event Size</div>
+            <div class="block-content-row">
+                <div class="block-math">$$|A| = 6!$$</div>
+                <div class="block-annotation">Getting all different numbers is a permutation of {1,2,3,4,5,6}.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-23" data-latex="P(A) = \frac{6!}{6^6} = \frac{720}{46656} \approx 0.0154" data-label="Final Probability" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Final Probability</div>
+            <div class="block-content-row">
+                <div class="block-math">$$P(A) = \frac{6!}{6^6} = \frac{720}{46656} \approx 0.0154$$</div>
+                <div class="block-annotation">Only about 1.5% chance of rolling all different numbers.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-24" style="--z-index: 103;">
+            <h2 class="section-title">6. Combinations (Binomial Coefficients)</h2>
+        </div>
+        
+        <div class="text-block block-text" id="block-25"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Problem</div>
+            <div class="block-content"><p>How many k-element subsets does an n-element set have? Unlike permutations, order does not matter here.</p></div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-26" data-latex="\binom{n}{k} \quad \text{read as ``}n \text{ choose } k\text{''}" data-label="Binomial Coefficient Notation" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Binomial Coefficient Notation</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\binom{n}{k} \quad \text{read as ``}n \text{ choose } k\text{''}$$</div>
+                <div class="block-annotation">Counts the number of ways to select k items from n without regard to order.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-27" style="--z-index: 102;">
+            <h3 class="section-title">Derivation via Double Counting</h3>
+        </div>
+        
+        <div class="text-block block-text" id="block-28"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Strategy</div>
+            <div class="block-content"><p>Count ordered sequences of k distinct items from n elements in two different ways, then equate.</p></div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-29" data-latex="n(n-1)(n-2)\cdots(n-k+1) = \frac{n!}{(n-k)!}" data-label="Method 1: Sequential Choice" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Method 1: Sequential Choice</div>
+            <div class="block-content-row">
+                <div class="block-math">$$n(n-1)(n-2)\cdots(n-k+1) = \frac{n!}{(n-k)!}$$</div>
+                <div class="block-annotation">Directly count ordered k-sequences by choosing one element at a time.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-30" data-latex="\binom{n}{k} \cdot k!" data-label="Method 2: Two-Stage Process" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Method 2: Two-Stage Process</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\binom{n}{k} \cdot k!$$</div>
+                <div class="block-annotation">First pick which k elements (unordered), then arrange them.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-31" data-latex="\binom{n}{k} \cdot k! = \frac{n!}{(n-k)!}" data-label="Equating Both Methods" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Equating Both Methods</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\binom{n}{k} \cdot k! = \frac{n!}{(n-k)!}$$</div>
+                <div class="block-annotation">Both methods count the same quantity.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-theorem" id="block-32" data-latex="\binom{n}{k} = \frac{n!}{k!(n-k)!}" data-label="Binomial Coefficient Formula" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Binomial Coefficient Formula</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\binom{n}{k} = \frac{n!}{k!(n-k)!}$$</div>
+                <div class="block-annotation">The number of k-element subsets of an n-element set.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-33" style="--z-index: 102;">
+            <h3 class="section-title">Key Properties</h3>
+        </div>
+        
+        <div class="math-block block-axiom" id="block-34" data-latex="0! = 1" data-label="Convention" style="--accent-color: #9b7bb8">
+            <div class="block-label" style="color: #9b7bb8"><span class="block-icon">⊢</span> Convention</div>
+            <div class="block-content-row">
+                <div class="block-math">$$0! = 1$$</div>
+                <div class="block-annotation">Ensures formulas work correctly for k=0 and k=n.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-theorem" id="block-35" data-latex="\sum_{k=0}^{n} \binom{n}{k} = 2^n" data-label="Sum of Binomial Coefficients" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Sum of Binomial Coefficients</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\sum_{k=0}^{n} \binom{n}{k} = 2^n$$</div>
+                <div class="block-annotation">Summing all k-element subsets for all k equals the total number of subsets.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-36" style="--z-index: 103;">
+            <h2 class="section-title">7. Binomial Probabilities</h2>
+        </div>
+        
+        <div class="text-block block-text" id="block-37"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Setting</div>
+            <div class="block-content"><p>Consider n independent coin tosses where P(Heads) = p for each toss.</p></div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-38" data-latex="P(\text{specific sequence with } k \text{ heads}) = p^k(1-p)^{n-k}" data-label="Probability of Specific Sequence" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Probability of Specific Sequence</div>
+            <div class="block-content-row">
+                <div class="block-math">$$P(\text{specific sequence with } k \text{ heads}) = p^k(1-p)^{n-k}$$</div>
+                <div class="block-annotation">By independence, multiply probabilities; every k-head sequence has the same probability.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-39" data-latex="\binom{n}{k}" data-label="Number of k-Head Sequences" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Number of k-Head Sequences</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\binom{n}{k}$$</div>
+                <div class="block-annotation">Choose which k of the n positions show heads.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-theorem" id="block-40" data-latex="P(k \text{ heads in } n \text{ tosses}) = \binom{n}{k} p^k (1-p)^{n-k}" data-label="Binomial Probability Formula" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Binomial Probability Formula</div>
+            <div class="block-content-row">
+                <div class="block-math">$$P(k \text{ heads in } n \text{ tosses}) = \binom{n}{k} p^k (1-p)^{n-k}$$</div>
+                <div class="block-annotation">Combines counting with independence to give the binomial distribution.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-41" data-latex="\sum_{k=0}^{n} \binom{n}{k} p^k (1-p)^{n-k} = (p + (1-p))^n = 1" data-label="Verification" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Verification</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\sum_{k=0}^{n} \binom{n}{k} p^k (1-p)^{n-k} = (p + (1-p))^n = 1$$</div>
+                <div class="block-annotation">Probabilities sum to 1, as required (this is the binomial theorem).</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-42" style="--z-index: 103;">
+            <h2 class="section-title">8. Example: Conditional Probability with Counting</h2>
+        </div>
+        
+        <div class="text-block block-text" id="block-43"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Problem</div>
+            <div class="block-content"><p>In 10 independent coin tosses, given that exactly 3 heads occurred (event B), what is P(first two tosses were heads | B)?</p></div>
+        </div>
+        
+        <div class="math-block block-note" id="block-44" data-latex="\text{Inside event } B, \text{ all outcomes are equally likely.}" data-label="Key Observation" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Key Observation</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Inside event } B, \text{ all outcomes are equally likely.}$$</div>
+                <div class="block-annotation">Each 3-head sequence has the same probability, so we can use counting.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-45" data-latex="|B| = \binom{10}{3} = 120" data-label="Size of Conditioning Event" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Size of Conditioning Event</div>
+            <div class="block-content-row">
+                <div class="block-math">$$|B| = \binom{10}{3} = 120$$</div>
+                <div class="block-annotation">Total number of 10-toss sequences with exactly 3 heads.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-46" data-latex="|A \cap B| = \binom{8}{1} = 8" data-label="Size of Intersection" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Size of Intersection</div>
+            <div class="block-content-row">
+                <div class="block-math">$$|A \cap B| = \binom{8}{1} = 8$$</div>
+                <div class="block-annotation">First two tosses are heads; choose 1 of remaining 8 slots for the third head.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-47" data-latex="P(A \mid B) = \frac{|A \cap B|}{|B|} = \frac{8}{120} = \frac{1}{15}" data-label="Conditional Probability" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Conditional Probability</div>
+            <div class="block-content-row">
+                <div class="block-math">$$P(A \mid B) = \frac{|A \cap B|}{|B|} = \frac{8}{120} = \frac{1}{15}$$</div>
+                <div class="block-annotation">Conditioning created a uniform distribution, enabling counting.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-48" style="--z-index: 103;">
+            <h2 class="section-title">9. Partitions and Multinomial Coefficients</h2>
+        </div>
+        
+        <div class="text-block block-text" id="block-49"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Problem</div>
+            <div class="block-content"><p>How many ways can we partition n elements into r groups of specified sizes n₁, n₂, ..., nᵣ where the sizes sum to n?</p></div>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-50" data-latex="\binom{n}{n_1, n_2, \ldots, n_r} = \frac{n!}{n_1! \cdot n_2! \cdot \ldots \cdot n_r!} \quad \text{where } \sum_{i=1}^r n_i = n" data-label="Multinomial Coefficient" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Multinomial Coefficient</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\binom{n}{n_1, n_2, \ldots, n_r} = \frac{n!}{n_1! \cdot n_2! \cdot \ldots \cdot n_r!} \quad \text{where } \sum_{i=1}^r n_i = n$$</div>
+                <div class="block-annotation">Generalizes binomial coefficients to partitions into r groups.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-51" data-latex="\binom{n}{k} = \binom{n}{k, n-k} = \frac{n!}{k!(n-k)!}" data-label="Special Case" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Special Case</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\binom{n}{k} = \binom{n}{k, n-k} = \frac{n!}{k!(n-k)!}$$</div>
+                <div class="block-annotation">Binomial coefficient is the r=2 case of the multinomial.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-52" style="--z-index: 102;">
+            <h3 class="section-title">Example: Card Dealing</h3>
+        </div>
+        
+        <div class="text-block block-text" id="block-53"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Setup</div>
+            <div class="block-content"><p>A 52-card deck is dealt to 4 players, each receiving 13 cards.</p></div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-54" data-latex="|\Omega| = \frac{52!}{13! \cdot 13! \cdot 13! \cdot 13!} = \frac{52!}{(13!)^4}" data-label="Total Partitions" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Total Partitions</div>
+            <div class="block-content-row">
+                <div class="block-math">$$|\Omega| = \frac{52!}{13! \cdot 13! \cdot 13! \cdot 13!} = \frac{52!}{(13!)^4}$$</div>
+                <div class="block-annotation">Number of ways to deal 52 cards into 4 hands of 13.</div>
+            </div>
+            
+        </div>
+        
+        <div class="text-block block-text" id="block-55"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Problem</div>
+            <div class="block-content"><p>What is the probability that each player receives exactly one ace?</p></div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-56" data-latex="|A| = 4! \cdot \frac{48!}{(12!)^4}" data-label="Favorable Outcomes" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Favorable Outcomes</div>
+            <div class="block-content-row">
+                <div class="block-math">$$|A| = 4! \cdot \frac{48!}{(12!)^4}$$</div>
+                <div class="block-annotation">Distribute 4 aces (one per player) in 4! ways, then partition remaining 48 cards.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-57" data-latex="P(\text{each player gets one ace}) = \frac{4! \cdot \frac{48!}{(12!)^4}}{\frac{52!}{(13!)^4}}" data-label="Final Probability" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Final Probability</div>
+            <div class="block-content-row">
+                <div class="block-math">$$P(\text{each player gets one ace}) = \frac{4! \cdot \frac{48!}{(12!)^4}}{\frac{52!}{(13!)^4}}$$</div>
+                <div class="block-annotation">Ratio of favorable partitions to total partitions.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-58" style="--z-index: 103;">
+            <h2 class="section-title">10. Summary: Key Counting Formulas</h2>
+        </div>
+        
+        <div class="math-block block-result" id="block-59" data-latex="\text{Arrangements of } n \text{ elements}: \quad n!" data-label="Permutations" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Permutations</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Arrangements of } n \text{ elements}: \quad n!$$</div>
+                <div class="block-annotation">Order matters, use all elements.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-60" data-latex="\text{Subsets of } n \text{ elements}: \quad 2^n" data-label="Subsets" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Subsets</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Subsets of } n \text{ elements}: \quad 2^n$$</div>
+                <div class="block-annotation">Each element is either in or out.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-61" data-latex="\text{$k$-element subsets from } n: \quad \binom{n}{k} = \frac{n!}{k!(n-k)!}" data-label="Combinations" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Combinations</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{$k$-element subsets from } n: \quad \binom{n}{k} = \frac{n!}{k!(n-k)!}$$</div>
+                <div class="block-annotation">Order doesn&#x27;t matter, select k elements.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-62" data-latex="\text{Partitions into groups of sizes } n_1, \ldots, n_r: \quad \frac{n!}{n_1! n_2! \cdots n_r!}" data-label="Partitions" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Partitions</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Partitions into groups of sizes } n_1, \ldots, n_r: \quad \frac{n!}{n_1! n_2! \cdots n_r!}$$</div>
+                <div class="block-annotation">Generalizes combinations to multiple groups.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-63" data-latex="\text{Conditioning can create uniform distributions even when the original space is not uniform.}" data-label="Key Insight" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Key Insight</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Conditioning can create uniform distributions even when the original space is not uniform.}$$</div>
+                <div class="block-annotation">This technique simplifies many conditional probability calculations.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+    </div>
+    
+    
+    <script>
+        
+        // Detect annotations that wrapped below their math and add .wrapped class
+        function detectWrappedAnnotations() {
+            document.querySelectorAll('.block-content-row').forEach(row => {
+                const math = row.querySelector('.block-math');
+                const annotation = row.querySelector('.block-annotation');
+                if (math && annotation) {
+                    if (annotation.offsetTop > math.offsetTop + 10) {
+                        annotation.classList.add('wrapped');
+                    } else {
+                        annotation.classList.remove('wrapped');
+                    }
+                }
+            });
+        }
+
+        // Scroll fade indicators for overflowing math blocks
+        function initScrollIndicators() {
+            document.querySelectorAll('.block-math').forEach(el => {
+                const updateIndicators = () => {
+                    const hasOverflow = el.scrollWidth > el.clientWidth;
+                    const scrolledRight = el.scrollLeft > 0;
+                    const scrolledEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+
+                    el.classList.toggle('has-overflow', hasOverflow);
+                    el.classList.toggle('scrolled-right', scrolledRight);
+                    el.classList.toggle('scrolled-end', scrolledEnd);
+                };
+
+                updateIndicators();
+                el.addEventListener('scroll', updateIndicators);
+            });
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            
+        // Render math with KaTeX
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            throwOnError: false
+        });
+
+
+            document.fonts.ready.then(() => {
+                requestAnimationFrame(() => {
+                    document.body.style.visibility = 'visible';
+                    detectWrappedAnnotations();initScrollIndicators();
+                });
+            });
+
+            // Outline navigation
+            
+            
+            
+        });
+
+        window.addEventListener('resize', detectWrappedAnnotations);
+        window.addEventListener('resize', initScrollIndicators);
+        
+        
+    </script>
+</body>
+</html>
