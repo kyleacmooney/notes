@@ -985,12 +985,24 @@
                     // Element's internal padding provides natural visual spacing
                     scrollTarget = targetPosition - navHeight;
                 } else {
-                    // Desktop: account for sticky header chain and padding
-                    const topStyle = getComputedStyle(target).top;
-                    const topOffset = topStyle !== 'auto' ? parseInt(topStyle) || 0 : 0;
-                    const paddingTop = parseInt(getComputedStyle(target).paddingTop) || 0;
-                    // Position title text at the sticky offset
-                    scrollTarget = targetPosition + paddingTop - topOffset;
+                    // Desktop: calculate sticky offset based on section level
+                    // Each level stacks below the headers above it
+                    const root = getComputedStyle(document.documentElement);
+                    const sectionHeight = parseInt(root.getPropertyValue('--section-height')) || 70;
+                    const subsectionHeight = parseInt(root.getPropertyValue('--subsection-height')) || 64;
+
+                    let stickyOffset = navHeight;
+                    if (target.classList.contains('section-level-2')) {
+                        // Level 2 sits below nav + level 1
+                        stickyOffset += sectionHeight;
+                    } else if (target.classList.contains('section-level-3')) {
+                        // Level 3 sits below nav + level 1 + level 2
+                        stickyOffset += sectionHeight + subsectionHeight;
+                    }
+                    // Level 1 just needs navHeight (already set)
+
+                    // Position header at its sticky offset
+                    scrollTarget = targetPosition - stickyOffset;
                 }
 
                 // Restore sticky positioning
