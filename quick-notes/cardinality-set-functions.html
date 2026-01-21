@@ -1026,6 +1026,11 @@
         // Skip in PyQt viewer (viewer has its own implementation via QWebChannel)
         if (typeof qt === 'undefined') {
             function staticSiteScrollToSection(target) {
+                // Check if we're on mobile (sticky headers disabled)
+                const isMobile = window.matchMedia('(max-width: 600px)').matches;
+                const navHeight = parseInt(getComputedStyle(document.documentElement)
+                    .getPropertyValue('--nav-height')) || 44;
+
                 // Temporarily remove sticky to get true positions
                 const allHeaders = document.querySelectorAll('.section-header');
                 allHeaders.forEach(h => h.style.position = 'static');
@@ -1033,17 +1038,27 @@
                 // Force reflow
                 void target.offsetTop;
 
-                // Get target position and its sticky top offset
+                // Get target position
                 const rect = target.getBoundingClientRect();
                 const targetPosition = rect.top + window.scrollY;
-                const topStyle = getComputedStyle(target).top;
-                const topOffset = topStyle !== 'auto' ? parseInt(topStyle) || 0 : 0;
+
+                let scrollTarget;
+                if (isMobile) {
+                    // Mobile: position element top just below nav bar
+                    // Element's internal padding provides natural visual spacing
+                    scrollTarget = targetPosition - navHeight;
+                } else {
+                    // Desktop: account for sticky header chain and padding
+                    const topStyle = getComputedStyle(target).top;
+                    const topOffset = topStyle !== 'auto' ? parseInt(topStyle) || 0 : 0;
+                    const paddingTop = parseInt(getComputedStyle(target).paddingTop) || 0;
+                    // Position title text at the sticky offset
+                    scrollTarget = targetPosition + paddingTop - topOffset;
+                }
 
                 // Restore sticky positioning
                 allHeaders.forEach(h => h.style.position = '');
 
-                // Scroll with offset (8px buffer for visual breathing room)
-                const scrollTarget = targetPosition - topOffset - 8;
                 window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
             }
 
