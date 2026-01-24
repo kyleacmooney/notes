@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#1a1a1e">
-    <title>Lecture 5 Discrete Random Variables I</title>
+    <title>Lecture 6 Discrete Random Variables Ii</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
@@ -861,28 +861,23 @@
 <body>
     
     <nav class="nav-header">
-        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Probability</a> / <a href="#">Lecture 5 Discrete Random Variables I</a></div>
+        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Probability</a> / <a href="#">Lecture 6 Discrete Random Variables Ii</a></div>
     </nav>
     <div class="header">
-        <h1>Lecture 5 Discrete Random Variables I</h1>
+        <h1>Lecture 6 Discrete Random Variables Ii</h1>
     </div>
     <div class="content">
         
         <div class="context-area">
-            <p class="context">Introduction to random variables as functions that assign numerical values to experimental outcomes, covering their probability descriptions (PMFs) and summary statistics (expectation, variance).</p>
+            <p class="context">This lecture extends the random variable framework with three major concepts: the danger of applying nonlinear functions to expectations, conditional expectations with the Total Expectation Theorem for divide-and-conquer calculations, and the geometric distribution&#x27;s memorylessness property. It concludes with joint PMFs for analyzing relationships between multiple random variables.</p>
         </div>
         <div class="section-container">
 
         <div class="section-header section-level-1" id="block-0" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="0" title="Collapse section">▾</button><h2 class="section-title" data-block-id="0">1. Random Variables: Definition and Structure</h2>
+            <button class="section-collapse-btn" data-block-id="0" title="Collapse section">▾</button><h2 class="section-title" data-block-id="0">1. Review: Random Variables and Expectation</h2>
         </div>
         
-        <div class="text-block block-text" id="block-1"  style="--accent-color: #909098">
-            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Motivation</div>
-            <div class="block-content"><p>Random variables allow us to assign numerical values to experimental outcomes, enabling the full machinery of calculus and algebra to be applied to probability problems. The key conceptual point: a random variable is neither random nor a variable—it is a deterministic function. The randomness comes entirely from the experiment (selecting an outcome ω), not from the function itself.</p></div>
-        </div>
-        
-        <div class="math-block block-definition" id="block-2" data-latex="X: \Omega \to \mathbb{R}" data-label="Random Variable" style="--accent-color: #6b8cce">
+        <div class="math-block block-definition" id="block-1" data-latex="X: \Omega \to \mathbb{R}" data-label="Random Variable" style="--accent-color: #6b8cce">
             <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Random Variable</div>
             <div class="block-content-row">
                 <div class="block-math">$$X: \Omega \to \mathbb{R}$$</div>
@@ -891,267 +886,483 @@
             
         </div>
         
-        <div class="math-block block-note" id="block-3" data-latex="\text{Given } X: \Omega \to \mathbb{R}, \text{ any } g: \mathbb{R} \to \mathbb{R} \text{ yields a new RV } Y = g(X)" data-label="Multiple Random Variables" style="--accent-color: #707078">
-            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Multiple Random Variables</div>
+        <div class="math-block block-definition" id="block-2" data-latex="p_X(x) = P(X = x)" data-label="Probability Mass Function" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Probability Mass Function</div>
             <div class="block-content-row">
-                <div class="block-math">$$\text{Given } X: \Omega \to \mathbb{R}, \text{ any } g: \mathbb{R} \to \mathbb{R} \text{ yields a new RV } Y = g(X)$$</div>
-                <div class="block-annotation">Once ω determines X, it automatically determines any function of X.</div>
+                <div class="block-math">$$p_X(x) = P(X = x)$$</div>
+                <div class="block-annotation">Gives the probability of each numerical outcome.</div>
             </div>
             
         </div>
         
-        <div class="math-block block-definition" id="block-4" data-latex="\begin{cases} \textbf{Discrete:} & X \text{ takes values in a countable set} \\ \textbf{Continuous:} & X \text{ takes values in a continuous range} \end{cases}" data-label="Discrete vs Continuous" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Discrete vs Continuous</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\begin{cases} \textbf{Discrete:} & X \text{ takes values in a countable set} \\ \textbf{Continuous:} & X \text{ takes values in a continuous range} \end{cases}$$</div>
-                <div class="block-annotation">Discrete uses sums; continuous uses integrals. Concepts transfer between them.</div>
-            </div>
-            
-        <div class="block-explanation">
-            <div class="explanation-header">
-                <span class="toggle-icon">▶</span>
-                <span class="icon">✦</span>
-                <span>Random Variable Range Values</span>
-            </div>
-            <div class="explanation-content"><p>Great question! When we say a random variable $X$ "takes values," we're talking about the <strong>codomain</strong> (or more precisely, the <strong>range</strong>) — the set of possible outcomes that $X$ can output, not the domain.</p>
-
-<p>Here's the key distinction: A random variable $X$ is technically a <em>function</em> that maps from a sample space $\Omega$ (the domain) to the real numbers $\mathbb{R}$ (the codomain). We write this as $X: \Omega \to \mathbb{R}$. The "values" $X$ takes are the outputs of this function — the numbers you actually observe when you perform your random experiment.</p>
-
-<p>For example:
-<ul>
-<li><strong>Discrete:</strong> If $X$ represents the roll of a die, then $X$ takes values in $\{1, 2, 3, 4, 5, 6\}$ — a countable set of specific numbers.</li>
-<li><strong>Continuous:</strong> If $X$ represents the exact time you arrive at work, then $X$ could take any value in an interval like $[7.0, 9.0]$ hours — a continuous range with uncountably many possibilities.</li>
-</ul>
-</p>
-
-<p>So when this definition says "$X$ takes values in a countable set," it means the possible <em>outputs</em> of the random variable form a countable collection (like integers or rationals), whereas continuous random variables can output any real number within some interval.</p></div>
-        </div>
-        </div>
-        </div><!-- end section-container -->
-<div class="section-container">
-
-        <div class="section-header section-level-1" id="block-5" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="5" title="Collapse section">▾</button><h2 class="section-title" data-block-id="5">2. Probability Mass Functions</h2>
-        </div>
-        
-        <div class="math-block block-definition" id="block-6" data-latex="p_X(x) = P(X = x) = P(\{\omega \in \Omega \mid X(\omega) = x\})" data-label="PMF" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> PMF</div>
-            <div class="block-content-row">
-                <div class="block-math">$$p_X(x) = P(X = x) = P(\{\omega \in \Omega \mid X(\omega) = x\})$$</div>
-                <div class="block-annotation">The PMF gives the probability that X takes each possible value.</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-axiom" id="block-7" data-latex="\begin{aligned} &(1) \quad p_X(x) \geq 0 \quad \text{for all } x \\ &(2) \quad \sum_x p_X(x) = 1 \end{aligned}" data-label="PMF Properties" style="--accent-color: #9b7bb8">
-            <div class="block-label" style="color: #9b7bb8"><span class="block-icon">⊢</span> PMF Properties</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\begin{aligned} &(1) \quad p_X(x) \geq 0 \quad \text{for all } x \\ &(2) \quad \sum_x p_X(x) = 1 \end{aligned}$$</div>
-                <div class="block-annotation">Non-negativity and normalization—these are the only constraints a valid PMF must satisfy.</div>
-            </div>
-            
-        </div>
-        
-        <div class="section-header section-level-2" id="block-8" style="--z-index: 102;">
-            <button class="section-collapse-btn" data-block-id="8" title="Collapse section">▾</button><h3 class="section-title" data-block-id="8">2.1. The Geometric PMF</h3>
-        </div>
-        
-        <div class="text-block block-text" id="block-9"  style="--accent-color: #909098">
-            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Setup</div>
-            <div class="block-content"><p>Experiment: Flip a biased coin with P(Heads) = p repeatedly until the first Head appears. Let X be the number of tosses required.</p></div>
-        </div>
-        
-        <div class="math-block block-definition" id="block-10" data-latex="p_X(k) = (1-p)^{k-1} p \quad \text{for } k = 1, 2, 3, \ldots" data-label="Geometric PMF" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Geometric PMF</div>
-            <div class="block-content-row">
-                <div class="block-math">$$p_X(k) = (1-p)^{k-1} p \quad \text{for } k = 1, 2, 3, \ldots$$</div>
-                <div class="block-annotation">Probabilities form a geometric progression—each successive bar is (1−p) times the previous.</div>
-            </div>
-            
-        </div>
-        
-        <div class="section-header section-level-2" id="block-11" style="--z-index: 102;">
-            <button class="section-collapse-btn" data-block-id="11" title="Collapse section">▾</button><h3 class="section-title" data-block-id="11">2.2. The Binomial PMF</h3>
-        </div>
-        
-        <div class="text-block block-text" id="block-12"  style="--accent-color: #909098">
-            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Setup</div>
-            <div class="block-content"><p>Experiment: Toss a coin n times (fixed). Let X be the total number of Heads.</p></div>
-        </div>
-        
-        <div class="math-block block-definition" id="block-13" data-latex="p_X(k) = \binom{n}{k} p^k (1-p)^{n-k} \quad \text{for } k = 0, 1, \ldots, n" data-label="Binomial PMF" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Binomial PMF</div>
-            <div class="block-content-row">
-                <div class="block-math">$$p_X(k) = \binom{n}{k} p^k (1-p)^{n-k} \quad \text{for } k = 0, 1, \ldots, n$$</div>
-                <div class="block-annotation">For large n, this approaches a bell curve shape—a preview of the Central Limit Theorem.</div>
-            </div>
-            
-        </div>
-        </div><!-- end section-container -->
-<div class="section-container">
-
-        <div class="section-header section-level-1" id="block-14" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="14" title="Collapse section">▾</button><h2 class="section-title" data-block-id="14">3. Expected Value</h2>
-        </div>
-        
-        <div class="math-block block-definition" id="block-15" data-latex="E[X] = \sum_x x \cdot p_X(x)" data-label="Expectation" style="--accent-color: #6b8cce">
+        <div class="math-block block-definition" id="block-3" data-latex="E[X] = \sum_x x \cdot p_X(x)" data-label="Expectation" style="--accent-color: #6b8cce">
             <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Expectation</div>
             <div class="block-content-row">
                 <div class="block-math">$$E[X] = \sum_x x \cdot p_X(x)$$</div>
-                <div class="block-annotation">Weighted average of values, with probabilities as weights.</div>
+                <div class="block-annotation">The weighted average of outcomes, interpretable as the center of gravity of the PMF.</div>
             </div>
             
         </div>
         
-        <div class="text-block block-text" id="block-16"  style="--accent-color: #909098">
-            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Interpretations</div>
-            <div class="block-content"><p>Two ways to understand E[X]: (1) Frequency interpretation: the long-run average if the experiment is repeated many times. (2) Physics interpretation: the center of gravity of the PMF viewed as a mass distribution, where bar heights represent masses.</p></div>
-        </div>
-        
-        <div class="math-block block-result" id="block-17" data-latex="X \sim \text{Uniform}\{0, 1, \ldots, n\} \implies E[X] = \frac{n}{2}" data-label="Uniform Distribution Mean" style="--accent-color: #d4a574">
-            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Uniform Distribution Mean</div>
-            <div class="block-content-row">
-                <div class="block-math">$$X \sim \text{Uniform}\{0, 1, \ldots, n\} \implies E[X] = \frac{n}{2}$$</div>
-                <div class="block-annotation">By symmetry, the center of gravity lies at the midpoint—no calculation needed.</div>
-            </div>
-            
-        </div>
-        
-        <div class="section-header section-level-2" id="block-18" style="--z-index: 102;">
-            <button class="section-collapse-btn" data-block-id="18" title="Collapse section">▾</button><h3 class="section-title" data-block-id="18">3.1. The Expected Value Rule (LOTUS)</h3>
-        </div>
-        
-        <div class="math-block block-theorem" id="block-19" data-latex="E[g(X)] = \sum_x g(x) \cdot p_X(x)" data-label="Law of the Unconscious Statistician" style="--accent-color: #c9a227">
-            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Law of the Unconscious Statistician</div>
+        <div class="math-block block-definition" id="block-4" data-latex="E[g(X)] = \sum_x g(x) \cdot p_X(x)" data-label="LOTUS (Law of the Unconscious Statistician)" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> LOTUS (Law of the Unconscious Statistician)</div>
             <div class="block-content-row">
                 <div class="block-math">$$E[g(X)] = \sum_x g(x) \cdot p_X(x)$$</div>
-                <div class="block-annotation">Compute E[g(X)] directly from the PMF of X—no need to derive the PMF of g(X).</div>
+                <div class="block-annotation">Compute expected value of g(X) directly from the PMF of X, without finding the PMF of g(X).</div>
             </div>
             
-        <div class="block-explanation">
-            <div class="explanation-header">
-                <span class="toggle-icon">▶</span>
-                <span class="icon">✦</span>
-                <span>Why LOTUS Works</span>
-            </div>
-            <div class="explanation-content"><p>The Law of the Unconscious Statistician (LOTUS) tells us we can compute $E[g(X)]$ directly using the distribution of $X$, without first finding the distribution of the new random variable $Y = g(X)$. This is incredibly useful in practice!</p>
-
-<p><strong>Intuitive Justification:</strong> The expected value is a probability-weighted average. When we compute $E[g(X)]$, we're asking: "What's the average value of $g(X)$?" For each possible value $x$ that $X$ can take, the transformed value is $g(x)$, and this occurs with probability $p_X(x)$. So we weight each $g(x)$ by how likely it is to occur—which is exactly $\sum_x g(x) \cdot p_X(x)$.</p>
-
-<p><strong>Formal Proof:</strong> Let $Y = g(X)$. By definition of expectation for $Y$:
-$$E[Y] = \sum_y y \cdot p_Y(y)$$
-Now, $p_Y(y) = P(Y = y) = P(g(X) = y) = \sum_{x: g(x) = y} p_X(x)$. Substituting:
-$$E[Y] = \sum_y y \cdot \sum_{x: g(x) = y} p_X(x) = \sum_y \sum_{x: g(x) = y} y \cdot p_X(x)$$
-Since $y = g(x)$ for all $x$ in the inner sum, we can replace $y$ with $g(x)$:
-$$= \sum_y \sum_{x: g(x) = y} g(x) \cdot p_X(x) = \sum_x g(x) \cdot p_X(x)$$
-The last step works because the double sum covers each $x$ exactly once (we're partitioning the $x$-values by their $g(x)$ output).</p>
-
-<p><strong>Why "Unconscious"?</strong> The name comes from the fact that many students use this formula instinctively without realizing it requires proof—they "unconsciously" assume it's true. The key insight is that grouping terms by the output values of $g$ and then ungrouping them gives the same total.</p></div>
-        </div>
         </div>
         
-        <div class="math-block block-note" id="block-20" data-latex="E[g(X)] \neq g(E[X]) \quad \text{in general}" data-label="Nonlinearity Warning" style="--accent-color: #707078">
+        <div class="math-block block-theorem" id="block-5" data-latex="E[\alpha X + \beta] = \alpha E[X] + \beta" data-label="Linearity of Expectation" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Linearity of Expectation</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[\alpha X + \beta] = \alpha E[X] + \beta$$</div>
+                <div class="block-annotation">The only case where expectation commutes with the function.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-6" data-latex="E[g(X)] \neq g(E[X]) \quad \text{in general}" data-label="Nonlinearity Warning" style="--accent-color: #707078">
             <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Nonlinearity Warning</div>
             <div class="block-content-row">
                 <div class="block-math">$$E[g(X)] \neq g(E[X]) \quad \text{in general}$$</div>
-                <div class="block-annotation">The average of squares ≠ the square of the average. Only linear functions commute with expectation.</div>
-            </div>
-            
-        </div>
-        
-        <div class="section-header section-level-2" id="block-21" style="--z-index: 102;">
-            <button class="section-collapse-btn" data-block-id="21" title="Collapse section">▾</button><h3 class="section-title" data-block-id="21">3.2. Linearity of Expectation</h3>
-        </div>
-        
-        <div class="math-block block-theorem" id="block-22" data-latex="\begin{aligned} E[\alpha] &= \alpha \\ E[\alpha X] &= \alpha E[X] \\ E[X + \beta] &= E[X] + \beta \end{aligned}" data-label="Linearity Properties" style="--accent-color: #c9a227">
-            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Linearity Properties</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\begin{aligned} E[\alpha] &= \alpha \\ E[\alpha X] &= \alpha E[X] \\ E[X + \beta] &= E[X] + \beta \end{aligned}$$</div>
-                <div class="block-annotation">Constants pass through; scaling and shifting behave as expected.</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-corollary" id="block-23" data-latex="E[\alpha X + \beta] = \alpha E[X] + \beta" data-label="Combined Linearity" style="--accent-color: #7eb8a8">
-            <div class="block-label" style="color: #7eb8a8"><span class="block-icon">◇</span> Combined Linearity</div>
-            <div class="block-content-row">
-                <div class="block-math">$$E[\alpha X + \beta] = \alpha E[X] + \beta$$</div>
-                <div class="block-annotation">Linear transformations are the unique case where expectations pass through the function.</div>
+                <div class="block-annotation">A critical principle: you cannot reason &#x27;on the average&#x27; with nonlinear functions.</div>
             </div>
             
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
-        <div class="section-header section-level-1" id="block-24" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="24" title="Collapse section">▾</button><h2 class="section-title" data-block-id="24">4. Variance</h2>
+        <div class="section-header section-level-1" id="block-7" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="7" title="Collapse section">▾</button><h2 class="section-title" data-block-id="7">2. Variance and Standard Deviation</h2>
         </div>
         
-        <div class="text-block block-text" id="block-25"  style="--accent-color: #909098">
+        <div class="text-block block-text" id="block-8"  style="--accent-color: #909098">
             <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Motivation</div>
-            <div class="block-content"><p>Expectation tells us where the distribution is centered; variance quantifies how spread out it is around that center.</p></div>
+            <div class="block-content"><p>We want to measure how spread out values are from the mean. A first attempt might be E[X - E[X]], but this always equals zero since positive and negative deviations cancel. The solution is to square the deviations.</p></div>
         </div>
         
-        <div class="math-block block-definition" id="block-26" data-latex="\text{Var}(X) = E[(X - \mu)^2] \quad \text{where } \mu = E[X]" data-label="Variance" style="--accent-color: #6b8cce">
+        <div class="math-block block-definition" id="block-9" data-latex="\text{Var}(X) = E[(X - E[X])^2]" data-label="Variance" style="--accent-color: #6b8cce">
             <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Variance</div>
             <div class="block-content-row">
-                <div class="block-math">$$\text{Var}(X) = E[(X - \mu)^2] \quad \text{where } \mu = E[X]$$</div>
-                <div class="block-annotation">Average squared distance from the mean. Squaring ensures positivity and penalizes outliers.</div>
+                <div class="block-math">$$\text{Var}(X) = E[(X - E[X])^2]$$</div>
+                <div class="block-annotation">Measures the average squared deviation from the mean.</div>
             </div>
             
         </div>
         
-        <div class="math-block block-equation" id="block-27" data-latex="\text{Var}(X) = \sum_x (x - \mu)^2 \, p_X(x)" data-label="Calculation via PMF" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Calculation via PMF</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\text{Var}(X) = \sum_x (x - \mu)^2 \, p_X(x)$$</div>
-                <div class="block-annotation">Direct application of LOTUS with g(x) = (x − μ)².</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-theorem" id="block-28" data-latex="\text{Var}(X) = E[X^2] - (E[X])^2" data-label="Shortcut Formula" style="--accent-color: #c9a227">
-            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Shortcut Formula</div>
+        <div class="math-block block-theorem" id="block-10" data-latex="\text{Var}(X) = E[X^2] - (E[X])^2" data-label="Variance Shortcut Formula" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Variance Shortcut Formula</div>
             <div class="block-content-row">
                 <div class="block-math">$$\text{Var}(X) = E[X^2] - (E[X])^2$$</div>
-                <div class="block-annotation">&quot;Expected value of square minus square of expected value&quot;—often easier to compute.</div>
+                <div class="block-annotation">Often easier to compute than the definition; requires calculating E[X²] and E[X] separately.</div>
             </div>
             
         </div>
         
-        <div class="section-header section-level-2" id="block-29" style="--z-index: 102;">
-            <button class="section-collapse-btn" data-block-id="29" title="Collapse section">▾</button><h3 class="section-title" data-block-id="29">4.1. Properties of Variance</h3>
-        </div>
-        
-        <div class="math-block block-theorem" id="block-30" data-latex="\begin{aligned} &(1) \quad \text{Var}(X) \geq 0 \\ &(2) \quad \text{Var}(X + \beta) = \text{Var}(X) \\ &(3) \quad \text{Var}(\alpha X) = \alpha^2 \text{Var}(X) \end{aligned}" data-label="Variance Properties" style="--accent-color: #c9a227">
-            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Variance Properties</div>
+        <div class="math-block block-definition" id="block-11" data-latex="\sigma_X = \sqrt{\text{Var}(X)}" data-label="Standard Deviation" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Standard Deviation</div>
             <div class="block-content-row">
-                <div class="block-math">$$\begin{aligned} &(1) \quad \text{Var}(X) \geq 0 \\ &(2) \quad \text{Var}(X + \beta) = \text{Var}(X) \\ &(3) \quad \text{Var}(\alpha X) = \alpha^2 \text{Var}(X) \end{aligned}$$</div>
-                <div class="block-annotation">(1) Sum of squares. (2) Shifting moves the mean too. (3) Deviations scale by α, squared deviations by α².</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-corollary" id="block-31" data-latex="\text{Var}(\alpha X + \beta) = \alpha^2 \text{Var}(X)" data-label="Combined Transformation" style="--accent-color: #7eb8a8">
-            <div class="block-label" style="color: #7eb8a8"><span class="block-icon">◇</span> Combined Transformation</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\text{Var}(\alpha X + \beta) = \alpha^2 \text{Var}(X)$$</div>
-                <div class="block-annotation">Additive constants vanish; multiplicative constants square.</div>
+                <div class="block-math">$$\sigma_X = \sqrt{\text{Var}(X)}$$</div>
+                <div class="block-annotation">Returns to the original units of X, making interpretation more natural.</div>
             </div>
             
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
-        <div class="section-header section-level-1" id="block-32" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="32" title="Collapse section">▾</button><h2 class="section-title" data-block-id="32">Key Takeaways</h2>
+        <div class="section-header section-level-1" id="block-12" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="12" title="Collapse section">▾</button><h2 class="section-title" data-block-id="12">3. Example: Random Speed vs. Random Time</h2>
         </div>
         
-        <div class="math-block block-note" id="block-33" data-latex="\begin{aligned} &\bullet \text{ Random variables are functions } \Omega \to \mathbb{R}; \text{ randomness is in the experiment} \\ &\bullet \text{ PMFs satisfy } p_X(x) \geq 0 \text{ and } \sum_x p_X(x) = 1 \\ &\bullet \text{ } E[X] \text{ is the center of gravity (weighted average)} \\ &\bullet \text{ LOTUS: } E[g(X)] = \sum_x g(x) p_X(x), \text{ but } E[g(X)] \neq g(E[X]) \\ &\bullet \text{ Linearity: } E[\alpha X + \beta] = \alpha E[X] + \beta \\ &\bullet \text{ Variance: } \text{Var}(\alpha X + \beta) = \alpha^2 \text{Var}(X) \end{aligned}" data-label="Summary" style="--accent-color: #707078">
-            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Summary</div>
+        <div class="text-block block-text" id="block-13"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Setup</div>
+            <div class="block-content"><p>This example illustrates why expectations don&#x27;t commute with nonlinear functions. Consider traveling a fixed distance d = 200 miles at a randomly chosen speed V, where P(V = 1) = 1/2 (walking) and P(V = 200) = 1/2 (flying). The travel time is T = 200/V.</p></div>
+        </div>
+        
+        <div class="math-block block-equation" id="block-14" data-latex="E[V] = \frac{1}{2}(1) + \frac{1}{2}(200) = 100.5 \text{ mph}" data-label="Expected Speed" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Expected Speed</div>
             <div class="block-content-row">
-                <div class="block-math">$$\begin{aligned} &\bullet \text{ Random variables are functions } \Omega \to \mathbb{R}; \text{ randomness is in the experiment} \\ &\bullet \text{ PMFs satisfy } p_X(x) \geq 0 \text{ and } \sum_x p_X(x) = 1 \\ &\bullet \text{ } E[X] \text{ is the center of gravity (weighted average)} \\ &\bullet \text{ LOTUS: } E[g(X)] = \sum_x g(x) p_X(x), \text{ but } E[g(X)] \neq g(E[X]) \\ &\bullet \text{ Linearity: } E[\alpha X + \beta] = \alpha E[X] + \beta \\ &\bullet \text{ Variance: } \text{Var}(\alpha X + \beta) = \alpha^2 \text{Var}(X) \end{aligned}$$</div>
-                <div class="block-annotation">The essential machinery for working with discrete random variables.</div>
+                <div class="block-math">$$E[V] = \frac{1}{2}(1) + \frac{1}{2}(200) = 100.5 \text{ mph}$$</div>
+                <div class="block-annotation">Straightforward weighted average of the two speeds.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-equation" id="block-15" data-latex="E[T] = \frac{1}{2}(200) + \frac{1}{2}(1) = 100.5 \text{ hours}" data-label="Expected Time" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Expected Time</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[T] = \frac{1}{2}(200) + \frac{1}{2}(1) = 100.5 \text{ hours}$$</div>
+                <div class="block-annotation">When V = 1, T = 200 hours; when V = 200, T = 1 hour.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-equation" id="block-16" data-latex="E[V] \cdot E[T] = 100.5 \times 100.5 \approx 10{,}100" data-label="Product of Expectations" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Product of Expectations</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[V] \cdot E[T] = 100.5 \times 100.5 \approx 10{,}100$$</div>
+                <div class="block-annotation">This is NOT equal to E[VT].</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-equation" id="block-17" data-latex="E[VT] = E[200] = 200" data-label="Expectation of Product" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Expectation of Product</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[VT] = E[200] = 200$$</div>
+                <div class="block-annotation">Since VT = d = 200 always, this is deterministic.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-18" data-latex="E[VT] \neq E[V] \cdot E[T]" data-label="Key Inequality 1" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Key Inequality 1</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[VT] \neq E[V] \cdot E[T]$$</div>
+                <div class="block-annotation">The expectation of a product is not the product of expectations (unless variables are independent AND uncorrelated).</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-19" data-latex="E\left[\frac{200}{V}\right] = 100.5 \neq \frac{200}{E[V]} = \frac{200}{100.5} \approx 2" data-label="Key Inequality 2" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Key Inequality 2</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E\left[\frac{200}{V}\right] = 100.5 \neq \frac{200}{E[V]} = \frac{200}{100.5} \approx 2$$</div>
+                <div class="block-annotation">You cannot compute average time by dividing distance by average speed—this is the nonlinearity trap.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-20" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="20" title="Collapse section">▾</button><h2 class="section-title" data-block-id="20">4. Conditional PMF and Conditional Expectation</h2>
+        </div>
+        
+        <div class="math-block block-definition" id="block-21" data-latex="p_{X \mid A}(x) = P(X = x \mid A)" data-label="Conditional PMF" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Conditional PMF</div>
+            <div class="block-content-row">
+                <div class="block-math">$$p_{X \mid A}(x) = P(X = x \mid A)$$</div>
+                <div class="block-annotation">An ordinary PMF in the &#x27;conditional universe&#x27; where event A is known to have occurred.</div>
+            </div>
+            
+        </div>
+        
+        <div class="text-block block-text" id="block-22"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Example: Conditioning on X ≥ 2</div>
+            <div class="block-content"><p>Let X be uniform on {1, 2, 3, 4}, so p_X(k) = 1/4 for k = 1, 2, 3, 4. Conditioning on A = {X ≥ 2}: remove probability mass for X = 1 and renormalize. The result is p_{X|A}(k) = 1/3 for k = 2, 3, 4.</p></div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-23" data-latex="E[X \mid A] = \sum_x x \cdot p_{X \mid A}(x)" data-label="Conditional Expectation" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Conditional Expectation</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[X \mid A] = \sum_x x \cdot p_{X \mid A}(x)$$</div>
+                <div class="block-annotation">Ordinary expectation using the conditional PMF.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-equation" id="block-24" data-latex="E[X \mid X \geq 2] = \frac{1}{3}(2) + \frac{1}{3}(3) + \frac{1}{3}(4) = 3" data-label="Example Calculation" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Example Calculation</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[X \mid X \geq 2] = \frac{1}{3}(2) + \frac{1}{3}(3) + \frac{1}{3}(4) = 3$$</div>
+                <div class="block-annotation">The conditional mean shifts upward since we&#x27;ve excluded the smallest value.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-25" data-latex="\text{Linearity, LOTUS, etc. all hold for conditional expectations}" data-label="Properties Transfer" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Properties Transfer</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Linearity, LOTUS, etc. all hold for conditional expectations}$$</div>
+                <div class="block-annotation">Conditional expectations ARE ordinary expectations, just in a different probability space.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-26" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="26" title="Collapse section">▾</button><h2 class="section-title" data-block-id="26">5. Total Expectation Theorem</h2>
+        </div>
+        
+        <div class="text-block block-text" id="block-27"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Motivation</div>
+            <div class="block-content"><p>The Total Expectation Theorem provides a divide-and-conquer method for computing expectations. Rather than computing E[X] directly, we partition into scenarios, compute the conditional expectation in each, and combine with a weighted average.</p></div>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-28" data-latex="E[X] = \sum_{i=1}^{n} P(A_i) \cdot E[X \mid A_i]" data-label="Total Expectation Theorem" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Total Expectation Theorem</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[X] = \sum_{i=1}^{n} P(A_i) \cdot E[X \mid A_i]$$</div>
+                <div class="block-annotation">Requires A₁, A₂, ..., Aₙ to form a partition of the sample space (mutually exclusive, collectively exhaustive).</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-29" data-latex="\text{Overall average} = \text{weighted average of conditional averages}" data-label="Intuition" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Intuition</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Overall average} = \text{weighted average of conditional averages}$$</div>
+                <div class="block-annotation">Weights are the scenario probabilities P(Aᵢ).</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-30" data-latex="\begin{aligned} \text{Total Probability:} \quad & P(B) = \sum_i P(A_i)P(B \mid A_i) \\ \text{Total Expectation:} \quad & E[X] = \sum_i P(A_i)E[X \mid A_i] \end{aligned}" data-label="Connection to Total Probability" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Connection to Total Probability</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\begin{aligned} \text{Total Probability:} \quad & P(B) = \sum_i P(A_i)P(B \mid A_i) \\ \text{Total Expectation:} \quad & E[X] = \sum_i P(A_i)E[X \mid A_i] \end{aligned}$$</div>
+                <div class="block-annotation">Same divide-and-conquer structure, but for expectations instead of event probabilities.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-31" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="31" title="Collapse section">▾</button><h2 class="section-title" data-block-id="31">6. Geometric Random Variable</h2>
+        </div>
+        
+        <div class="math-block block-definition" id="block-32" data-latex="X = \text{number of independent tosses until first Head, where } P(\text{Head}) = p" data-label="Geometric Random Variable" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Geometric Random Variable</div>
+            <div class="block-content-row">
+                <div class="block-math">$$X = \text{number of independent tosses until first Head, where } P(\text{Head}) = p$$</div>
+                <div class="block-annotation">Models waiting time for the first success in repeated Bernoulli trials.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-definition" id="block-33" data-latex="p_X(k) = (1-p)^{k-1} p \quad \text{for } k = 1, 2, 3, \ldots" data-label="Geometric PMF" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Geometric PMF</div>
+            <div class="block-content-row">
+                <div class="block-math">$$p_X(k) = (1-p)^{k-1} p \quad \text{for } k = 1, 2, 3, \ldots$$</div>
+                <div class="block-annotation">Requires k-1 tails followed by 1 head; the (1-p)^{k-1} factor decays geometrically.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-34" style="--z-index: 102;">
+            <button class="section-collapse-btn" data-block-id="34" title="Collapse section">▾</button><h3 class="section-title" data-block-id="34">6.1. Expected Value via Total Expectation</h3>
+        </div>
+        
+        <div class="text-block block-text" id="block-35"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Strategy</div>
+            <div class="block-content"><p>We partition by the outcome of the first toss. This creates a recursive structure that we can solve algebraically.</p></div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-36" data-latex="P(\text{1st is H}) = p, \quad E[X \mid \text{1st is H}] = 1" data-label="Case 1: First Toss is Heads" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Case 1: First Toss is Heads</div>
+            <div class="block-content-row">
+                <div class="block-math">$$P(\text{1st is H}) = p, \quad E[X \mid \text{1st is H}] = 1$$</div>
+                <div class="block-annotation">If the first toss is heads, we&#x27;re done immediately.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-37" data-latex="P(\text{1st is T}) = 1-p, \quad E[X \mid \text{1st is T}] = 1 + E[X]" data-label="Case 2: First Toss is Tails" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Case 2: First Toss is Tails</div>
+            <div class="block-content-row">
+                <div class="block-math">$$P(\text{1st is T}) = 1-p, \quad E[X \mid \text{1st is T}] = 1 + E[X]$$</div>
+                <div class="block-annotation">We&#x27;ve &#x27;wasted&#x27; one toss and start fresh—the remaining tosses have the same distribution as the original X.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-38" data-latex="E[X] = p \cdot 1 + (1-p)(1 + E[X])" data-label="Apply Total Expectation" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Apply Total Expectation</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[X] = p \cdot 1 + (1-p)(1 + E[X])$$</div>
+                <div class="block-annotation">Weighted average of the two cases.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-39" data-latex="E[X] = p + (1-p) + (1-p)E[X] = 1 + (1-p)E[X]" data-label="Expand" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Expand</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[X] = p + (1-p) + (1-p)E[X] = 1 + (1-p)E[X]$$</div>
+                <div class="block-annotation">Note that p + (1-p) = 1.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-40" data-latex="E[X] - (1-p)E[X] = 1 \implies pE[X] = 1" data-label="Solve for E[X]" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Solve for E[X]</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[X] - (1-p)E[X] = 1 \implies pE[X] = 1$$</div>
+                <div class="block-annotation">Collect E[X] terms on the left side.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-41" data-latex="\boxed{E[X] = \frac{1}{p}}" data-label="Expected Value of Geometric" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Expected Value of Geometric</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\boxed{E[X] = \frac{1}{p}}$$</div>
+                <div class="block-annotation">Intuition: if p is small (heads is rare), 1/p is large—you expect to wait a long time.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-42" style="--z-index: 102;">
+            <button class="section-collapse-btn" data-block-id="42" title="Collapse section">▾</button><h3 class="section-title" data-block-id="42">6.2. Memorylessness Property</h3>
+        </div>
+        
+        <div class="text-block block-text" id="block-43"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Key Insight</div>
+            <div class="block-content"><p>Independent coin flips have no memory. The fact that you flipped tails previously doesn&#x27;t change the probability of future flips. This leads to a remarkable property unique to the geometric distribution.</p></div>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-44" data-latex="P(X - n = k \mid X > n) = P(X = k) \quad \text{for all } n, k \geq 1" data-label="Memorylessness" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Memorylessness</div>
+            <div class="block-content-row">
+                <div class="block-math">$$P(X - n = k \mid X > n) = P(X = k) \quad \text{for all } n, k \geq 1$$</div>
+                <div class="block-annotation">Given that you&#x27;ve already waited n tosses (all tails), the remaining wait time has the same distribution as starting fresh.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-45" data-latex="\frac{p_X(k+1)}{p_X(k)} = \frac{(1-p)^k p}{(1-p)^{k-1} p} = (1-p) \quad \text{(constant)}" data-label="Geometric Decay Property" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Geometric Decay Property</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\frac{p_X(k+1)}{p_X(k)} = \frac{(1-p)^k p}{(1-p)^{k-1} p} = (1-p) \quad \text{(constant)}$$</div>
+                <div class="block-annotation">The ratio between consecutive PMF values is constant—this is why conditioning just shifts the PMF.</div>
+            </div>
+            
+        </div>
+        
+        <div class="text-block block-text" id="block-46"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Visual Argument</div>
+            <div class="block-content"><p>Plot the geometric PMF as bars at k = 1, 2, 3, ... with geometrically decaying heights. Conditioning on X &gt; n removes the first n bars. The remaining bars maintain their relative proportions (constant ratio), so after renormalizing they form an identical copy of the original PMF, just shifted. This constant-ratio property is unique to the geometric distribution among discrete distributions.</p></div>
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-47" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="47" title="Collapse section">▾</button><h2 class="section-title" data-block-id="47">7. Joint PMFs</h2>
+        </div>
+        
+        <div class="text-block block-text" id="block-48"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Motivation</div>
+            <div class="block-content"><p>To study relationships between random variables (e.g., height vs. weight, or correlated measurements), individual PMFs are insufficient. We need to capture joint probabilities—the probability of specific combinations of values occurring together.</p></div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-49" data-latex="p_{X,Y}(x, y) = P(X = x \text{ and } Y = y)" data-label="Joint PMF" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Joint PMF</div>
+            <div class="block-content-row">
+                <div class="block-math">$$p_{X,Y}(x, y) = P(X = x \text{ and } Y = y)$$</div>
+                <div class="block-annotation">Captures the probability of each combination of values for X and Y.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-axiom" id="block-50" data-latex="\begin{aligned} &(1) \quad p_{X,Y}(x, y) \geq 0 \\ &(2) \quad \sum_x \sum_y p_{X,Y}(x, y) = 1 \end{aligned}" data-label="Properties of Joint PMF" style="--accent-color: #9b7bb8">
+            <div class="block-label" style="color: #9b7bb8"><span class="block-icon">⊢</span> Properties of Joint PMF</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\begin{aligned} &(1) \quad p_{X,Y}(x, y) \geq 0 \\ &(2) \quad \sum_x \sum_y p_{X,Y}(x, y) = 1 \end{aligned}$$</div>
+                <div class="block-annotation">Same non-negativity and normalization as single-variable PMFs.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-51" style="--z-index: 102;">
+            <button class="section-collapse-btn" data-block-id="51" title="Collapse section">▾</button><h3 class="section-title" data-block-id="51">7.1. Marginal PMFs</h3>
+        </div>
+        
+        <div class="math-block block-definition" id="block-52" data-latex="p_X(x) = \sum_y p_{X,Y}(x, y)" data-label="Marginal PMF" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Marginal PMF</div>
+            <div class="block-content-row">
+                <div class="block-math">$$p_X(x) = \sum_y p_{X,Y}(x, y)$$</div>
+                <div class="block-annotation">Recover the individual PMF of X by summing out Y over all its possible values.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-53" data-latex="\text{Sum across a row (or column) to get marginal probability}" data-label="Table Interpretation" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Table Interpretation</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Sum across a row (or column) to get marginal probability}$$</div>
+                <div class="block-annotation">In a joint probability table, marginals appear as row/column totals.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-54" style="--z-index: 102;">
+            <button class="section-collapse-btn" data-block-id="54" title="Collapse section">▾</button><h3 class="section-title" data-block-id="54">7.2. Conditional PMF from Joint</h3>
+        </div>
+        
+        <div class="math-block block-definition" id="block-55" data-latex="p_{X \mid Y}(x \mid y) = \frac{p_{X,Y}(x, y)}{p_Y(y)}" data-label="Conditional PMF from Joint" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Conditional PMF from Joint</div>
+            <div class="block-content-row">
+                <div class="block-math">$$p_{X \mid Y}(x \mid y) = \frac{p_{X,Y}(x, y)}{p_Y(y)}$$</div>
+                <div class="block-annotation">Follows directly from the definition of conditional probability P(A|B) = P(A∩B)/P(B).</div>
+            </div>
+            
+        </div>
+        
+        <div class="text-block block-text" id="block-56"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Interpretation</div>
+            <div class="block-content"><p>To find the conditional PMF of X given Y = y: (1) Fix a value of Y, selecting one row or column of the joint table. (2) The entries in that slice give relative probabilities. (3) Divide by p_Y(y) to renormalize so probabilities sum to 1. The conditional PMF is just a slice of the joint PMF, rescaled.</p></div>
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-57" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="57" title="Collapse section">▾</button><h2 class="section-title" data-block-id="57">Key Takeaways</h2>
+        </div>
+        
+        <div class="math-block block-result" id="block-58" data-latex="E[g(X)] \neq g(E[X]) \text{ in general}" data-label="Takeaway 1" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Takeaway 1</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[g(X)] \neq g(E[X]) \text{ in general}$$</div>
+                <div class="block-annotation">Don&#x27;t reason &#x27;on the average&#x27; with products, ratios, or other nonlinear functions.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-59" data-latex="\text{Conditional expectations are ordinary expectations in a conditional universe}" data-label="Takeaway 2" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Takeaway 2</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Conditional expectations are ordinary expectations in a conditional universe}$$</div>
+                <div class="block-annotation">All standard properties (linearity, LOTUS) transfer directly.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-60" data-latex="E[X] = \sum_i P(A_i) E[X \mid A_i]" data-label="Takeaway 3" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Takeaway 3</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[X] = \sum_i P(A_i) E[X \mid A_i]$$</div>
+                <div class="block-annotation">Total Expectation Theorem: divide and conquer by partitioning into scenarios.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-61" data-latex="X \sim \text{Geometric}(p) \implies E[X] = \frac{1}{p}" data-label="Takeaway 4" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Takeaway 4</div>
+            <div class="block-content-row">
+                <div class="block-math">$$X \sim \text{Geometric}(p) \implies E[X] = \frac{1}{p}$$</div>
+                <div class="block-annotation">Derived elegantly using total expectation and the memoryless property.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-62" data-latex="\text{Memorylessness: } P(X - n = k \mid X > n) = P(X = k)" data-label="Takeaway 5" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Takeaway 5</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Memorylessness: } P(X - n = k \mid X > n) = P(X = k)$$</div>
+                <div class="block-annotation">Given past failures, remaining wait time equals starting fresh—unique to geometric among discrete distributions.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-63" data-latex="p_X(x) = \sum_y p_{X,Y}(x,y), \quad p_{X|Y}(x|y) = \frac{p_{X,Y}(x,y)}{p_Y(y)}" data-label="Takeaway 6" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Takeaway 6</div>
+            <div class="block-content-row">
+                <div class="block-math">$$p_X(x) = \sum_y p_{X,Y}(x,y), \quad p_{X|Y}(x|y) = \frac{p_{X,Y}(x,y)}{p_Y(y)}$$</div>
+                <div class="block-annotation">Joint PMFs capture relationships; marginals are sums; conditionals are renormalized slices.</div>
             </div>
             
         </div>
@@ -1167,16 +1378,18 @@ The last step works because the double sum covers each $x$ exactly once (we're p
         <nav class="outline-nav">
             <a class="outline-item outline-top" href="#" data-block-id="top">Top</a>
                 <div class="outline-divider"></div>
-                <a class="outline-item outline-level-1" href="#block-0" data-block-id="0">1. Random Variables: Definition and Structure</a>
-                <a class="outline-item outline-level-1" href="#block-5" data-block-id="5">2. Probability Mass Functions</a>
-                <a class="outline-item outline-level-2" href="#block-8" data-block-id="8">2.1. The Geometric PMF</a>
-                <a class="outline-item outline-level-2" href="#block-11" data-block-id="11">2.2. The Binomial PMF</a>
-                <a class="outline-item outline-level-1" href="#block-14" data-block-id="14">3. Expected Value</a>
-                <a class="outline-item outline-level-2" href="#block-18" data-block-id="18">3.1. The Expected Value Rule (LOTUS)</a>
-                <a class="outline-item outline-level-2" href="#block-21" data-block-id="21">3.2. Linearity of Expectation</a>
-                <a class="outline-item outline-level-1" href="#block-24" data-block-id="24">4. Variance</a>
-                <a class="outline-item outline-level-2" href="#block-29" data-block-id="29">4.1. Properties of Variance</a>
-                <a class="outline-item outline-level-1" href="#block-32" data-block-id="32">Key Takeaways</a>
+                <a class="outline-item outline-level-1" href="#block-0" data-block-id="0">1. Review: Random Variables and Expectation</a>
+                <a class="outline-item outline-level-1" href="#block-7" data-block-id="7">2. Variance and Standard Deviation</a>
+                <a class="outline-item outline-level-1" href="#block-12" data-block-id="12">3. Example: Random Speed vs. Random Time</a>
+                <a class="outline-item outline-level-1" href="#block-20" data-block-id="20">4. Conditional PMF and Conditional Expectation</a>
+                <a class="outline-item outline-level-1" href="#block-26" data-block-id="26">5. Total Expectation Theorem</a>
+                <a class="outline-item outline-level-1" href="#block-31" data-block-id="31">6. Geometric Random Variable</a>
+                <a class="outline-item outline-level-2" href="#block-34" data-block-id="34">6.1. Expected Value via Total Expectation</a>
+                <a class="outline-item outline-level-2" href="#block-42" data-block-id="42">6.2. Memorylessness Property</a>
+                <a class="outline-item outline-level-1" href="#block-47" data-block-id="47">7. Joint PMFs</a>
+                <a class="outline-item outline-level-2" href="#block-51" data-block-id="51">7.1. Marginal PMFs</a>
+                <a class="outline-item outline-level-2" href="#block-54" data-block-id="54">7.2. Conditional PMF from Joint</a>
+                <a class="outline-item outline-level-1" href="#block-57" data-block-id="57">Key Takeaways</a>
         </nav>
     </div>
     <button class="outline-toggle-btn" id="outlineToggleBtn" onclick="toggleOutline()" title="Show outline">☰</button>
@@ -1352,13 +1565,6 @@ The last step works because the double sum covers each $x$ exactly once (we're p
         });
 
             
-        // Toggle explanation expanded/collapsed on header click
-        document.querySelectorAll('.explanation-header').forEach(header => {
-            header.addEventListener('click', function() {
-                this.parentElement.classList.toggle('expanded');
-            });
-        });
-
 
             // Section collapse and title click
             

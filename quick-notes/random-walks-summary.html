@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#1a1a1e">
-    <title>Lecture 5 Discrete Random Variables I</title>
+    <title>Random Walks Summary</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
@@ -861,326 +861,32 @@
 <body>
     
     <nav class="nav-header">
-        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Probability</a> / <a href="#">Lecture 5 Discrete Random Variables I</a></div>
+        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Quick Notes</a> / <a href="#">Random Walks Summary</a></div>
     </nav>
     <div class="header">
-        <h1>Lecture 5 Discrete Random Variables I</h1>
+        <h1>Random Walks Summary</h1>
     </div>
     <div class="content">
         
         <div class="context-area">
-            <p class="context">Introduction to random variables as functions that assign numerical values to experimental outcomes, covering their probability descriptions (PMFs) and summary statistics (expectation, variance).</p>
-        </div>
-        <div class="section-container">
-
-        <div class="section-header section-level-1" id="block-0" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="0" title="Collapse section">▾</button><h2 class="section-title" data-block-id="0">1. Random Variables: Definition and Structure</h2>
+            <p class="context">Summarizes key concepts from studying random walks: the shift from individual distributions to analyzing trajectories over time, which underpins martingale theory and concentration bounds.</p>
         </div>
         
-        <div class="text-block block-text" id="block-1"  style="--accent-color: #909098">
-            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Motivation</div>
-            <div class="block-content"><p>Random variables allow us to assign numerical values to experimental outcomes, enabling the full machinery of calculus and algebra to be applied to probability problems. The key conceptual point: a random variable is neither random nor a variable—it is a deterministic function. The randomness comes entirely from the experiment (selecting an outcome ω), not from the function itself.</p></div>
+        <div class="text-block block-text" id="block-0"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Key Insight</div>
+            <div class="block-content"><p>The Durrett chapter introduces stochastic processes thinking—analyzing the entire trajectory rather than just individual distributions. This shift from &#x27;what&#x27;s the distribution of Sₙ?&#x27; to &#x27;what happens to the sequence over time?&#x27; is foundational for martingale theory, Markov chains, and concentration bounds needed for learning theory.</p></div>
         </div>
         
-        <div class="math-block block-definition" id="block-2" data-latex="X: \Omega \to \mathbb{R}" data-label="Random Variable" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Random Variable</div>
+        <div class="math-block block-equation" id="block-1" data-latex="S_1, S_2, S_3, \ldots" data-label="Trajectory Analysis" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Trajectory Analysis</div>
             <div class="block-content-row">
-                <div class="block-math">$$X: \Omega \to \mathbb{R}$$</div>
-                <div class="block-annotation">A function assigning a real number to each outcome in the sample space.</div>
+                <div class="block-math">$$S_1, S_2, S_3, \ldots$$</div>
+                <div class="block-annotation">We study the entire sequence of partial sums, not just individual terms.</div>
             </div>
             
         </div>
-        
-        <div class="math-block block-note" id="block-3" data-latex="\text{Given } X: \Omega \to \mathbb{R}, \text{ any } g: \mathbb{R} \to \mathbb{R} \text{ yields a new RV } Y = g(X)" data-label="Multiple Random Variables" style="--accent-color: #707078">
-            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Multiple Random Variables</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\text{Given } X: \Omega \to \mathbb{R}, \text{ any } g: \mathbb{R} \to \mathbb{R} \text{ yields a new RV } Y = g(X)$$</div>
-                <div class="block-annotation">Once ω determines X, it automatically determines any function of X.</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-definition" id="block-4" data-latex="\begin{cases} \textbf{Discrete:} & X \text{ takes values in a countable set} \\ \textbf{Continuous:} & X \text{ takes values in a continuous range} \end{cases}" data-label="Discrete vs Continuous" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Discrete vs Continuous</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\begin{cases} \textbf{Discrete:} & X \text{ takes values in a countable set} \\ \textbf{Continuous:} & X \text{ takes values in a continuous range} \end{cases}$$</div>
-                <div class="block-annotation">Discrete uses sums; continuous uses integrals. Concepts transfer between them.</div>
-            </div>
-            
-        <div class="block-explanation">
-            <div class="explanation-header">
-                <span class="toggle-icon">▶</span>
-                <span class="icon">✦</span>
-                <span>Random Variable Range Values</span>
-            </div>
-            <div class="explanation-content"><p>Great question! When we say a random variable $X$ "takes values," we're talking about the <strong>codomain</strong> (or more precisely, the <strong>range</strong>) — the set of possible outcomes that $X$ can output, not the domain.</p>
-
-<p>Here's the key distinction: A random variable $X$ is technically a <em>function</em> that maps from a sample space $\Omega$ (the domain) to the real numbers $\mathbb{R}$ (the codomain). We write this as $X: \Omega \to \mathbb{R}$. The "values" $X$ takes are the outputs of this function — the numbers you actually observe when you perform your random experiment.</p>
-
-<p>For example:
-<ul>
-<li><strong>Discrete:</strong> If $X$ represents the roll of a die, then $X$ takes values in $\{1, 2, 3, 4, 5, 6\}$ — a countable set of specific numbers.</li>
-<li><strong>Continuous:</strong> If $X$ represents the exact time you arrive at work, then $X$ could take any value in an interval like $[7.0, 9.0]$ hours — a continuous range with uncountably many possibilities.</li>
-</ul>
-</p>
-
-<p>So when this definition says "$X$ takes values in a countable set," it means the possible <em>outputs</em> of the random variable form a countable collection (like integers or rationals), whereas continuous random variables can output any real number within some interval.</p></div>
-        </div>
-        </div>
-        </div><!-- end section-container -->
-<div class="section-container">
-
-        <div class="section-header section-level-1" id="block-5" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="5" title="Collapse section">▾</button><h2 class="section-title" data-block-id="5">2. Probability Mass Functions</h2>
-        </div>
-        
-        <div class="math-block block-definition" id="block-6" data-latex="p_X(x) = P(X = x) = P(\{\omega \in \Omega \mid X(\omega) = x\})" data-label="PMF" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> PMF</div>
-            <div class="block-content-row">
-                <div class="block-math">$$p_X(x) = P(X = x) = P(\{\omega \in \Omega \mid X(\omega) = x\})$$</div>
-                <div class="block-annotation">The PMF gives the probability that X takes each possible value.</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-axiom" id="block-7" data-latex="\begin{aligned} &(1) \quad p_X(x) \geq 0 \quad \text{for all } x \\ &(2) \quad \sum_x p_X(x) = 1 \end{aligned}" data-label="PMF Properties" style="--accent-color: #9b7bb8">
-            <div class="block-label" style="color: #9b7bb8"><span class="block-icon">⊢</span> PMF Properties</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\begin{aligned} &(1) \quad p_X(x) \geq 0 \quad \text{for all } x \\ &(2) \quad \sum_x p_X(x) = 1 \end{aligned}$$</div>
-                <div class="block-annotation">Non-negativity and normalization—these are the only constraints a valid PMF must satisfy.</div>
-            </div>
-            
-        </div>
-        
-        <div class="section-header section-level-2" id="block-8" style="--z-index: 102;">
-            <button class="section-collapse-btn" data-block-id="8" title="Collapse section">▾</button><h3 class="section-title" data-block-id="8">2.1. The Geometric PMF</h3>
-        </div>
-        
-        <div class="text-block block-text" id="block-9"  style="--accent-color: #909098">
-            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Setup</div>
-            <div class="block-content"><p>Experiment: Flip a biased coin with P(Heads) = p repeatedly until the first Head appears. Let X be the number of tosses required.</p></div>
-        </div>
-        
-        <div class="math-block block-definition" id="block-10" data-latex="p_X(k) = (1-p)^{k-1} p \quad \text{for } k = 1, 2, 3, \ldots" data-label="Geometric PMF" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Geometric PMF</div>
-            <div class="block-content-row">
-                <div class="block-math">$$p_X(k) = (1-p)^{k-1} p \quad \text{for } k = 1, 2, 3, \ldots$$</div>
-                <div class="block-annotation">Probabilities form a geometric progression—each successive bar is (1−p) times the previous.</div>
-            </div>
-            
-        </div>
-        
-        <div class="section-header section-level-2" id="block-11" style="--z-index: 102;">
-            <button class="section-collapse-btn" data-block-id="11" title="Collapse section">▾</button><h3 class="section-title" data-block-id="11">2.2. The Binomial PMF</h3>
-        </div>
-        
-        <div class="text-block block-text" id="block-12"  style="--accent-color: #909098">
-            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Setup</div>
-            <div class="block-content"><p>Experiment: Toss a coin n times (fixed). Let X be the total number of Heads.</p></div>
-        </div>
-        
-        <div class="math-block block-definition" id="block-13" data-latex="p_X(k) = \binom{n}{k} p^k (1-p)^{n-k} \quad \text{for } k = 0, 1, \ldots, n" data-label="Binomial PMF" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Binomial PMF</div>
-            <div class="block-content-row">
-                <div class="block-math">$$p_X(k) = \binom{n}{k} p^k (1-p)^{n-k} \quad \text{for } k = 0, 1, \ldots, n$$</div>
-                <div class="block-annotation">For large n, this approaches a bell curve shape—a preview of the Central Limit Theorem.</div>
-            </div>
-            
-        </div>
-        </div><!-- end section-container -->
-<div class="section-container">
-
-        <div class="section-header section-level-1" id="block-14" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="14" title="Collapse section">▾</button><h2 class="section-title" data-block-id="14">3. Expected Value</h2>
-        </div>
-        
-        <div class="math-block block-definition" id="block-15" data-latex="E[X] = \sum_x x \cdot p_X(x)" data-label="Expectation" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Expectation</div>
-            <div class="block-content-row">
-                <div class="block-math">$$E[X] = \sum_x x \cdot p_X(x)$$</div>
-                <div class="block-annotation">Weighted average of values, with probabilities as weights.</div>
-            </div>
-            
-        </div>
-        
-        <div class="text-block block-text" id="block-16"  style="--accent-color: #909098">
-            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Interpretations</div>
-            <div class="block-content"><p>Two ways to understand E[X]: (1) Frequency interpretation: the long-run average if the experiment is repeated many times. (2) Physics interpretation: the center of gravity of the PMF viewed as a mass distribution, where bar heights represent masses.</p></div>
-        </div>
-        
-        <div class="math-block block-result" id="block-17" data-latex="X \sim \text{Uniform}\{0, 1, \ldots, n\} \implies E[X] = \frac{n}{2}" data-label="Uniform Distribution Mean" style="--accent-color: #d4a574">
-            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Uniform Distribution Mean</div>
-            <div class="block-content-row">
-                <div class="block-math">$$X \sim \text{Uniform}\{0, 1, \ldots, n\} \implies E[X] = \frac{n}{2}$$</div>
-                <div class="block-annotation">By symmetry, the center of gravity lies at the midpoint—no calculation needed.</div>
-            </div>
-            
-        </div>
-        
-        <div class="section-header section-level-2" id="block-18" style="--z-index: 102;">
-            <button class="section-collapse-btn" data-block-id="18" title="Collapse section">▾</button><h3 class="section-title" data-block-id="18">3.1. The Expected Value Rule (LOTUS)</h3>
-        </div>
-        
-        <div class="math-block block-theorem" id="block-19" data-latex="E[g(X)] = \sum_x g(x) \cdot p_X(x)" data-label="Law of the Unconscious Statistician" style="--accent-color: #c9a227">
-            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Law of the Unconscious Statistician</div>
-            <div class="block-content-row">
-                <div class="block-math">$$E[g(X)] = \sum_x g(x) \cdot p_X(x)$$</div>
-                <div class="block-annotation">Compute E[g(X)] directly from the PMF of X—no need to derive the PMF of g(X).</div>
-            </div>
-            
-        <div class="block-explanation">
-            <div class="explanation-header">
-                <span class="toggle-icon">▶</span>
-                <span class="icon">✦</span>
-                <span>Why LOTUS Works</span>
-            </div>
-            <div class="explanation-content"><p>The Law of the Unconscious Statistician (LOTUS) tells us we can compute $E[g(X)]$ directly using the distribution of $X$, without first finding the distribution of the new random variable $Y = g(X)$. This is incredibly useful in practice!</p>
-
-<p><strong>Intuitive Justification:</strong> The expected value is a probability-weighted average. When we compute $E[g(X)]$, we're asking: "What's the average value of $g(X)$?" For each possible value $x$ that $X$ can take, the transformed value is $g(x)$, and this occurs with probability $p_X(x)$. So we weight each $g(x)$ by how likely it is to occur—which is exactly $\sum_x g(x) \cdot p_X(x)$.</p>
-
-<p><strong>Formal Proof:</strong> Let $Y = g(X)$. By definition of expectation for $Y$:
-$$E[Y] = \sum_y y \cdot p_Y(y)$$
-Now, $p_Y(y) = P(Y = y) = P(g(X) = y) = \sum_{x: g(x) = y} p_X(x)$. Substituting:
-$$E[Y] = \sum_y y \cdot \sum_{x: g(x) = y} p_X(x) = \sum_y \sum_{x: g(x) = y} y \cdot p_X(x)$$
-Since $y = g(x)$ for all $x$ in the inner sum, we can replace $y$ with $g(x)$:
-$$= \sum_y \sum_{x: g(x) = y} g(x) \cdot p_X(x) = \sum_x g(x) \cdot p_X(x)$$
-The last step works because the double sum covers each $x$ exactly once (we're partitioning the $x$-values by their $g(x)$ output).</p>
-
-<p><strong>Why "Unconscious"?</strong> The name comes from the fact that many students use this formula instinctively without realizing it requires proof—they "unconsciously" assume it's true. The key insight is that grouping terms by the output values of $g$ and then ungrouping them gives the same total.</p></div>
-        </div>
-        </div>
-        
-        <div class="math-block block-note" id="block-20" data-latex="E[g(X)] \neq g(E[X]) \quad \text{in general}" data-label="Nonlinearity Warning" style="--accent-color: #707078">
-            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Nonlinearity Warning</div>
-            <div class="block-content-row">
-                <div class="block-math">$$E[g(X)] \neq g(E[X]) \quad \text{in general}$$</div>
-                <div class="block-annotation">The average of squares ≠ the square of the average. Only linear functions commute with expectation.</div>
-            </div>
-            
-        </div>
-        
-        <div class="section-header section-level-2" id="block-21" style="--z-index: 102;">
-            <button class="section-collapse-btn" data-block-id="21" title="Collapse section">▾</button><h3 class="section-title" data-block-id="21">3.2. Linearity of Expectation</h3>
-        </div>
-        
-        <div class="math-block block-theorem" id="block-22" data-latex="\begin{aligned} E[\alpha] &= \alpha \\ E[\alpha X] &= \alpha E[X] \\ E[X + \beta] &= E[X] + \beta \end{aligned}" data-label="Linearity Properties" style="--accent-color: #c9a227">
-            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Linearity Properties</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\begin{aligned} E[\alpha] &= \alpha \\ E[\alpha X] &= \alpha E[X] \\ E[X + \beta] &= E[X] + \beta \end{aligned}$$</div>
-                <div class="block-annotation">Constants pass through; scaling and shifting behave as expected.</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-corollary" id="block-23" data-latex="E[\alpha X + \beta] = \alpha E[X] + \beta" data-label="Combined Linearity" style="--accent-color: #7eb8a8">
-            <div class="block-label" style="color: #7eb8a8"><span class="block-icon">◇</span> Combined Linearity</div>
-            <div class="block-content-row">
-                <div class="block-math">$$E[\alpha X + \beta] = \alpha E[X] + \beta$$</div>
-                <div class="block-annotation">Linear transformations are the unique case where expectations pass through the function.</div>
-            </div>
-            
-        </div>
-        </div><!-- end section-container -->
-<div class="section-container">
-
-        <div class="section-header section-level-1" id="block-24" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="24" title="Collapse section">▾</button><h2 class="section-title" data-block-id="24">4. Variance</h2>
-        </div>
-        
-        <div class="text-block block-text" id="block-25"  style="--accent-color: #909098">
-            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Motivation</div>
-            <div class="block-content"><p>Expectation tells us where the distribution is centered; variance quantifies how spread out it is around that center.</p></div>
-        </div>
-        
-        <div class="math-block block-definition" id="block-26" data-latex="\text{Var}(X) = E[(X - \mu)^2] \quad \text{where } \mu = E[X]" data-label="Variance" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Variance</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\text{Var}(X) = E[(X - \mu)^2] \quad \text{where } \mu = E[X]$$</div>
-                <div class="block-annotation">Average squared distance from the mean. Squaring ensures positivity and penalizes outliers.</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-equation" id="block-27" data-latex="\text{Var}(X) = \sum_x (x - \mu)^2 \, p_X(x)" data-label="Calculation via PMF" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Calculation via PMF</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\text{Var}(X) = \sum_x (x - \mu)^2 \, p_X(x)$$</div>
-                <div class="block-annotation">Direct application of LOTUS with g(x) = (x − μ)².</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-theorem" id="block-28" data-latex="\text{Var}(X) = E[X^2] - (E[X])^2" data-label="Shortcut Formula" style="--accent-color: #c9a227">
-            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Shortcut Formula</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\text{Var}(X) = E[X^2] - (E[X])^2$$</div>
-                <div class="block-annotation">&quot;Expected value of square minus square of expected value&quot;—often easier to compute.</div>
-            </div>
-            
-        </div>
-        
-        <div class="section-header section-level-2" id="block-29" style="--z-index: 102;">
-            <button class="section-collapse-btn" data-block-id="29" title="Collapse section">▾</button><h3 class="section-title" data-block-id="29">4.1. Properties of Variance</h3>
-        </div>
-        
-        <div class="math-block block-theorem" id="block-30" data-latex="\begin{aligned} &(1) \quad \text{Var}(X) \geq 0 \\ &(2) \quad \text{Var}(X + \beta) = \text{Var}(X) \\ &(3) \quad \text{Var}(\alpha X) = \alpha^2 \text{Var}(X) \end{aligned}" data-label="Variance Properties" style="--accent-color: #c9a227">
-            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Variance Properties</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\begin{aligned} &(1) \quad \text{Var}(X) \geq 0 \\ &(2) \quad \text{Var}(X + \beta) = \text{Var}(X) \\ &(3) \quad \text{Var}(\alpha X) = \alpha^2 \text{Var}(X) \end{aligned}$$</div>
-                <div class="block-annotation">(1) Sum of squares. (2) Shifting moves the mean too. (3) Deviations scale by α, squared deviations by α².</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-corollary" id="block-31" data-latex="\text{Var}(\alpha X + \beta) = \alpha^2 \text{Var}(X)" data-label="Combined Transformation" style="--accent-color: #7eb8a8">
-            <div class="block-label" style="color: #7eb8a8"><span class="block-icon">◇</span> Combined Transformation</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\text{Var}(\alpha X + \beta) = \alpha^2 \text{Var}(X)$$</div>
-                <div class="block-annotation">Additive constants vanish; multiplicative constants square.</div>
-            </div>
-            
-        </div>
-        </div><!-- end section-container -->
-<div class="section-container">
-
-        <div class="section-header section-level-1" id="block-32" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="32" title="Collapse section">▾</button><h2 class="section-title" data-block-id="32">Key Takeaways</h2>
-        </div>
-        
-        <div class="math-block block-note" id="block-33" data-latex="\begin{aligned} &\bullet \text{ Random variables are functions } \Omega \to \mathbb{R}; \text{ randomness is in the experiment} \\ &\bullet \text{ PMFs satisfy } p_X(x) \geq 0 \text{ and } \sum_x p_X(x) = 1 \\ &\bullet \text{ } E[X] \text{ is the center of gravity (weighted average)} \\ &\bullet \text{ LOTUS: } E[g(X)] = \sum_x g(x) p_X(x), \text{ but } E[g(X)] \neq g(E[X]) \\ &\bullet \text{ Linearity: } E[\alpha X + \beta] = \alpha E[X] + \beta \\ &\bullet \text{ Variance: } \text{Var}(\alpha X + \beta) = \alpha^2 \text{Var}(X) \end{aligned}" data-label="Summary" style="--accent-color: #707078">
-            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Summary</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\begin{aligned} &\bullet \text{ Random variables are functions } \Omega \to \mathbb{R}; \text{ randomness is in the experiment} \\ &\bullet \text{ PMFs satisfy } p_X(x) \geq 0 \text{ and } \sum_x p_X(x) = 1 \\ &\bullet \text{ } E[X] \text{ is the center of gravity (weighted average)} \\ &\bullet \text{ LOTUS: } E[g(X)] = \sum_x g(x) p_X(x), \text{ but } E[g(X)] \neq g(E[X]) \\ &\bullet \text{ Linearity: } E[\alpha X + \beta] = \alpha E[X] + \beta \\ &\bullet \text{ Variance: } \text{Var}(\alpha X + \beta) = \alpha^2 \text{Var}(X) \end{aligned}$$</div>
-                <div class="block-annotation">The essential machinery for working with discrete random variables.</div>
-            </div>
-            
-        </div>
-        </div><!-- end section-container -->
     </div>
     
-    <!-- Section Navigation Outline -->
-    <div class="outline-panel" id="outlinePanel">
-        <div class="outline-header">
-            <span class="outline-title">Contents</span>
-            <button class="outline-close" onclick="toggleOutline()" title="Hide outline">×</button>
-        </div>
-        <nav class="outline-nav">
-            <a class="outline-item outline-top" href="#" data-block-id="top">Top</a>
-                <div class="outline-divider"></div>
-                <a class="outline-item outline-level-1" href="#block-0" data-block-id="0">1. Random Variables: Definition and Structure</a>
-                <a class="outline-item outline-level-1" href="#block-5" data-block-id="5">2. Probability Mass Functions</a>
-                <a class="outline-item outline-level-2" href="#block-8" data-block-id="8">2.1. The Geometric PMF</a>
-                <a class="outline-item outline-level-2" href="#block-11" data-block-id="11">2.2. The Binomial PMF</a>
-                <a class="outline-item outline-level-1" href="#block-14" data-block-id="14">3. Expected Value</a>
-                <a class="outline-item outline-level-2" href="#block-18" data-block-id="18">3.1. The Expected Value Rule (LOTUS)</a>
-                <a class="outline-item outline-level-2" href="#block-21" data-block-id="21">3.2. Linearity of Expectation</a>
-                <a class="outline-item outline-level-1" href="#block-24" data-block-id="24">4. Variance</a>
-                <a class="outline-item outline-level-2" href="#block-29" data-block-id="29">4.1. Properties of Variance</a>
-                <a class="outline-item outline-level-1" href="#block-32" data-block-id="32">Key Takeaways</a>
-        </nav>
-    </div>
-    <button class="outline-toggle-btn" id="outlineToggleBtn" onclick="toggleOutline()" title="Show outline">☰</button>
-
     
     <script>
         
@@ -1352,13 +1058,6 @@ The last step works because the double sum covers each $x$ exactly once (we're p
         });
 
             
-        // Toggle explanation expanded/collapsed on header click
-        document.querySelectorAll('.explanation-header').forEach(header => {
-            header.addEventListener('click', function() {
-                this.parentElement.classList.toggle('expanded');
-            });
-        });
-
 
             // Section collapse and title click
             
