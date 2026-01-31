@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#1a1a1e">
-    <title>Lotus Proof</title>
+    <title>Variance Vs Standard Deviation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
@@ -323,80 +323,6 @@
         /* Hidden by collapse - applied via JavaScript */
         .section-collapsed-hidden {
             display: none !important;
-        }
-
-
-        /* Read-only chat display (static site) */
-        .chat-link {
-            font-size: 13px;
-            color: #6b8cce;
-            cursor: pointer;
-            transition: color 0.2s;
-            text-decoration: none;
-        }
-
-        .chat-link:hover {
-            color: #8bacd0;
-        }
-
-        .chat-panel {
-            display: none;
-            background: rgba(20, 20, 24, 0.6);
-            border-top: 1px solid rgba(139, 69, 79, 0.2);
-        }
-
-        .chat-panel.visible {
-            display: block;
-        }
-
-        .chat-messages {
-            max-height: 400px;
-            overflow-y: auto;
-            padding: 16px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .chat-message.user {
-            text-align: right;
-        }
-
-        .chat-message.user .message-content {
-            display: inline-block;
-            background: rgba(139, 69, 79, 0.2);
-            color: #e0e0e8;
-            padding: 8px 14px;
-            border-radius: 16px 16px 4px 16px;
-            font-size: 14px;
-            max-width: 85%;
-            text-align: left;
-        }
-
-        .chat-message.assistant .message-content {
-            background: rgba(107, 140, 206, 0.08);
-            color: #b8b8c0;
-            padding: 12px 16px;
-            border-radius: 4px 16px 16px 16px;
-            font-size: 14px;
-            line-height: 1.7;
-        }
-
-        .chat-message.assistant .message-content p {
-            margin: 10px 0;
-        }
-
-        .chat-message.assistant .message-content p:first-child {
-            margin-top: 0;
-        }
-
-        .chat-message.assistant .message-content p:last-child {
-            margin-bottom: 0;
-        }
-
-        .chat-message.assistant .message-content strong {
-            color: #d0d0d8;
-            font-weight: 500;
         }
 
 
@@ -935,253 +861,100 @@
 <body>
     
     <nav class="nav-header">
-        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Quick Notes</a> / <a href="#">Lotus Proof</a></div>
+        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Quick Notes</a> / <a href="#">Variance Vs Standard Deviation</a></div>
     </nav>
     <div class="header">
-        <h1>Lotus Proof</h1>
+        <h1>Variance Vs Standard Deviation</h1>
     </div>
     <div class="content">
         
         <div class="context-area">
-            <p class="context">Proves that expected values of transformed random variables can be computed directly from the original distribution, avoiding the need to derive the transformed variable&#x27;s distribution</p>
-            <div class="chat-toggle-row">
-                <a class="chat-link" onclick="toggleChat()">💬 Discussion (2 messages)</a>
-            </div>
-            <div class="chat-panel" id="chatPanel">
-                <div class="chat-messages">
-                    
-                <div class="chat-message user">
-                    <div class="message-content">Where do you get a variable&#x27;s distribution from in the first place?</div>
-                </div>
-
-                <div class="chat-message assistant">
-                    <div class="message-content"><p>Great question! This gets at something fundamental that the LOTUS proof takes as a given. A random variable's distribution comes from <strong>modeling the underlying random phenomenon</strong>. There are typically three main sources:</p>
-
-<p><strong>1. Theoretical/Physical Reasoning:</strong> We derive the distribution from the nature of the process. For example, if you're counting successes in $n$ independent trials with probability $p$, that's a Binomial distribution. If you're measuring time between random events (like customer arrivals), that's often modeled as Exponential with some rate $\lambda$. The document's example uses $f(x) = \lambda e^{-\lambda x}$ for $x \geq 0$—this exponential PDF models "waiting times" in many real-world scenarios.</p>
-
-<p><strong>2. Empirical Data:</strong> You collect data and fit a distribution to it. You might observe that your data looks bell-shaped and estimate parameters $\mu$ and $\sigma^2$ for a Normal distribution, or use statistical tests to determine which theoretical distribution best matches your observations.</p>
-
-<p><strong>3. Given as Part of the Problem:</strong> In textbooks and applications, you're often simply told "let $X \sim \text{Exponential}(\lambda)$" or "suppose $X$ has PDF $f(x) = 2x$ for $x \in [0,1]$." The distribution is your starting point.</p>
-
-<p>The beauty of LOTUS is that once you have $f_X(x)$ or $p_X(x)$ from any of these sources, you can compute $E[g(X)]$ directly without having to derive the (often complicated) distribution of $Y = g(X)$ first!</p></div>
-                </div>
-                </div>
-            </div>
+            <p class="context">Explains the relationship between variance and standard deviation, including why both measures exist and when to use each one.</p>
         </div>
         <div class="section-container">
 
         <div class="section-header section-level-1" id="block-0" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="0" title="Collapse section">▾</button><h2 class="section-title" data-block-id="0">Introduction</h2>
+            <button class="section-collapse-btn" data-block-id="0" title="Collapse section">▾</button><h2 class="section-title" data-block-id="0">Notation</h2>
         </div>
         
-        <div class="text-block block-text" id="block-1"  style="--accent-color: #909098">
-            
-            <div class="block-content"><p>LOTUS allows us to compute E[g(X)] directly from the distribution of X, without needing to find the distribution of g(X) first. This is one of the most practically useful results in probability theory.</p></div>
-        </div>
-        </div><!-- end section-container -->
-<div class="section-container">
-
-        <div class="section-header section-level-1" id="block-2" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="2" title="Collapse section">▾</button><h2 class="section-title" data-block-id="2">Statement</h2>
-        </div>
-        
-        <div class="math-block block-theorem" id="block-3" data-latex="E[g(X)] = \sum_x g(x) \cdot p(x)" data-label="LOTUS (Discrete)" style="--accent-color: #c9a227">
-            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> LOTUS (Discrete)</div>
+        <div class="math-block block-definition" id="block-1" data-latex="\sigma_X = \text{standard deviation of random variable } X" data-label="Standard Deviation" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Standard Deviation</div>
             <div class="block-content-row">
-                <div class="block-math">$$E[g(X)] = \sum_x g(x) \cdot p(x)$$</div>
-                <div class="block-annotation">For discrete X with PMF p(x)</div>
+                <div class="block-math">$$\sigma_X = \text{standard deviation of random variable } X$$</div>
+                <div class="block-annotation">Measures spread in the same units as the data.</div>
             </div>
             
         </div>
         
-        <div class="math-block block-theorem" id="block-4" data-latex="E[g(X)] = \int_{-\infty}^{\infty} g(x) \cdot f(x) \, dx" data-label="LOTUS (Continuous)" style="--accent-color: #c9a227">
-            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> LOTUS (Continuous)</div>
+        <div class="math-block block-definition" id="block-2" data-latex="\sigma_X^2 = \text{var}(X)" data-label="Variance" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Variance</div>
             <div class="block-content-row">
-                <div class="block-math">$$E[g(X)] = \int_{-\infty}^{\infty} g(x) \cdot f(x) \, dx$$</div>
-                <div class="block-annotation">For continuous X with PDF f(x)</div>
+                <div class="block-math">$$\sigma_X^2 = \text{var}(X)$$</div>
+                <div class="block-annotation">The square of standard deviation—two notations for the same quantity.</div>
             </div>
             
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
-        <div class="section-header section-level-1" id="block-5" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="5" title="Collapse section">▾</button><h2 class="section-title" data-block-id="5">Proof (Discrete Case)</h2>
+        <div class="section-header section-level-1" id="block-3" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="3" title="Collapse section">▾</button><h2 class="section-title" data-block-id="3">Definitions</h2>
         </div>
         
-        <div class="text-block block-text" id="block-6"  style="--accent-color: #909098">
+        <div class="text-block block-text" id="block-4"  style="--accent-color: #909098">
             
-            <div class="block-content"><p>Let Y = g(X). We start from the definition of expectation and show it reduces to summing over x instead of y.</p></div>
+            <div class="block-content"><p>Variance came first historically. It&#x27;s defined as the expected squared deviation from the mean.</p></div>
         </div>
         
-        <div class="math-block block-proof-step" id="block-7" data-latex="E[Y] = \sum_y y \cdot P(Y = y)" data-label="Step 1: Definition" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 1: Definition</div>
+        <div class="math-block block-definition" id="block-5" data-latex="\text{var}(X) = \sigma_X^2 = E[(X - E[X])^2]" data-label="Variance Formula" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Variance Formula</div>
             <div class="block-content-row">
-                <div class="block-math">$$E[Y] = \sum_y y \cdot P(Y = y)$$</div>
-                <div class="block-annotation">Begin with the standard definition of expected value</div>
+                <div class="block-math">$$\text{var}(X) = \sigma_X^2 = E[(X - E[X])^2]$$</div>
+                <div class="block-annotation">Measures how spread out values are from the mean.</div>
             </div>
             
         </div>
         
-        <div class="math-block block-proof-step" id="block-8" data-latex="P(Y = y) = \sum_{x:\, g(x) = y} p(x)" data-label="Step 2: Probability decomposition" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 2: Probability decomposition</div>
+        <div class="math-block block-definition" id="block-6" data-latex="\sigma_X = \sqrt{\text{var}(X)}" data-label="Standard Deviation Formula" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Standard Deviation Formula</div>
             <div class="block-content-row">
-                <div class="block-math">$$P(Y = y) = \sum_{x:\, g(x) = y} p(x)$$</div>
-                <div class="block-annotation">Sum probabilities of all x values mapping to y</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-9" data-latex="E[Y] = \sum_y y \cdot \sum_{x:\, g(x) = y} p(x)" data-label="Step 3: Substitute" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 3: Substitute</div>
-            <div class="block-content-row">
-                <div class="block-math">$$E[Y] = \sum_y y \cdot \sum_{x:\, g(x) = y} p(x)$$</div>
-                <div class="block-annotation">Replace P(Y=y) with the sum over preimages</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-10" data-latex="= \sum_y \sum_{x:\, g(x) = y} y \cdot p(x)" data-label="Step 4: Rearrange" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 4: Rearrange</div>
-            <div class="block-content-row">
-                <div class="block-math">$$= \sum_y \sum_{x:\, g(x) = y} y \cdot p(x)$$</div>
-                <div class="block-annotation">Move y inside the inner sum</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-11" data-latex="= \sum_y \sum_{x:\, g(x) = y} g(x) \cdot p(x)" data-label="Step 5: Substitute g(x)" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 5: Substitute g(x)</div>
-            <div class="block-content-row">
-                <div class="block-math">$$= \sum_y \sum_{x:\, g(x) = y} g(x) \cdot p(x)$$</div>
-                <div class="block-annotation">Since y = g(x) for each term in the inner sum</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-result" id="block-12" data-latex="= \sum_x g(x) \cdot p(x) \quad \blacksquare" data-label="Result (Discrete)" style="--accent-color: #d4a574">
-            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Result (Discrete)</div>
-            <div class="block-content-row">
-                <div class="block-math">$$= \sum_x g(x) \cdot p(x) \quad \blacksquare$$</div>
-                <div class="block-annotation">The double sum covers each x exactly once since each x maps to exactly one y</div>
+                <div class="block-math">$$\sigma_X = \sqrt{\text{var}(X)}$$</div>
+                <div class="block-annotation">Takes the square root to return to the original units.</div>
             </div>
             
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
-        <div class="section-header section-level-1" id="block-13" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="13" title="Collapse section">▾</button><h2 class="section-title" data-block-id="13">Proof (Continuous Case)</h2>
+        <div class="section-header section-level-1" id="block-7" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="7" title="Collapse section">▾</button><h2 class="section-title" data-block-id="7">When to Use Each</h2>
         </div>
         
-        <div class="text-block block-text" id="block-14"  style="--accent-color: #909098">
+        <div class="text-block block-text" id="block-8"  style="--accent-color: #909098">
             
-            <div class="block-content"><p>Let Y = g(X). We assume g is monotonic and differentiable for simplicity. The proof uses the change of variables technique.</p></div>
+            <div class="block-content"><p>Variance (σ²) has squared units (e.g., dollars²) but is mathematically convenient—it&#x27;s additive for independent variables. Standard deviation (σ) has the same units as X (e.g., dollars), making it more interpretable and on the same scale as your data.</p></div>
         </div>
         
-        <div class="section-header section-level-2" id="block-15" style="--z-index: 102;">
-            <button class="section-collapse-btn" data-block-id="15" title="Collapse section">▾</button><h3 class="section-title" data-block-id="15">For Strictly Increasing g</h3>
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-16" data-latex="F_Y(y) = P(g(X) \leq y) = P(X \leq g^{-1}(y)) = F_X(g^{-1}(y))" data-label="Step 1: CDF of Y" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 1: CDF of Y</div>
+        <div class="math-block block-note" id="block-9" data-latex="\sigma_X^2 \text{ vs } \sigma^2" data-label="Subscript Convention" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Subscript Convention</div>
             <div class="block-content-row">
-                <div class="block-math">$$F_Y(y) = P(g(X) \leq y) = P(X \leq g^{-1}(y)) = F_X(g^{-1}(y))$$</div>
-                <div class="block-annotation">Transform the event using the inverse function</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-17" data-latex="f_Y(y) = f_X(g^{-1}(y)) \cdot \frac{d}{dy}g^{-1}(y)" data-label="Step 2: PDF of Y" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 2: PDF of Y</div>
-            <div class="block-content-row">
-                <div class="block-math">$$f_Y(y) = f_X(g^{-1}(y)) \cdot \frac{d}{dy}g^{-1}(y)$$</div>
-                <div class="block-annotation">Differentiate the CDF using the chain rule</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-18" data-latex="E[Y] = \int_{-\infty}^{\infty} y \cdot f_Y(y) \, dy" data-label="Step 3: Definition" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 3: Definition</div>
-            <div class="block-content-row">
-                <div class="block-math">$$E[Y] = \int_{-\infty}^{\infty} y \cdot f_Y(y) \, dy$$</div>
-                <div class="block-annotation">Start with the definition of expectation for Y</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-19" data-latex="u = g^{-1}(y), \quad y = g(u), \quad dy = g'(u)\, du" data-label="Step 4: Substitution" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 4: Substitution</div>
-            <div class="block-content-row">
-                <div class="block-math">$$u = g^{-1}(y), \quad y = g(u), \quad dy = g'(u)\, du$$</div>
-                <div class="block-annotation">Set up the change of variables</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-20" data-latex="E[Y] = \int_{-\infty}^{\infty} g(u) \cdot f_X(u) \cdot \frac{1}{g'(u)} \cdot g'(u) \, du" data-label="Step 5: Transform integral" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 5: Transform integral</div>
-            <div class="block-content-row">
-                <div class="block-math">$$E[Y] = \int_{-\infty}^{\infty} g(u) \cdot f_X(u) \cdot \frac{1}{g'(u)} \cdot g'(u) \, du$$</div>
-                <div class="block-annotation">Apply substitution—note the g&#x27;(u) terms cancel</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-21" data-latex="= \int_{-\infty}^{\infty} g(u) \cdot f_X(u) \, du" data-label="Step 6: Simplify" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 6: Simplify</div>
-            <div class="block-content-row">
-                <div class="block-math">$$= \int_{-\infty}^{\infty} g(u) \cdot f_X(u) \, du$$</div>
-                <div class="block-annotation">The derivative terms cancel completely</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-result" id="block-22" data-latex="= \int_{-\infty}^{\infty} g(x) \cdot f_X(x) \, dx \quad \blacksquare" data-label="Result (Continuous)" style="--accent-color: #d4a574">
-            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Result (Continuous)</div>
-            <div class="block-content-row">
-                <div class="block-math">$$= \int_{-\infty}^{\infty} g(x) \cdot f_X(x) \, dx \quad \blacksquare$$</div>
-                <div class="block-annotation">Rename dummy variable u back to x</div>
+                <div class="block-math">$$\sigma_X^2 \text{ vs } \sigma^2$$</div>
+                <div class="block-annotation">The subscript X clarifies which random variable; it&#x27;s often dropped when context is clear.</div>
             </div>
             
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
-        <div class="section-header section-level-1" id="block-23" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="23" title="Collapse section">▾</button><h2 class="section-title" data-block-id="23">Why &quot;Unconscious&quot;?</h2>
+        <div class="section-header section-level-1" id="block-10" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="10" title="Collapse section">▾</button><h2 class="section-title" data-block-id="10">Computational Shortcut</h2>
         </div>
         
-        <div class="text-block block-text" id="block-24"  style="--accent-color: #909098">
-            
-            <div class="block-content"><p>The name comes from the fact that students often use this formula without realizing it needs proof—they &quot;unconsciously&quot; assume you can just substitute g(x) into the expectation formula. The theorem validates this intuition!</p></div>
-        </div>
-        </div><!-- end section-container -->
-<div class="section-container">
-
-        <div class="section-header section-level-1" id="block-25" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="25" title="Collapse section">▾</button><h2 class="section-title" data-block-id="25">Example Application</h2>
-        </div>
-        
-        <div class="text-block block-text" id="block-26"  style="--accent-color: #909098">
-            
-            <div class="block-content"><p>Find E[X²] where X ~ Exponential(λ). Using LOTUS, we can compute this directly without finding the distribution of X² first.</p></div>
-        </div>
-        
-        <div class="math-block block-equation" id="block-27" data-latex="E[X^2] = \int_0^{\infty} x^2 \cdot \lambda e^{-\lambda x} \, dx = \frac{2}{\lambda^2}" data-label="Direct Calculation" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Direct Calculation</div>
+        <div class="math-block block-equation" id="block-11" data-latex="\text{var}(X) = E[X^2] - (E[X])^2" data-label="Variance Shortcut" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Variance Shortcut</div>
             <div class="block-content-row">
-                <div class="block-math">$$E[X^2] = \int_0^{\infty} x^2 \cdot \lambda e^{-\lambda x} \, dx = \frac{2}{\lambda^2}$$</div>
-                <div class="block-annotation">LOTUS lets us integrate against the original exponential PDF</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-note" id="block-28" data-latex="\text{LOTUS: integrate } g(x) f_X(x) \quad \text{vs} \quad \text{derive } f_{X^2} \text{ then integrate}" data-label="Key Advantage" style="--accent-color: #707078">
-            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Key Advantage</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\text{LOTUS: integrate } g(x) f_X(x) \quad \text{vs} \quad \text{derive } f_{X^2} \text{ then integrate}$$</div>
-                <div class="block-annotation">Without LOTUS, you&#x27;d need to find the distribution of X² first—much harder!</div>
+                <div class="block-math">$$\text{var}(X) = E[X^2] - (E[X])^2$$</div>
+                <div class="block-annotation">Often much easier to calculate than the definition directly—you&#x27;ll use this constantly.</div>
             </div>
             
         </div>
@@ -1197,13 +970,10 @@
         <nav class="outline-nav">
             <a class="outline-item outline-top" href="#" data-block-id="top">Top</a>
                 <div class="outline-divider"></div>
-                <a class="outline-item outline-level-1" href="#block-0" data-block-id="0">Introduction</a>
-                <a class="outline-item outline-level-1" href="#block-2" data-block-id="2">Statement</a>
-                <a class="outline-item outline-level-1" href="#block-5" data-block-id="5">Proof (Discrete Case)</a>
-                <a class="outline-item outline-level-1" href="#block-13" data-block-id="13">Proof (Continuous Case)</a>
-                <a class="outline-item outline-level-2" href="#block-15" data-block-id="15">For Strictly Increasing g</a>
-                <a class="outline-item outline-level-1" href="#block-23" data-block-id="23">Why &quot;Unconscious&quot;?</a>
-                <a class="outline-item outline-level-1" href="#block-25" data-block-id="25">Example Application</a>
+                <a class="outline-item outline-level-1" href="#block-0" data-block-id="0">Notation</a>
+                <a class="outline-item outline-level-1" href="#block-3" data-block-id="3">Definitions</a>
+                <a class="outline-item outline-level-1" href="#block-7" data-block-id="7">When to Use Each</a>
+                <a class="outline-item outline-level-1" href="#block-10" data-block-id="10">Computational Shortcut</a>
         </nav>
     </div>
     <button class="outline-toggle-btn" id="outlineToggleBtn" onclick="toggleOutline()" title="Show outline">☰</button>
@@ -1258,25 +1028,6 @@
             } else {
                 panel.classList.add('hidden');
                 btn.classList.add('visible');
-            }
-        }
-
-        // Toggle chat panel visibility (read-only)
-        function toggleChat() {
-            const panel = document.getElementById('chatPanel');
-            const link = document.querySelector('.chat-link');
-            if (!panel) return;
-
-            const isVisible = panel.classList.contains('visible');
-            panel.classList.toggle('visible');
-
-            if (link) {
-                const msgCount = panel.querySelectorAll('.chat-message').length;
-                if (isVisible) {
-                    link.textContent = '💬 Discussion (' + msgCount + ' messages)';
-                } else {
-                    link.textContent = '✕ Close discussion';
-                }
             }
         }
 

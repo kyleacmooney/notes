@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#1a1a1e">
-    <title>Lotus Proof</title>
+    <title>Lecture 8 Continuous Random Variables</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
@@ -323,80 +323,6 @@
         /* Hidden by collapse - applied via JavaScript */
         .section-collapsed-hidden {
             display: none !important;
-        }
-
-
-        /* Read-only chat display (static site) */
-        .chat-link {
-            font-size: 13px;
-            color: #6b8cce;
-            cursor: pointer;
-            transition: color 0.2s;
-            text-decoration: none;
-        }
-
-        .chat-link:hover {
-            color: #8bacd0;
-        }
-
-        .chat-panel {
-            display: none;
-            background: rgba(20, 20, 24, 0.6);
-            border-top: 1px solid rgba(139, 69, 79, 0.2);
-        }
-
-        .chat-panel.visible {
-            display: block;
-        }
-
-        .chat-messages {
-            max-height: 400px;
-            overflow-y: auto;
-            padding: 16px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .chat-message.user {
-            text-align: right;
-        }
-
-        .chat-message.user .message-content {
-            display: inline-block;
-            background: rgba(139, 69, 79, 0.2);
-            color: #e0e0e8;
-            padding: 8px 14px;
-            border-radius: 16px 16px 4px 16px;
-            font-size: 14px;
-            max-width: 85%;
-            text-align: left;
-        }
-
-        .chat-message.assistant .message-content {
-            background: rgba(107, 140, 206, 0.08);
-            color: #b8b8c0;
-            padding: 12px 16px;
-            border-radius: 4px 16px 16px 16px;
-            font-size: 14px;
-            line-height: 1.7;
-        }
-
-        .chat-message.assistant .message-content p {
-            margin: 10px 0;
-        }
-
-        .chat-message.assistant .message-content p:first-child {
-            margin-top: 0;
-        }
-
-        .chat-message.assistant .message-content p:last-child {
-            margin-bottom: 0;
-        }
-
-        .chat-message.assistant .message-content strong {
-            color: #d0d0d8;
-            font-weight: 500;
         }
 
 
@@ -935,253 +861,311 @@
 <body>
     
     <nav class="nav-header">
-        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Quick Notes</a> / <a href="#">Lotus Proof</a></div>
+        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Probability</a> / <a href="#">Lecture 8 Continuous Random Variables</a></div>
     </nav>
     <div class="header">
-        <h1>Lotus Proof</h1>
+        <h1>Lecture 8 Continuous Random Variables</h1>
     </div>
     <div class="content">
         
         <div class="context-area">
-            <p class="context">Proves that expected values of transformed random variables can be computed directly from the original distribution, avoiding the need to derive the transformed variable&#x27;s distribution</p>
-            <div class="chat-toggle-row">
-                <a class="chat-link" onclick="toggleChat()">💬 Discussion (2 messages)</a>
-            </div>
-            <div class="chat-panel" id="chatPanel">
-                <div class="chat-messages">
-                    
-                <div class="chat-message user">
-                    <div class="message-content">Where do you get a variable&#x27;s distribution from in the first place?</div>
-                </div>
-
-                <div class="chat-message assistant">
-                    <div class="message-content"><p>Great question! This gets at something fundamental that the LOTUS proof takes as a given. A random variable's distribution comes from <strong>modeling the underlying random phenomenon</strong>. There are typically three main sources:</p>
-
-<p><strong>1. Theoretical/Physical Reasoning:</strong> We derive the distribution from the nature of the process. For example, if you're counting successes in $n$ independent trials with probability $p$, that's a Binomial distribution. If you're measuring time between random events (like customer arrivals), that's often modeled as Exponential with some rate $\lambda$. The document's example uses $f(x) = \lambda e^{-\lambda x}$ for $x \geq 0$—this exponential PDF models "waiting times" in many real-world scenarios.</p>
-
-<p><strong>2. Empirical Data:</strong> You collect data and fit a distribution to it. You might observe that your data looks bell-shaped and estimate parameters $\mu$ and $\sigma^2$ for a Normal distribution, or use statistical tests to determine which theoretical distribution best matches your observations.</p>
-
-<p><strong>3. Given as Part of the Problem:</strong> In textbooks and applications, you're often simply told "let $X \sim \text{Exponential}(\lambda)$" or "suppose $X$ has PDF $f(x) = 2x$ for $x \in [0,1]$." The distribution is your starting point.</p>
-
-<p>The beauty of LOTUS is that once you have $f_X(x)$ or $p_X(x)$ from any of these sources, you can compute $E[g(X)]$ directly without having to derive the (often complicated) distribution of $Y = g(X)$ first!</p></div>
-                </div>
-                </div>
-            </div>
+            <p class="context">Transition from discrete to continuous probability theory, establishing PDFs, CDFs, expectations, and the normal distribution as foundations for later work on joint and conditional continuous distributions.</p>
         </div>
         <div class="section-container">
 
         <div class="section-header section-level-1" id="block-0" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="0" title="Collapse section">▾</button><h2 class="section-title" data-block-id="0">Introduction</h2>
+            <button class="section-collapse-btn" data-block-id="0" title="Collapse section">▾</button><h2 class="section-title" data-block-id="0">1. Probability Density Functions</h2>
         </div>
         
         <div class="text-block block-text" id="block-1"  style="--accent-color: #909098">
-            
-            <div class="block-content"><p>LOTUS allows us to compute E[g(X)] directly from the distribution of X, without needing to find the distribution of g(X) first. This is one of the most practically useful results in probability theory.</p></div>
-        </div>
-        </div><!-- end section-container -->
-<div class="section-container">
-
-        <div class="section-header section-level-1" id="block-2" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="2" title="Collapse section">▾</button><h2 class="section-title" data-block-id="2">Statement</h2>
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Conceptual Shift</div>
+            <div class="block-content"><p>For discrete random variables, we place probability &quot;chunks&quot; at specific points using the PMF. For continuous random variables, we spread one unit of probability mass continuously over the real line using a density function.</p></div>
         </div>
         
-        <div class="math-block block-theorem" id="block-3" data-latex="E[g(X)] = \sum_x g(x) \cdot p(x)" data-label="LOTUS (Discrete)" style="--accent-color: #c9a227">
-            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> LOTUS (Discrete)</div>
+        <div class="math-block block-definition" id="block-2" data-latex="\text{A random variable } X \text{ is \textbf{continuous} if there exists a function } f_X(x) \text{ such that:} \\ P(a \leq X \leq b) = \int_a^b f_X(x) \, dx" data-label="Continuous Random Variable" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Continuous Random Variable</div>
             <div class="block-content-row">
-                <div class="block-math">$$E[g(X)] = \sum_x g(x) \cdot p(x)$$</div>
-                <div class="block-annotation">For discrete X with PMF p(x)</div>
+                <div class="block-math">$$\text{A random variable } X \text{ is \textbf{continuous} if there exists a function } f_X(x) \text{ such that:} \\ P(a \leq X \leq b) = \int_a^b f_X(x) \, dx$$</div>
+                <div class="block-annotation">Probability equals area under the density curve over the interval.</div>
             </div>
             
         </div>
         
-        <div class="math-block block-theorem" id="block-4" data-latex="E[g(X)] = \int_{-\infty}^{\infty} g(x) \cdot f(x) \, dx" data-label="LOTUS (Continuous)" style="--accent-color: #c9a227">
+        <div class="math-block block-note" id="block-3" data-latex="\begin{array}{c|c} \textbf{Discrete} & \textbf{Continuous} \\ \hline \sum & \int \\ \text{PMF } p_X(x) & \text{PDF } f_X(x) \\ P(X \in A) = \sum_{x \in A} p_X(x) & P(X \in A) = \int_A f_X(x) \, dx \end{array}" data-label="Translation Rule" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Translation Rule</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\begin{array}{c|c} \textbf{Discrete} & \textbf{Continuous} \\ \hline \sum & \int \\ \text{PMF } p_X(x) & \text{PDF } f_X(x) \\ P(X \in A) = \sum_{x \in A} p_X(x) & P(X \in A) = \int_A f_X(x) \, dx \end{array}$$</div>
+                <div class="block-annotation">This translation rule lets you convert any discrete formula to its continuous analog.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-4" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="4" title="Collapse section">▾</button><h2 class="section-title" data-block-id="4">2. Properties of the PDF</h2>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-5" data-latex="P(X = a) = \int_a^a f_X(x) \, dx = 0" data-label="Point Probabilities Are Zero" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Point Probabilities Are Zero</div>
+            <div class="block-content-row">
+                <div class="block-math">$$P(X = a) = \int_a^a f_X(x) \, dx = 0$$</div>
+                <div class="block-annotation">An integral over a single point has zero width, hence zero area.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-6" data-latex="f_X(x) \text{ can exceed 1. It is \textbf{not} a probability—it is a density (probability per unit length).}" data-label="PDF Is Not Probability" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> PDF Is Not Probability</div>
+            <div class="block-content-row">
+                <div class="block-math">$$f_X(x) \text{ can exceed 1. It is \textbf{not} a probability—it is a density (probability per unit length).}$$</div>
+                <div class="block-annotation">A common misconception; densities and probabilities are fundamentally different objects.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-axiom" id="block-7" data-latex="\text{1. Non-negativity: } f_X(x) \geq 0 \text{ for all } x \\ \text{2. Normalization: } \int_{-\infty}^{\infty} f_X(x) \, dx = 1" data-label="PDF Requirements" style="--accent-color: #9b7bb8">
+            <div class="block-label" style="color: #9b7bb8"><span class="block-icon">⊢</span> PDF Requirements</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{1. Non-negativity: } f_X(x) \geq 0 \text{ for all } x \\ \text{2. Normalization: } \int_{-\infty}^{\infty} f_X(x) \, dx = 1$$</div>
+                <div class="block-annotation">These are the only two requirements for a valid PDF.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-theorem" id="block-8" data-latex="P(x \leq X \leq x + \delta) \approx f_X(x) \cdot \delta \quad \text{for small } \delta" data-label="Small Interval Approximation" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Small Interval Approximation</div>
+            <div class="block-content-row">
+                <div class="block-math">$$P(x \leq X \leq x + \delta) \approx f_X(x) \cdot \delta \quad \text{for small } \delta$$</div>
+                <div class="block-annotation">The density is probability per unit length—multiply by interval width to get probability.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-9" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="9" title="Collapse section">▾</button><h2 class="section-title" data-block-id="9">3. Expectations and Variances</h2>
+        </div>
+        
+        <div class="math-block block-definition" id="block-10" data-latex="E[X] = \int_{-\infty}^{\infty} x \, f_X(x) \, dx" data-label="Expectation" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Expectation</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[X] = \int_{-\infty}^{\infty} x \, f_X(x) \, dx$$</div>
+                <div class="block-annotation">Interpreted as the center of gravity of the probability mass described by the density.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-theorem" id="block-11" data-latex="E[g(X)] = \int_{-\infty}^{\infty} g(x) \, f_X(x) \, dx" data-label="LOTUS (Continuous)" style="--accent-color: #c9a227">
             <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> LOTUS (Continuous)</div>
             <div class="block-content-row">
-                <div class="block-math">$$E[g(X)] = \int_{-\infty}^{\infty} g(x) \cdot f(x) \, dx$$</div>
-                <div class="block-annotation">For continuous X with PDF f(x)</div>
+                <div class="block-math">$$E[g(X)] = \int_{-\infty}^{\infty} g(x) \, f_X(x) \, dx$$</div>
+                <div class="block-annotation">Law of the Unconscious Statistician—compute expectations without finding the PDF of g(X).</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-definition" id="block-12" data-latex="\text{var}(X) = E[(X - E[X])^2] = \int_{-\infty}^{\infty} (x - E[X])^2 \, f_X(x) \, dx" data-label="Variance" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Variance</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{var}(X) = E[(X - E[X])^2] = \int_{-\infty}^{\infty} (x - E[X])^2 \, f_X(x) \, dx$$</div>
+                <div class="block-annotation">Measures spread of the distribution around the mean.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-equation" id="block-13" data-latex="\text{var}(X) = E[X^2] - (E[X])^2" data-label="Variance Shortcut" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Variance Shortcut</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{var}(X) = E[X^2] - (E[X])^2$$</div>
+                <div class="block-annotation">Often easier to compute than the definition directly.</div>
             </div>
             
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
-        <div class="section-header section-level-1" id="block-5" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="5" title="Collapse section">▾</button><h2 class="section-title" data-block-id="5">Proof (Discrete Case)</h2>
+        <div class="section-header section-level-1" id="block-14" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="14" title="Collapse section">▾</button><h2 class="section-title" data-block-id="14">4. The Continuous Uniform Distribution</h2>
         </div>
         
-        <div class="text-block block-text" id="block-6"  style="--accent-color: #909098">
-            
-            <div class="block-content"><p>Let Y = g(X). We start from the definition of expectation and show it reduces to summing over x instead of y.</p></div>
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-7" data-latex="E[Y] = \sum_y y \cdot P(Y = y)" data-label="Step 1: Definition" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 1: Definition</div>
+        <div class="math-block block-definition" id="block-15" data-latex="X \sim \text{Uniform}[a, b]: \quad f_X(x) = \begin{cases} \frac{1}{b-a} & \text{if } a \leq x \leq b \\ 0 & \text{otherwise} \end{cases}" data-label="Uniform Distribution" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Uniform Distribution</div>
             <div class="block-content-row">
-                <div class="block-math">$$E[Y] = \sum_y y \cdot P(Y = y)$$</div>
-                <div class="block-annotation">Begin with the standard definition of expected value</div>
+                <div class="block-math">$$X \sim \text{Uniform}[a, b]: \quad f_X(x) = \begin{cases} \frac{1}{b-a} & \text{if } a \leq x \leq b \\ 0 & \text{otherwise} \end{cases}$$</div>
+                <div class="block-annotation">Any interval of length δ within [a,b] has the same probability as any other interval of length δ.</div>
             </div>
             
         </div>
         
-        <div class="math-block block-proof-step" id="block-8" data-latex="P(Y = y) = \sum_{x:\, g(x) = y} p(x)" data-label="Step 2: Probability decomposition" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 2: Probability decomposition</div>
+        <div class="math-block block-result" id="block-16" data-latex="E[X] = \frac{a+b}{2} \qquad \text{var}(X) = \frac{(b-a)^2}{12} \qquad \sigma_X = \frac{b-a}{\sqrt{12}}" data-label="Uniform Moments" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Uniform Moments</div>
             <div class="block-content-row">
-                <div class="block-math">$$P(Y = y) = \sum_{x:\, g(x) = y} p(x)$$</div>
-                <div class="block-annotation">Sum probabilities of all x values mapping to y</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-9" data-latex="E[Y] = \sum_y y \cdot \sum_{x:\, g(x) = y} p(x)" data-label="Step 3: Substitute" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 3: Substitute</div>
-            <div class="block-content-row">
-                <div class="block-math">$$E[Y] = \sum_y y \cdot \sum_{x:\, g(x) = y} p(x)$$</div>
-                <div class="block-annotation">Replace P(Y=y) with the sum over preimages</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-10" data-latex="= \sum_y \sum_{x:\, g(x) = y} y \cdot p(x)" data-label="Step 4: Rearrange" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 4: Rearrange</div>
-            <div class="block-content-row">
-                <div class="block-math">$$= \sum_y \sum_{x:\, g(x) = y} y \cdot p(x)$$</div>
-                <div class="block-annotation">Move y inside the inner sum</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-11" data-latex="= \sum_y \sum_{x:\, g(x) = y} g(x) \cdot p(x)" data-label="Step 5: Substitute g(x)" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 5: Substitute g(x)</div>
-            <div class="block-content-row">
-                <div class="block-math">$$= \sum_y \sum_{x:\, g(x) = y} g(x) \cdot p(x)$$</div>
-                <div class="block-annotation">Since y = g(x) for each term in the inner sum</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-result" id="block-12" data-latex="= \sum_x g(x) \cdot p(x) \quad \blacksquare" data-label="Result (Discrete)" style="--accent-color: #d4a574">
-            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Result (Discrete)</div>
-            <div class="block-content-row">
-                <div class="block-math">$$= \sum_x g(x) \cdot p(x) \quad \blacksquare$$</div>
-                <div class="block-annotation">The double sum covers each x exactly once since each x maps to exactly one y</div>
+                <div class="block-math">$$E[X] = \frac{a+b}{2} \qquad \text{var}(X) = \frac{(b-a)^2}{12} \qquad \sigma_X = \frac{b-a}{\sqrt{12}}$$</div>
+                <div class="block-annotation">Mean is the midpoint (by symmetry); standard deviation is proportional to interval width.</div>
             </div>
             
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
-        <div class="section-header section-level-1" id="block-13" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="13" title="Collapse section">▾</button><h2 class="section-title" data-block-id="13">Proof (Continuous Case)</h2>
+        <div class="section-header section-level-1" id="block-17" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="17" title="Collapse section">▾</button><h2 class="section-title" data-block-id="17">5. Cumulative Distribution Functions</h2>
         </div>
         
-        <div class="text-block block-text" id="block-14"  style="--accent-color: #909098">
-            
-            <div class="block-content"><p>Let Y = g(X). We assume g is monotonic and differentiable for simplicity. The proof uses the change of variables technique.</p></div>
-        </div>
-        
-        <div class="section-header section-level-2" id="block-15" style="--z-index: 102;">
-            <button class="section-collapse-btn" data-block-id="15" title="Collapse section">▾</button><h3 class="section-title" data-block-id="15">For Strictly Increasing g</h3>
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-16" data-latex="F_Y(y) = P(g(X) \leq y) = P(X \leq g^{-1}(y)) = F_X(g^{-1}(y))" data-label="Step 1: CDF of Y" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 1: CDF of Y</div>
+        <div class="math-block block-definition" id="block-18" data-latex="F_X(x) = P(X \leq x)" data-label="CDF Definition" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> CDF Definition</div>
             <div class="block-content-row">
-                <div class="block-math">$$F_Y(y) = P(g(X) \leq y) = P(X \leq g^{-1}(y)) = F_X(g^{-1}(y))$$</div>
-                <div class="block-annotation">Transform the event using the inverse function</div>
+                <div class="block-math">$$F_X(x) = P(X \leq x)$$</div>
+                <div class="block-annotation">This single definition works for discrete, continuous, and mixed random variables.</div>
             </div>
             
         </div>
         
-        <div class="math-block block-proof-step" id="block-17" data-latex="f_Y(y) = f_X(g^{-1}(y)) \cdot \frac{d}{dy}g^{-1}(y)" data-label="Step 2: PDF of Y" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 2: PDF of Y</div>
+        <div class="math-block block-equation" id="block-19" data-latex="F_X(x) = \int_{-\infty}^x f_X(t) \, dt" data-label="CDF from PDF" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> CDF from PDF</div>
             <div class="block-content-row">
-                <div class="block-math">$$f_Y(y) = f_X(g^{-1}(y)) \cdot \frac{d}{dy}g^{-1}(y)$$</div>
-                <div class="block-annotation">Differentiate the CDF using the chain rule</div>
+                <div class="block-math">$$F_X(x) = \int_{-\infty}^x f_X(t) \, dt$$</div>
+                <div class="block-annotation">For continuous RVs, the CDF is the accumulated area under the density up to x.</div>
             </div>
             
         </div>
         
-        <div class="math-block block-proof-step" id="block-18" data-latex="E[Y] = \int_{-\infty}^{\infty} y \cdot f_Y(y) \, dy" data-label="Step 3: Definition" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 3: Definition</div>
+        <div class="math-block block-theorem" id="block-20" data-latex="f_X(x) = \frac{d}{dx} F_X(x)" data-label="PDF from CDF" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> PDF from CDF</div>
             <div class="block-content-row">
-                <div class="block-math">$$E[Y] = \int_{-\infty}^{\infty} y \cdot f_Y(y) \, dy$$</div>
-                <div class="block-annotation">Start with the definition of expectation for Y</div>
+                <div class="block-math">$$f_X(x) = \frac{d}{dx} F_X(x)$$</div>
+                <div class="block-annotation">The PDF is the derivative of the CDF (where the derivative exists).</div>
             </div>
             
         </div>
         
-        <div class="math-block block-proof-step" id="block-19" data-latex="u = g^{-1}(y), \quad y = g(u), \quad dy = g'(u)\, du" data-label="Step 4: Substitution" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 4: Substitution</div>
+        <div class="math-block block-note" id="block-21" data-latex="\text{Continuous RVs: smooth curve, } F_X(-\infty) = 0, \; F_X(\infty) = 1, \text{ monotonically increasing} \\ \text{Discrete RVs: staircase function with jumps at points with positive probability}" data-label="CDF Shape" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> CDF Shape</div>
             <div class="block-content-row">
-                <div class="block-math">$$u = g^{-1}(y), \quad y = g(u), \quad dy = g'(u)\, du$$</div>
-                <div class="block-annotation">Set up the change of variables</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-20" data-latex="E[Y] = \int_{-\infty}^{\infty} g(u) \cdot f_X(u) \cdot \frac{1}{g'(u)} \cdot g'(u) \, du" data-label="Step 5: Transform integral" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 5: Transform integral</div>
-            <div class="block-content-row">
-                <div class="block-math">$$E[Y] = \int_{-\infty}^{\infty} g(u) \cdot f_X(u) \cdot \frac{1}{g'(u)} \cdot g'(u) \, du$$</div>
-                <div class="block-annotation">Apply substitution—note the g&#x27;(u) terms cancel</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-21" data-latex="= \int_{-\infty}^{\infty} g(u) \cdot f_X(u) \, du" data-label="Step 6: Simplify" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 6: Simplify</div>
-            <div class="block-content-row">
-                <div class="block-math">$$= \int_{-\infty}^{\infty} g(u) \cdot f_X(u) \, du$$</div>
-                <div class="block-annotation">The derivative terms cancel completely</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-result" id="block-22" data-latex="= \int_{-\infty}^{\infty} g(x) \cdot f_X(x) \, dx \quad \blacksquare" data-label="Result (Continuous)" style="--accent-color: #d4a574">
-            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Result (Continuous)</div>
-            <div class="block-content-row">
-                <div class="block-math">$$= \int_{-\infty}^{\infty} g(x) \cdot f_X(x) \, dx \quad \blacksquare$$</div>
-                <div class="block-annotation">Rename dummy variable u back to x</div>
+                <div class="block-math">$$\text{Continuous RVs: smooth curve, } F_X(-\infty) = 0, \; F_X(\infty) = 1, \text{ monotonically increasing} \\ \text{Discrete RVs: staircase function with jumps at points with positive probability}$$</div>
+                <div class="block-annotation">The CDF always starts at 0, ends at 1, and never decreases.</div>
             </div>
             
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
-        <div class="section-header section-level-1" id="block-23" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="23" title="Collapse section">▾</button><h2 class="section-title" data-block-id="23">Why &quot;Unconscious&quot;?</h2>
+        <div class="section-header section-level-1" id="block-22" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="22" title="Collapse section">▾</button><h2 class="section-title" data-block-id="22">6. Mixed Random Variables</h2>
         </div>
         
-        <div class="text-block block-text" id="block-24"  style="--accent-color: #909098">
+        <div class="text-block block-text" id="block-23"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Motivation</div>
+            <div class="block-content"><p>Not all random variables are purely discrete or continuous. Consider a game: flip a coin—heads gives you exactly $0.50, tails lets you spin a wheel for a uniform prize on [0,1]. This variable has both a point mass at 0.50 and a continuous part.</p></div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-24" data-latex="\text{A \textbf{mixed} random variable has both:} \\ \bullet \text{ Point masses: } P(X = x_i) > 0 \text{ for some specific values} \\ \bullet \text{ Continuous parts: probability spread over intervals}" data-label="Mixed Random Variable" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Mixed Random Variable</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{A \textbf{mixed} random variable has both:} \\ \bullet \text{ Point masses: } P(X = x_i) > 0 \text{ for some specific values} \\ \bullet \text{ Continuous parts: probability spread over intervals}$$</div>
+                <div class="block-annotation">The CDF handles mixed variables naturally—smooth increases for continuous parts, jumps for point masses.</div>
+            </div>
             
-            <div class="block-content"><p>The name comes from the fact that students often use this formula without realizing it needs proof—they &quot;unconsciously&quot; assume you can just substitute g(x) into the expectation formula. The theorem validates this intuition!</p></div>
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
         <div class="section-header section-level-1" id="block-25" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="25" title="Collapse section">▾</button><h2 class="section-title" data-block-id="25">Example Application</h2>
+            <button class="section-collapse-btn" data-block-id="25" title="Collapse section">▾</button><h2 class="section-title" data-block-id="25">7. The Normal (Gaussian) Distribution</h2>
         </div>
         
         <div class="text-block block-text" id="block-26"  style="--accent-color: #909098">
-            
-            <div class="block-content"><p>Find E[X²] where X ~ Exponential(λ). Using LOTUS, we can compute this directly without finding the distribution of X² first.</p></div>
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Why Normal Matters</div>
+            <div class="block-content"><p>If a random variable is the sum of many independent contributions, the sum will be approximately normal regardless of the individual distributions. This is the Central Limit Theorem—it explains why the normal distribution appears everywhere in nature and statistics.</p></div>
         </div>
         
-        <div class="math-block block-equation" id="block-27" data-latex="E[X^2] = \int_0^{\infty} x^2 \cdot \lambda e^{-\lambda x} \, dx = \frac{2}{\lambda^2}" data-label="Direct Calculation" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Direct Calculation</div>
+        <div class="math-block block-definition" id="block-27" data-latex="X \sim N(0, 1): \quad f_X(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}" data-label="Standard Normal" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Standard Normal</div>
             <div class="block-content-row">
-                <div class="block-math">$$E[X^2] = \int_0^{\infty} x^2 \cdot \lambda e^{-\lambda x} \, dx = \frac{2}{\lambda^2}$$</div>
-                <div class="block-annotation">LOTUS lets us integrate against the original exponential PDF</div>
+                <div class="block-math">$$X \sim N(0, 1): \quad f_X(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}$$</div>
+                <div class="block-annotation">Mean 0, variance 1. The benchmark for all normal distributions.</div>
             </div>
             
         </div>
         
-        <div class="math-block block-note" id="block-28" data-latex="\text{LOTUS: integrate } g(x) f_X(x) \quad \text{vs} \quad \text{derive } f_{X^2} \text{ then integrate}" data-label="Key Advantage" style="--accent-color: #707078">
-            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Key Advantage</div>
+        <div class="math-block block-definition" id="block-28" data-latex="X \sim N(\mu, \sigma^2): \quad f_X(x) = \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x-\mu)^2}{2\sigma^2}}" data-label="General Normal" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> General Normal</div>
             <div class="block-content-row">
-                <div class="block-math">$$\text{LOTUS: integrate } g(x) f_X(x) \quad \text{vs} \quad \text{derive } f_{X^2} \text{ then integrate}$$</div>
-                <div class="block-annotation">Without LOTUS, you&#x27;d need to find the distribution of X² first—much harder!</div>
+                <div class="block-math">$$X \sim N(\mu, \sigma^2): \quad f_X(x) = \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$</div>
+                <div class="block-annotation">μ shifts the center; σ controls the width (small σ = narrow peak, large σ = wide curve).</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-theorem" id="block-29" data-latex="\text{If } X \sim N(\mu, \sigma^2) \text{ and } Y = aX + b, \text{ then } Y \sim N(a\mu + b, \, a^2\sigma^2)" data-label="Linear Functions Preserve Normality" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Linear Functions Preserve Normality</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{If } X \sim N(\mu, \sigma^2) \text{ and } Y = aX + b, \text{ then } Y \sim N(a\mu + b, \, a^2\sigma^2)$$</div>
+                <div class="block-annotation">Bell shapes remain bell-shaped under scaling and shifting.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-30" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="30" title="Collapse section">▾</button><h2 class="section-title" data-block-id="30">8. Standardization and Normal Tables</h2>
+        </div>
+        
+        <div class="text-block block-text" id="block-31"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> The Problem</div>
+            <div class="block-content"><p>The CDF of the normal distribution has no closed-form solution—we cannot write a simple formula for P(X ≤ x). The solution is to standardize any normal to N(0,1) and use pre-computed tables.</p></div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-32" data-latex="Z = \frac{X - \mu}{\sigma}" data-label="Standardization (Z-Score)" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Standardization (Z-Score)</div>
+            <div class="block-content-row">
+                <div class="block-math">$$Z = \frac{X - \mu}{\sigma}$$</div>
+                <div class="block-annotation">If X ~ N(μ,σ²), then Z ~ N(0,1). The z-score tells you how many standard deviations X is from its mean.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-33" style="--z-index: 102;">
+            <button class="section-collapse-btn" data-block-id="33" title="Collapse section">▾</button><h3 class="section-title" data-block-id="33">Example Calculation</h3>
+        </div>
+        
+        <div class="text-block block-text" id="block-34"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Problem Setup</div>
+            <div class="block-content"><p>Given X ~ N(2, 16) (so μ = 2, σ = 4), find P(X ≤ 3).</p></div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-35" data-latex="P(X \leq 3) = P\left(\frac{X-2}{4} \leq \frac{3-2}{4}\right) = P(Z \leq 0.25)" data-label="Step 1: Transform the event" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 1: Transform the event</div>
+            <div class="block-content-row">
+                <div class="block-math">$$P(X \leq 3) = P\left(\frac{X-2}{4} \leq \frac{3-2}{4}\right) = P(Z \leq 0.25)$$</div>
+                <div class="block-annotation">Apply the same transformation to both sides of the inequality.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-36" data-latex="\Phi(0.25) \approx 0.5987" data-label="Step 2: Look up in table" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 2: Look up in table</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\Phi(0.25) \approx 0.5987$$</div>
+                <div class="block-annotation">Φ denotes the standard normal CDF, available in statistical tables.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-37" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="37" title="Collapse section">▾</button><h2 class="section-title" data-block-id="37">Key Takeaways</h2>
+        </div>
+        
+        <div class="math-block block-note" id="block-38" data-latex="\begin{enumerate} \item \text{Continuous RVs spread probability via density, not point masses} \item \text{Translation rule: sums} \to \text{integrals, PMF} \to \text{PDF} \item \text{PDF is probability per unit length (can exceed 1)} \item \text{CDF } F_X(x) = P(X \leq x) \text{ unifies all RV types} \item \text{Normal distribution arises from sums of independent contributions (CLT)} \item \text{Standardize } N(\mu, \sigma^2) \to N(0,1) \text{ to use a single table} \end{enumerate}" data-label="Summary" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Summary</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\begin{enumerate} \item \text{Continuous RVs spread probability via density, not point masses} \item \text{Translation rule: sums} \to \text{integrals, PMF} \to \text{PDF} \item \text{PDF is probability per unit length (can exceed 1)} \item \text{CDF } F_X(x) = P(X \leq x) \text{ unifies all RV types} \item \text{Normal distribution arises from sums of independent contributions (CLT)} \item \text{Standardize } N(\mu, \sigma^2) \to N(0,1) \text{ to use a single table} \end{enumerate}$$</div>
+                <div class="block-annotation">These six points capture the essential content of this lecture.</div>
             </div>
             
         </div>
@@ -1197,13 +1181,16 @@
         <nav class="outline-nav">
             <a class="outline-item outline-top" href="#" data-block-id="top">Top</a>
                 <div class="outline-divider"></div>
-                <a class="outline-item outline-level-1" href="#block-0" data-block-id="0">Introduction</a>
-                <a class="outline-item outline-level-1" href="#block-2" data-block-id="2">Statement</a>
-                <a class="outline-item outline-level-1" href="#block-5" data-block-id="5">Proof (Discrete Case)</a>
-                <a class="outline-item outline-level-1" href="#block-13" data-block-id="13">Proof (Continuous Case)</a>
-                <a class="outline-item outline-level-2" href="#block-15" data-block-id="15">For Strictly Increasing g</a>
-                <a class="outline-item outline-level-1" href="#block-23" data-block-id="23">Why &quot;Unconscious&quot;?</a>
-                <a class="outline-item outline-level-1" href="#block-25" data-block-id="25">Example Application</a>
+                <a class="outline-item outline-level-1" href="#block-0" data-block-id="0">1. Probability Density Functions</a>
+                <a class="outline-item outline-level-1" href="#block-4" data-block-id="4">2. Properties of the PDF</a>
+                <a class="outline-item outline-level-1" href="#block-9" data-block-id="9">3. Expectations and Variances</a>
+                <a class="outline-item outline-level-1" href="#block-14" data-block-id="14">4. The Continuous Uniform Distribution</a>
+                <a class="outline-item outline-level-1" href="#block-17" data-block-id="17">5. Cumulative Distribution Functions</a>
+                <a class="outline-item outline-level-1" href="#block-22" data-block-id="22">6. Mixed Random Variables</a>
+                <a class="outline-item outline-level-1" href="#block-25" data-block-id="25">7. The Normal (Gaussian) Distribution</a>
+                <a class="outline-item outline-level-1" href="#block-30" data-block-id="30">8. Standardization and Normal Tables</a>
+                <a class="outline-item outline-level-2" href="#block-33" data-block-id="33">Example Calculation</a>
+                <a class="outline-item outline-level-1" href="#block-37" data-block-id="37">Key Takeaways</a>
         </nav>
     </div>
     <button class="outline-toggle-btn" id="outlineToggleBtn" onclick="toggleOutline()" title="Show outline">☰</button>
@@ -1258,25 +1245,6 @@
             } else {
                 panel.classList.add('hidden');
                 btn.classList.add('visible');
-            }
-        }
-
-        // Toggle chat panel visibility (read-only)
-        function toggleChat() {
-            const panel = document.getElementById('chatPanel');
-            const link = document.querySelector('.chat-link');
-            if (!panel) return;
-
-            const isVisible = panel.classList.contains('visible');
-            panel.classList.toggle('visible');
-
-            if (link) {
-                const msgCount = panel.querySelectorAll('.chat-message').length;
-                if (isVisible) {
-                    link.textContent = '💬 Discussion (' + msgCount + ' messages)';
-                } else {
-                    link.textContent = '✕ Close discussion';
-                }
             }
         }
 

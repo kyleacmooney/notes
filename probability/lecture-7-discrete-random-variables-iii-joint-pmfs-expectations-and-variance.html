@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a1a1e">
+    <title>Lecture 7 Discrete Random Variables Iii  Joint Pmfs Expectations And Variance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    
+    <style>
+
+        :root {
+            --katex-base-size: 1.2em;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Source Sans 3", -apple-system, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(165deg, #1a1a1e 0%, #222226 40%, #1e1e22 100%);
+            color: #c8c8d0;
+            padding: 48px;
+            line-height: 1.7;
+            visibility: hidden;
+        }
+
+        .header {
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(139, 69, 79, 0.3);
+        }
+
+        h1 {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 28px;
+            font-weight: 500;
+            color: #f0ebe3;
+            letter-spacing: 0.01em;
+            margin-bottom: 4px;
+        }
+
+        .header::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #8b454f 0%, transparent 100%);
+            margin-top: 16px;
+        }
+
+        .content {
+            max-width: 800px;
+        }
+
+        /* Section containers */
+        .section-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Math blocks */
+        .math-block {
+            margin: 4px 0;
+            padding: 8px 0 8px 14px;
+            background: none;
+            border: none;
+            border-left: 2px solid var(--accent-color, #8b454f);
+            position: relative;
+        }
+
+        .block-content-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 4px 20px;
+        }
+
+        .block-content-row .block-math {
+            flex: 1 0 auto;
+        }
+
+        .math-block .block-annotation {
+            flex: 0 0 auto;
+            max-width: 220px;
+            font-size: 11px;
+            color: #606068;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .math-block .block-annotation.wrapped {
+            max-width: none;
+            flex-basis: 100%;
+        }
+
+        /* Block labels (Step 1, Theorem, etc.) */
+        .block-label {
+            font-size: 9px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0.7;
+        }
+
+        .block-icon {
+            font-size: 10px;
+            opacity: 0.9;
+        }
+
+        .block-note .block-math {
+            font-size: 0.95em;
+        }
+
+        .block-result {
+            border-left-width: 3px;
+            padding-left: 18px;
+        }
+
+        /* Text blocks */
+        .text-block {
+            margin: 12px 0;
+            padding: 0 4px;
+            background: none;
+            border: none;
+        }
+
+        .text-block .block-label {
+            font-size: 9px;
+            margin-bottom: 4px;
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .text-block .block-content {
+            font-size: 14px;
+            line-height: 1.65;
+            color: #a0a0a8;
+            font-style: italic;
+        }
+
+        .text-block .block-content p {
+            margin: 0 0 8px 0;
+        }
+
+        .text-block .block-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Section headers */
+        .section-header {
+            position: sticky;
+            top: var(--top-offset, 0);
+            z-index: var(--z-index, 100);
+            background: linear-gradient(165deg, #1a1a1e 0%, #222226 100%);
+            margin: 0 -48px;
+            padding: 0 48px;
+            border-bottom: 1px solid rgba(139, 69, 79, 0.2);
+        }
+
+        .section-header.section-level-1 {
+            padding-top: 32px;
+            padding-bottom: 16px;
+            margin-top: 40px;
+        }
+
+        .section-header.section-level-1:first-child {
+            margin-top: 0;
+        }
+
+        .section-header.section-level-2 {
+            padding-top: 20px;
+            padding-bottom: 12px;
+            margin-top: 28px;
+            border-bottom-color: rgba(139, 69, 79, 0.15);
+        }
+
+        .section-header.section-level-3 {
+            padding-top: 14px;
+            padding-bottom: 10px;
+            margin-top: 20px;
+            border-bottom-color: rgba(139, 69, 79, 0.1);
+        }
+
+        .section-title {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            margin: 0;
+        }
+
+        .section-level-1 .section-title {
+            font-size: 24px;
+            color: #f0ebe3;
+        }
+
+        .section-level-2 .section-title {
+            font-size: 20px;
+            color: #d8d3cb;
+        }
+
+        .section-level-3 .section-title {
+            font-size: 17px;
+            color: #c0bbb3;
+            font-weight: 400;
+        }
+
+        .section-level-1::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #8b454f 0%, transparent 100%);
+            margin-top: 12px;
+        }
+
+        /* KaTeX */
+        .katex-display {
+            margin: 0;
+        }
+
+        .katex {
+            font-size: var(--katex-base-size);
+            color: #f0ebe3;
+        }
+
+        .katex-display > .katex {
+            text-shadow: 0 0 40px rgba(139, 69, 79, 0.12);
+        }
+
+
+        .context-area {
+            margin-bottom: 28px;
+            background: rgba(139, 69, 79, 0.08);
+            border-radius: 8px;
+            border-left: 3px solid #8b454f;
+            overflow: hidden;
+        }
+
+        .context {
+            font-size: 15px;
+            font-weight: 300;
+            color: #909098;
+            padding: 16px 20px 12px 20px;
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        .chat-toggle-row {
+            padding: 0 20px 12px 20px;
+        }
+
+
+        /* Section header layout for collapse button */
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        /* Clickable section title - scrolls header to top */
+        .section-title {
+            cursor: pointer;
+            transition: color 0.15s;
+        }
+
+        .section-title:hover {
+            color: #8b454f !important;
+        }
+
+        /* Collapse/expand button */
+        .section-collapse-btn {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            border: none;
+            background: transparent;
+            color: #606068;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+            margin-left: -28px;
+        }
+
+        /* Mobile: position button inline instead of negative margin */
+        @media (max-width: 700px) {
+            .section-collapse-btn {
+                margin-left: 0;
+                margin-right: 4px;
+                width: 18px;
+                height: 18px;
+                font-size: 11px;
+                order: -1; /* Put button before title */
+            }
+        }
+
+        .section-collapse-btn:hover {
+            background: rgba(139, 69, 79, 0.2);
+            color: #c8c8d0;
+        }
+
+        /* Collapsed state - rotate arrow */
+        .section-header.collapsed .section-collapse-btn {
+            transform: rotate(-90deg);
+        }
+
+        /* Hidden by collapse - applied via JavaScript */
+        .section-collapsed-hidden {
+            display: none !important;
+        }
+
+
+        /* Outline panel */
+        .outline-panel {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            width: 220px;
+            max-height: calc(100vh - 120px);
+            background: rgba(26, 26, 30, 0.95);
+            border: 1px solid rgba(139, 69, 79, 0.25);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            overflow: hidden;
+            z-index: 500;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .outline-panel.hidden {
+            opacity: 0;
+            transform: translateX(20px);
+            pointer-events: none;
+        }
+
+        .outline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(139, 69, 79, 0.2);
+            background: rgba(139, 69, 79, 0.08);
+        }
+
+        .outline-title {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #c8c8d0;
+            letter-spacing: 0.03em;
+        }
+
+        .outline-close {
+            width: 20px;
+            height: 20px;
+            border: none;
+            background: transparent;
+            color: #707078;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+
+        .outline-close:hover {
+            background: rgba(139, 69, 79, 0.3);
+            color: #f0ebe3;
+        }
+
+        .outline-nav {
+            padding: 8px 0;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+
+        .outline-item {
+            display: block;
+            padding: 8px 16px;
+            color: #909098;
+            text-decoration: none;
+            font-size: 13px;
+            line-height: 1.4;
+            transition: all 0.15s;
+            border-left: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .outline-item:hover {
+            color: #d0d0d8;
+            background: rgba(139, 69, 79, 0.1);
+        }
+
+        .outline-item.active {
+            color: #f0ebe3;
+            background: rgba(139, 69, 79, 0.15);
+            border-left-color: #8b454f;
+        }
+
+        .outline-level-1 {
+            font-weight: 500;
+            color: #b8b8c0;
+        }
+
+        .outline-level-2 {
+            padding-left: 28px;
+            font-size: 12px;
+        }
+
+        .outline-level-3 {
+            padding-left: 40px;
+            font-size: 11px;
+            color: #808088;
+        }
+
+        .outline-top {
+            font-size: 12px;
+            color: #707078;
+            font-style: italic;
+        }
+
+        .outline-top:hover {
+            color: #b8b8c0;
+        }
+
+        .outline-top.active {
+            color: #c8c8d0;
+            border-left-color: #8b454f;
+        }
+
+        .outline-divider {
+            height: 1px;
+            background: rgba(139, 69, 79, 0.2);
+            margin: 6px 16px;
+        }
+
+        .outline-toggle-btn {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(139, 69, 79, 0.3);
+            border-radius: 8px;
+            background: rgba(26, 26, 30, 0.9);
+            color: #909098;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 499;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .outline-toggle-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .outline-toggle-btn:hover {
+            background: rgba(139, 69, 79, 0.2);
+            color: #f0ebe3;
+            border-color: rgba(139, 69, 79, 0.5);
+        }
+
+
+        /* Explanation blocks */
+        .block-explanation {
+            margin-top: 16px;
+            padding: 0;
+            background: transparent;
+            border-radius: 0;
+            position: relative;
+        }
+
+        .block-explanation::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            bottom: 4px;
+            width: 2px;
+            background: linear-gradient(180deg, rgba(107, 140, 206, 0.6) 0%, rgba(107, 140, 206, 0.1) 100%);
+            border-radius: 1px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .block-explanation.expanded::before {
+            opacity: 1;
+        }
+
+        .explanation-header {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 15px;
+            font-weight: 500;
+            font-style: italic;
+            color: #8090a8;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            border-radius: 6px;
+            transition: background 0.15s;
+        }
+
+        .explanation-header:hover {
+            background: rgba(107, 140, 206, 0.08);
+        }
+
+        .explanation-header .toggle-icon {
+            font-style: normal;
+            font-size: 10px;
+            color: #606878;
+            transition: transform 0.2s;
+        }
+
+        .block-explanation.expanded .explanation-header .toggle-icon {
+            transform: rotate(90deg);
+        }
+
+        .explanation-header .icon {
+            font-style: normal;
+            opacity: 0.7;
+        }
+
+        .explanation-content {
+            display: none;
+            font-size: 14.5px;
+            color: #b0b0b8;
+            line-height: 1.85;
+            margin-left: 14px;
+            border-radius: 0 8px 8px 0;
+            padding: 16px 18px;
+            background: rgba(107, 140, 206, 0.03);
+        }
+
+        .block-explanation.expanded .explanation-content {
+            display: block;
+        }
+
+        .explanation-content p {
+            margin: 14px 0;
+        }
+
+        .explanation-content p:first-child {
+            margin-top: 0;
+        }
+
+        .explanation-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .explanation-content strong {
+            color: #d0d0d8;
+            font-weight: 500;
+        }
+
+        .explanation-content .katex {
+            font-size: 1.1em;
+        }
+
+        .block-explanation.is-error {
+            opacity: 0.8;
+        }
+
+        .block-explanation.is-error::before {
+            background: linear-gradient(180deg, rgba(180, 100, 100, 0.6) 0%, rgba(180, 100, 100, 0.1) 100%);
+        }
+
+        .block-explanation.is-error .explanation-header {
+            color: #b08080;
+        }
+
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(139, 69, 79, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(139, 69, 79, 0.5);
+        }
+
+
+        /* Scroll fade indicators for overflowing math blocks */
+        .block-math {
+            position: relative;
+            overflow-x: auto;
+            overflow-y: clip;
+            max-width: 100%;
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        .block-math::-webkit-scrollbar {
+            height: 0;  /* Chrome/Safari - hidden by default */
+        }
+
+        .block-math:hover {
+            scrollbar-width: thin;  /* Firefox */
+        }
+
+        .block-math:hover::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .block-math:hover::-webkit-scrollbar-thumb {
+            background: rgba(139, 69, 79, 0.4);
+            border-radius: 4px;
+        }
+
+        .block-math:hover::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .block-math::before,
+        .block-math::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 24px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+
+        .block-math::before {
+            left: 0;
+            background: linear-gradient(to right, #1a1a1e 0%, transparent 100%);
+        }
+
+        .block-math::after {
+            right: 0;
+            background: linear-gradient(to left, #1a1a1e 0%, transparent 100%);
+        }
+
+        .block-math.has-overflow::after { opacity: 1; }
+        .block-math.scrolled-right::before { opacity: 1; }
+        .block-math.scrolled-end::after { opacity: 0; }
+
+
+        /* Fixed navigation header (static site) */
+        :root {
+            --nav-height: 44px;
+            --section-height: 70px;  /* Must match actual level-1 header height: 12px + ~34px text + 24px = 70px */
+            --subsection-height: 64px;  /* Must match actual level-2 header height: 20px + ~26px text + 18px = 64px */
+            --body-padding: 48px;
+        }
+
+        html {
+            scroll-padding-top: calc(var(--nav-height) + 16px);
+        }
+
+        /* Offset for anchor scrolling to account for fixed nav */
+        [id^="block-"] {
+            scroll-margin-top: calc(var(--nav-height) + 16px);
+        }
+
+        body {
+            padding-top: calc(var(--nav-height) + 36px);
+            overflow-x: hidden;
+        }
+
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            background: rgba(26, 26, 30, 0.98);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(139, 69, 79, 0.2);
+            padding: 0 var(--body-padding);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .breadcrumbs {
+            font-size: 13px;
+            color: #909098;
+        }
+
+        .breadcrumbs a {
+            color: #6b8cce;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .breadcrumbs a:hover {
+            color: #8bacd0;
+            text-decoration: underline;
+        }
+
+        .header {
+            margin-bottom: 1.5em;
+            padding-bottom: 8px;
+        }
+
+        .header::after {
+            margin-top: 4px;
+        }
+
+        /* Fixed sticky positions for nav header offset */
+        .section-header {
+            position: sticky;
+            z-index: 100;
+            margin-left: calc(-1 * var(--body-padding));
+            margin-right: calc(-1 * var(--body-padding));
+            padding-left: var(--body-padding);
+            padding-right: var(--body-padding);
+            box-sizing: border-box;
+        }
+
+        .section-header.section-level-1 {
+            z-index: 103;
+            top: var(--nav-height);
+            padding-top: 12px;
+            padding-bottom: 24px;
+            margin-top: 40px;
+            margin-bottom: 16px;
+        }
+
+        .section-container:first-child .section-header.section-level-1 {
+            margin-top: 24px;
+            margin-bottom: 24px;
+        }
+
+        .section-header.section-level-2 {
+            z-index: 102;
+            top: calc(var(--nav-height) + var(--section-height));
+            padding-top: 20px;
+            padding-bottom: 18px;
+            margin-top: 0; /* Override base margin - spacing comes from previous section's margin-bottom */
+        }
+
+        .section-header.section-level-3 {
+            z-index: 101;
+            top: calc(var(--nav-height) + var(--section-height) + var(--subsection-height));
+            padding-top: 14px;
+            padding-bottom: 14px;
+            margin-top: 0; /* Override base margin - spacing comes from previous section's margin-bottom */
+        }
+
+        @media (max-width: 900px) {
+            :root {
+                --katex-base-size: 1em;
+            }
+            .outline-panel {
+                display: none;
+            }
+            .outline-toggle-btn {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            :root {
+                --body-padding: 20px;
+                --nav-height: 40px;
+                --section-height: 90px;
+                --subsection-height: 60px;
+                --katex-base-size: 0.9em;
+            }
+
+            body {
+                padding: var(--body-padding);
+                padding-top: calc(var(--nav-height) + 30px);
+            }
+
+            .nav-header {
+                padding: 0 var(--body-padding);
+            }
+
+            .breadcrumbs {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100%;
+                font-size: 12px;
+            }
+
+            .section-header {
+                position: static;
+            }
+
+            .section-container:first-child .section-header.section-level-1 {
+                margin-top: 0;
+            }
+
+            .section-level-1 .section-title {
+                font-size: 20px;
+            }
+
+            .section-level-2 .section-title {
+                font-size: 17px;
+            }
+
+            .section-level-3 .section-title {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            :root {
+                --katex-base-size: 0.8em;
+                --section-height: 80px;
+                --subsection-height: 52px;
+            }
+
+            .section-level-1 .section-title {
+                font-size: 18px;
+            }
+
+            .section-level-2 .section-title {
+                font-size: 15px;
+            }
+
+            .section-level-3 .section-title {
+                font-size: 14px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    
+    <nav class="nav-header">
+        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Probability</a> / <a href="#">Lecture 7 Discrete Random Variables Iii  Joint Pmfs Expectations And Variance</a></div>
+    </nav>
+    <div class="header">
+        <h1>Lecture 7 Discrete Random Variables Iii  Joint Pmfs Expectations And Variance</h1>
+    </div>
+    <div class="content">
+        
+        <div class="context-area">
+            <p class="context">Extending probability concepts from pairs to multiple random variables, establishing when expectations and variances of sums simplify (linearity always works for expectations, but variance addition requires independence), and demonstrating the indicator variable technique through the binomial distribution and the classic hat problem.</p>
+        </div>
+        
+        <div class="text-block block-text" id="block-0"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Lecture Overview</div>
+            <div class="block-content"><p>This lecture concludes Chapter 2 on discrete random variables, extending concepts from pairs to multiple random variables. The central themes are linearity of expectations (which holds unconditionally), variance of sums (which requires independence), and the power of indicator variable decomposition.</p></div>
+        </div>
+        <div class="section-container">
+
+        <div class="section-header section-level-1" id="block-1" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="1" title="Collapse section">▾</button><h2 class="section-title" data-block-id="1">1. Joint and Conditional PMFs</h2>
+        </div>
+        
+        <div class="math-block block-definition" id="block-2" data-latex="p_{X,Y}(x,y) = P(X=x, Y=y)" data-label="Joint PMF" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Joint PMF</div>
+            <div class="block-content-row">
+                <div class="block-math">$$p_{X,Y}(x,y) = P(X=x, Y=y)$$</div>
+                <div class="block-annotation">Probability that the pair of values (x,y) occurs simultaneously.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-definition" id="block-3" data-latex="p_{X \mid Y}(x \mid y) = P(X=x \mid Y=y)" data-label="Conditional PMF" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Conditional PMF</div>
+            <div class="block-content-row">
+                <div class="block-math">$$p_{X \mid Y}(x \mid y) = P(X=x \mid Y=y)$$</div>
+                <div class="block-annotation">The probability law on X when we condition on observing Y=y.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-definition" id="block-4" data-latex="p_X(x) = P(X=x)" data-label="Marginal PMF" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Marginal PMF</div>
+            <div class="block-content-row">
+                <div class="block-math">$$p_X(x) = P(X=x)$$</div>
+                <div class="block-annotation">Probability that X takes value x, ignoring Y entirely.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-theorem" id="block-5" data-latex="p_X(x) = \sum_y p_{X,Y}(x,y)" data-label="Marginalization" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Marginalization</div>
+            <div class="block-content-row">
+                <div class="block-math">$$p_X(x) = \sum_y p_{X,Y}(x,y)$$</div>
+                <div class="block-annotation">To recover the marginal, sum the joint over all values of the other variable.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-theorem" id="block-6" data-latex="p_{X,Y}(x,y) = p_X(x) \cdot p_{Y \mid X}(y \mid x)" data-label="Multiplication Rule for PMFs" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Multiplication Rule for PMFs</div>
+            <div class="block-content-row">
+                <div class="block-math">$$p_{X,Y}(x,y) = p_X(x) \cdot p_{Y \mid X}(y \mid x)$$</div>
+                <div class="block-annotation">Analogous to P(A ∩ B) = P(A)P(B|A) for events.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-7" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="7" title="Collapse section">▾</button><h2 class="section-title" data-block-id="7">2. Extension to Multiple Random Variables</h2>
+        </div>
+        
+        <div class="math-block block-definition" id="block-8" data-latex="p_{X,Y,Z}(x,y,z) = P(X=x, Y=y, Z=z)" data-label="Joint PMF for Three Variables" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Joint PMF for Three Variables</div>
+            <div class="block-content-row">
+                <div class="block-math">$$p_{X,Y,Z}(x,y,z) = P(X=x, Y=y, Z=z)$$</div>
+                <div class="block-annotation">Natural extension: probability of a triple of values.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-theorem" id="block-9" data-latex="p_X(x) = \sum_y \sum_z p_{X,Y,Z}(x,y,z)" data-label="Marginalization for Three Variables" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Marginalization for Three Variables</div>
+            <div class="block-content-row">
+                <div class="block-math">$$p_X(x) = \sum_y \sum_z p_{X,Y,Z}(x,y,z)$$</div>
+                <div class="block-annotation">Fix x and sum over all combinations of the other variables.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-theorem" id="block-10" data-latex="p_{X,Y,Z}(x,y,z) = p_X(x) \cdot p_{Y \mid X}(y \mid x) \cdot p_{Z \mid X,Y}(z \mid x,y)" data-label="Chain Rule for Three Variables" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Chain Rule for Three Variables</div>
+            <div class="block-content-row">
+                <div class="block-math">$$p_{X,Y,Z}(x,y,z) = p_X(x) \cdot p_{Y \mid X}(y \mid x) \cdot p_{Z \mid X,Y}(z \mid x,y)$$</div>
+                <div class="block-annotation">Sequential conditioning: probability of first, times second given first, times third given first two.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-11" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="11" title="Collapse section">▾</button><h2 class="section-title" data-block-id="11">3. Independence of Random Variables</h2>
+        </div>
+        
+        <div class="math-block block-definition" id="block-12" data-latex="X, Y, Z \text{ are independent} \iff p_{X,Y,Z}(x,y,z) = p_X(x) \cdot p_Y(y) \cdot p_Z(z) \quad \forall x,y,z" data-label="Independence of Random Variables" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Independence of Random Variables</div>
+            <div class="block-content-row">
+                <div class="block-math">$$X, Y, Z \text{ are independent} \iff p_{X,Y,Z}(x,y,z) = p_X(x) \cdot p_Y(y) \cdot p_Z(z) \quad \forall x,y,z$$</div>
+                <div class="block-annotation">Joint PMF factors into product of marginals for ALL possible values.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-corollary" id="block-13" data-latex="X \perp Y \iff p_{X \mid Y}(x \mid y) = p_X(x) \quad \forall x,y" data-label="Equivalent Characterization" style="--accent-color: #7eb8a8">
+            <div class="block-label" style="color: #7eb8a8"><span class="block-icon">◇</span> Equivalent Characterization</div>
+            <div class="block-content-row">
+                <div class="block-math">$$X \perp Y \iff p_{X \mid Y}(x \mid y) = p_X(x) \quad \forall x,y$$</div>
+                <div class="block-annotation">Independence means conditioning on Y provides no information about X.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-14" data-latex="X \perp Y \mid A \text{ means independence holds within the restricted universe where } A \text{ occurred}" data-label="Conditional Independence" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Conditional Independence</div>
+            <div class="block-content-row">
+                <div class="block-math">$$X \perp Y \mid A \text{ means independence holds within the restricted universe where } A \text{ occurred}$$</div>
+                <div class="block-annotation">Variables may be dependent overall but independent when conditioning on some event A.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-15" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="15" title="Collapse section">▾</button><h2 class="section-title" data-block-id="15">4. Expectations</h2>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-16" data-latex="E[g(X,Y)] = \sum_x \sum_y g(x,y) \cdot p_{X,Y}(x,y)" data-label="LOTUS for Joint Distributions" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> LOTUS for Joint Distributions</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[g(X,Y)] = \sum_x \sum_y g(x,y) \cdot p_{X,Y}(x,y)$$</div>
+                <div class="block-annotation">Law of the Unconscious Statistician extends to functions of multiple variables.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-17" style="--z-index: 102;">
+            <button class="section-collapse-btn" data-block-id="17" title="Collapse section">▾</button><h3 class="section-title" data-block-id="17">4.1. Linearity of Expectations</h3>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-18" data-latex="E[\alpha X + \beta] = \alpha E[X] + \beta" data-label="Linearity of Expectation (Scaling and Shifting)" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Linearity of Expectation (Scaling and Shifting)</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[\alpha X + \beta] = \alpha E[X] + \beta$$</div>
+                <div class="block-annotation">Constants factor out and can be added/subtracted.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-theorem" id="block-19" data-latex="E[X + Y + Z] = E[X] + E[Y] + E[Z]" data-label="Linearity of Expectation (Sums)" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Linearity of Expectation (Sums)</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[X + Y + Z] = E[X] + E[Y] + E[Z]$$</div>
+                <div class="block-annotation">ALWAYS TRUE regardless of independence—this is the most important property.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-20" data-latex="\text{Average total SAT} = \sum (\text{average of each section})" data-label="SAT Score Analogy" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> SAT Score Analogy</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Average total SAT} = \sum (\text{average of each section})$$</div>
+                <div class="block-annotation">You can average sections separately then add, or average totals directly—same result.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-21" style="--z-index: 102;">
+            <button class="section-collapse-btn" data-block-id="21" title="Collapse section">▾</button><h3 class="section-title" data-block-id="21">4.2. Expectations of Products</h3>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-22" data-latex="X \perp Y \implies E[XY] = E[X] \cdot E[Y]" data-label="Product Rule (Requires Independence)" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Product Rule (Requires Independence)</div>
+            <div class="block-content-row">
+                <div class="block-math">$$X \perp Y \implies E[XY] = E[X] \cdot E[Y]$$</div>
+                <div class="block-annotation">Only valid for independent variables; generally E[XY] ≠ E[X]E[Y].</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-corollary" id="block-23" data-latex="X \perp Y \implies E[g(X)h(Y)] = E[g(X)] \cdot E[h(Y)]" data-label="Functions of Independent Variables" style="--accent-color: #7eb8a8">
+            <div class="block-label" style="color: #7eb8a8"><span class="block-icon">◇</span> Functions of Independent Variables</div>
+            <div class="block-content-row">
+                <div class="block-math">$$X \perp Y \implies E[g(X)h(Y)] = E[g(X)] \cdot E[h(Y)]$$</div>
+                <div class="block-annotation">If X is independent of Y, then g(X) is independent of h(Y) for any functions g, h.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-24" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="24" title="Collapse section">▾</button><h2 class="section-title" data-block-id="24">5. Variances</h2>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-25" data-latex="\text{var}(\alpha X) = \alpha^2 \text{var}(X)" data-label="Variance Scaling" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Variance Scaling</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{var}(\alpha X) = \alpha^2 \text{var}(X)$$</div>
+                <div class="block-annotation">Constants come out squared (variance measures squared deviations).</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-theorem" id="block-26" data-latex="\text{var}(X + \beta) = \text{var}(X)" data-label="Variance Shifting" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Variance Shifting</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{var}(X + \beta) = \text{var}(X)$$</div>
+                <div class="block-annotation">Adding a constant shifts the distribution but doesn&#x27;t change its spread.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-theorem" id="block-27" data-latex="X \perp Y \implies \text{var}(X+Y) = \text{var}(X) + \text{var}(Y)" data-label="Variance of Sum (Requires Independence)" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Variance of Sum (Requires Independence)</div>
+            <div class="block-content-row">
+                <div class="block-math">$$X \perp Y \implies \text{var}(X+Y) = \text{var}(X) + \text{var}(Y)$$</div>
+                <div class="block-annotation">Unlike expectation, variance addition requires independence.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-corollary" id="block-28" data-latex="X \perp Y \implies \text{var}(X-Y) = \text{var}(X) + (-1)^2\text{var}(Y) = \text{var}(X) + \text{var}(Y)" data-label="Variance of Difference" style="--accent-color: #7eb8a8">
+            <div class="block-label" style="color: #7eb8a8"><span class="block-icon">◇</span> Variance of Difference</div>
+            <div class="block-content-row">
+                <div class="block-math">$$X \perp Y \implies \text{var}(X-Y) = \text{var}(X) + (-1)^2\text{var}(Y) = \text{var}(X) + \text{var}(Y)$$</div>
+                <div class="block-annotation">Variances still ADD for differences (minus sign squares away).</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-29" data-latex="\begin{aligned} Y = X &\implies \text{var}(X+Y) = \text{var}(2X) = 4\text{var}(X) \neq 2\text{var}(X) \\ Y = -X &\implies \text{var}(X+Y) = \text{var}(0) = 0 \neq 2\text{var}(X) \end{aligned}" data-label="Counterexamples for Dependent Variables" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Counterexamples for Dependent Variables</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\begin{aligned} Y = X &\implies \text{var}(X+Y) = \text{var}(2X) = 4\text{var}(X) \neq 2\text{var}(X) \\ Y = -X &\implies \text{var}(X+Y) = \text{var}(0) = 0 \neq 2\text{var}(X) \end{aligned}$$</div>
+                <div class="block-annotation">Perfect positive or negative correlation breaks the additive formula.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-30" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="30" title="Collapse section">▾</button><h2 class="section-title" data-block-id="30">6. Application: Binomial Mean and Variance</h2>
+        </div>
+        
+        <div class="text-block block-text" id="block-31"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Setup</div>
+            <div class="block-content"><p>Consider n independent coin flips with P(heads) = p. Let X = total number of heads. Rather than working with binomial coefficients directly, we decompose X using indicator variables.</p></div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-32" data-latex="X_i = \begin{cases} 1 & \text{if trial } i \text{ is success} \\ 0 & \text{otherwise} \end{cases}" data-label="Indicator Variables" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Indicator Variables</div>
+            <div class="block-content-row">
+                <div class="block-math">$$X_i = \begin{cases} 1 & \text{if trial } i \text{ is success} \\ 0 & \text{otherwise} \end{cases}$$</div>
+                <div class="block-annotation">Binary variables that &#x27;indicate&#x27; whether an event occurred.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-equation" id="block-33" data-latex="X = X_1 + X_2 + \cdots + X_n" data-label="Decomposition" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Decomposition</div>
+            <div class="block-content-row">
+                <div class="block-math">$$X = X_1 + X_2 + \cdots + X_n$$</div>
+                <div class="block-annotation">The total count equals the sum of indicators—key insight for this technique.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-34" style="--z-index: 102;">
+            <button class="section-collapse-btn" data-block-id="34" title="Collapse section">▾</button><h3 class="section-title" data-block-id="34">6.1. Mean of Binomial</h3>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-35" data-latex="E[X_i] = 1 \cdot p + 0 \cdot (1-p) = p" data-label="Expectation of Each Indicator" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Expectation of Each Indicator</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[X_i] = 1 \cdot p + 0 \cdot (1-p) = p$$</div>
+                <div class="block-annotation">Expectation of a Bernoulli(p) random variable.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-36" data-latex="E[X] = \sum_{i=1}^n E[X_i] = np" data-label="Apply Linearity" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Apply Linearity</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[X] = \sum_{i=1}^n E[X_i] = np$$</div>
+                <div class="block-annotation">No messy algebra with binomial coefficients needed.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-37" data-latex="X \sim \text{Binomial}(n,p) \implies E[X] = np" data-label="Binomial Mean" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Binomial Mean</div>
+            <div class="block-content-row">
+                <div class="block-math">$$X \sim \text{Binomial}(n,p) \implies E[X] = np$$</div>
+                <div class="block-annotation">The expected number of successes equals trials times probability.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-38" style="--z-index: 102;">
+            <button class="section-collapse-btn" data-block-id="38" title="Collapse section">▾</button><h3 class="section-title" data-block-id="38">6.2. Variance of Binomial</h3>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-39" data-latex="X_i^2 = X_i \quad (\text{since } 0^2=0, 1^2=1)" data-label="Key Property of Indicators" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Key Property of Indicators</div>
+            <div class="block-content-row">
+                <div class="block-math">$$X_i^2 = X_i \quad (\text{since } 0^2=0, 1^2=1)$$</div>
+                <div class="block-annotation">Squaring an indicator returns the same indicator.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-40" data-latex="\text{var}(X_i) = E[X_i^2] - (E[X_i])^2 = p - p^2 = p(1-p)" data-label="Variance of Each Indicator" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Variance of Each Indicator</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{var}(X_i) = E[X_i^2] - (E[X_i])^2 = p - p^2 = p(1-p)$$</div>
+                <div class="block-annotation">Using the formula var(X) = E[X²] - (E[X])².</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-41" data-latex="\text{var}(X) = \sum_{i=1}^n \text{var}(X_i) = np(1-p)" data-label="Variances Add (Independence)" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Variances Add (Independence)</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{var}(X) = \sum_{i=1}^n \text{var}(X_i) = np(1-p)$$</div>
+                <div class="block-annotation">Since trials are independent, indicator variances add.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-42" data-latex="X \sim \text{Binomial}(n,p) \implies \text{var}(X) = np(1-p)" data-label="Binomial Variance" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Binomial Variance</div>
+            <div class="block-content-row">
+                <div class="block-math">$$X \sim \text{Binomial}(n,p) \implies \text{var}(X) = np(1-p)$$</div>
+                <div class="block-annotation">Variance is maximized at p=1/2 (fair coin = most uncertainty).</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-43" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="43" title="Collapse section">▾</button><h2 class="section-title" data-block-id="43">7. Application: The Hat Problem</h2>
+        </div>
+        
+        <div class="text-block block-text" id="block-44"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Problem Statement</div>
+            <div class="block-content"><p>n people throw their hats into a box and each picks one at random (all permutations equally likely). Let X = number of people who get their own hat back. Find E[X] and var(X).</p></div>
+        </div>
+        
+        <div class="math-block block-definition" id="block-45" data-latex="X_i = \begin{cases} 1 & \text{if person } i \text{ gets own hat} \\ 0 & \text{otherwise} \end{cases} \quad \Rightarrow \quad X = \sum_{i=1}^n X_i" data-label="Indicator Setup" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Indicator Setup</div>
+            <div class="block-content-row">
+                <div class="block-math">$$X_i = \begin{cases} 1 & \text{if person } i \text{ gets own hat} \\ 0 & \text{otherwise} \end{cases} \quad \Rightarrow \quad X = \sum_{i=1}^n X_i$$</div>
+                <div class="block-annotation">Same decomposition technique as binomial, but indicators are NOT independent here.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-46" style="--z-index: 102;">
+            <button class="section-collapse-btn" data-block-id="46" title="Collapse section">▾</button><h3 class="section-title" data-block-id="46">7.1. Expected Value</h3>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-47" data-latex="P(X_i = 1) = \frac{1}{n}" data-label="Probability Each Gets Own Hat" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Probability Each Gets Own Hat</div>
+            <div class="block-content-row">
+                <div class="block-math">$$P(X_i = 1) = \frac{1}{n}$$</div>
+                <div class="block-annotation">By symmetry, each of the n hats is equally likely to be picked by person i.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-48" data-latex="E[X] = \sum_{i=1}^n E[X_i] = n \cdot \frac{1}{n} = 1" data-label="Apply Linearity (Despite Dependence!)" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Apply Linearity (Despite Dependence!)</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[X] = \sum_{i=1}^n E[X_i] = n \cdot \frac{1}{n} = 1$$</div>
+                <div class="block-annotation">Linearity holds even though knowing 9 of 10 people got their hats determines the 10th.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-49" data-latex="E[X] = 1 \quad \text{for all } n" data-label="Hat Problem Mean" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Hat Problem Mean</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[X] = 1 \quad \text{for all } n$$</div>
+                <div class="block-annotation">On average, exactly 1 person gets their own hat back, regardless of group size.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-50" style="--z-index: 102;">
+            <button class="section-collapse-btn" data-block-id="50" title="Collapse section">▾</button><h3 class="section-title" data-block-id="50">7.2. Variance (Handling Dependence)</h3>
+        </div>
+        
+        <div class="text-block block-text" id="block-51"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Strategy</div>
+            <div class="block-content"><p>Since the X_i are dependent, we cannot simply add variances. Instead, we compute E[X²] directly using the expansion of (∑X_i)².</p></div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-52" data-latex="X^2 = \left(\sum_i X_i\right)^2 = \sum_i X_i^2 + \sum_{i \neq j} X_i X_j" data-label="Expand X²" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Expand X²</div>
+            <div class="block-content-row">
+                <div class="block-math">$$X^2 = \left(\sum_i X_i\right)^2 = \sum_i X_i^2 + \sum_{i \neq j} X_i X_j$$</div>
+                <div class="block-annotation">Squared sum splits into diagonal terms (i=j) and cross terms (i≠j).</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-53" data-latex="E\left[\sum_i X_i^2\right] = E\left[\sum_i X_i\right] = E[X] = 1" data-label="Diagonal Terms" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Diagonal Terms</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E\left[\sum_i X_i^2\right] = E\left[\sum_i X_i\right] = E[X] = 1$$</div>
+                <div class="block-annotation">Using X_i² = X_i for indicators.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-54" data-latex="E[X_i X_j] = P(X_i=1, X_j=1) = P(X_i=1) \cdot P(X_j=1 \mid X_i=1)" data-label="Cross Terms: Setup" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Cross Terms: Setup</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[X_i X_j] = P(X_i=1, X_j=1) = P(X_i=1) \cdot P(X_j=1 \mid X_i=1)$$</div>
+                <div class="block-annotation">Product X_i X_j = 1 only when both get their own hats.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-55" data-latex="P(X_j=1 \mid X_i=1) = \frac{1}{n-1} \implies E[X_i X_j] = \frac{1}{n} \cdot \frac{1}{n-1}" data-label="Cross Terms: Calculation" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Cross Terms: Calculation</div>
+            <div class="block-content-row">
+                <div class="block-math">$$P(X_j=1 \mid X_i=1) = \frac{1}{n-1} \implies E[X_i X_j] = \frac{1}{n} \cdot \frac{1}{n-1}$$</div>
+                <div class="block-annotation">Given person i got their hat, person j picks from n-1 remaining hats.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-56" data-latex="\sum_{i \neq j} E[X_i X_j] = n(n-1) \cdot \frac{1}{n(n-1)} = 1" data-label="Sum of Cross Terms" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Sum of Cross Terms</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\sum_{i \neq j} E[X_i X_j] = n(n-1) \cdot \frac{1}{n(n-1)} = 1$$</div>
+                <div class="block-annotation">There are n(n-1) ordered pairs (i,j) with i≠j.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-57" data-latex="E[X^2] = 1 + 1 = 2" data-label="Compute E[X²]" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Compute E[X²]</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E[X^2] = 1 + 1 = 2$$</div>
+                <div class="block-annotation">Diagonal terms contribute 1, cross terms contribute 1.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-58" data-latex="\text{var}(X) = E[X^2] - (E[X])^2 = 2 - 1 = 1" data-label="Hat Problem Variance" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Hat Problem Variance</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{var}(X) = E[X^2] - (E[X])^2 = 2 - 1 = 1$$</div>
+                <div class="block-annotation">Both mean and variance equal 1, independent of n—a remarkable result.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-59" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="59" title="Collapse section">▾</button><h2 class="section-title" data-block-id="59">Key Takeaways</h2>
+        </div>
+        
+        <div class="math-block block-note" id="block-60" data-latex="E\left[\sum_i X_i\right] = \sum_i E[X_i] \quad \text{ALWAYS}" data-label="Linearity of Expectation" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Linearity of Expectation</div>
+            <div class="block-content-row">
+                <div class="block-math">$$E\left[\sum_i X_i\right] = \sum_i E[X_i] \quad \text{ALWAYS}$$</div>
+                <div class="block-annotation">No independence required—this makes indicator variables powerful even for dependent problems.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-61" data-latex="\text{var}\left(\sum_i X_i\right) = \sum_i \text{var}(X_i) \quad \text{ONLY IF INDEPENDENT}" data-label="Variance of Sums" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Variance of Sums</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{var}\left(\sum_i X_i\right) = \sum_i \text{var}(X_i) \quad \text{ONLY IF INDEPENDENT}$$</div>
+                <div class="block-annotation">For dependent variables, must use var(X) = E[X²] - (E[X])² directly.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-62" data-latex="\text{Count} = \sum (\text{indicators}) \implies E[\text{Count}] = \sum P(\text{each event})" data-label="Indicator Variable Technique" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Indicator Variable Technique</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Count} = \sum (\text{indicators}) \implies E[\text{Count}] = \sum P(\text{each event})$$</div>
+                <div class="block-annotation">Decompose complex counts into sums of 0/1 variables for easier expectation calculations.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+    </div>
+    
+    <!-- Section Navigation Outline -->
+    <div class="outline-panel" id="outlinePanel">
+        <div class="outline-header">
+            <span class="outline-title">Contents</span>
+            <button class="outline-close" onclick="toggleOutline()" title="Hide outline">×</button>
+        </div>
+        <nav class="outline-nav">
+            <a class="outline-item outline-top" href="#" data-block-id="top">Top</a>
+                <div class="outline-divider"></div>
+                <a class="outline-item outline-level-1" href="#block-1" data-block-id="1">1. Joint and Conditional PMFs</a>
+                <a class="outline-item outline-level-1" href="#block-7" data-block-id="7">2. Extension to Multiple Random Variables</a>
+                <a class="outline-item outline-level-1" href="#block-11" data-block-id="11">3. Independence of Random Variables</a>
+                <a class="outline-item outline-level-1" href="#block-15" data-block-id="15">4. Expectations</a>
+                <a class="outline-item outline-level-2" href="#block-17" data-block-id="17">4.1. Linearity of Expectations</a>
+                <a class="outline-item outline-level-2" href="#block-21" data-block-id="21">4.2. Expectations of Products</a>
+                <a class="outline-item outline-level-1" href="#block-24" data-block-id="24">5. Variances</a>
+                <a class="outline-item outline-level-1" href="#block-30" data-block-id="30">6. Application: Binomial Mean and Variance</a>
+                <a class="outline-item outline-level-2" href="#block-34" data-block-id="34">6.1. Mean of Binomial</a>
+                <a class="outline-item outline-level-2" href="#block-38" data-block-id="38">6.2. Variance of Binomial</a>
+                <a class="outline-item outline-level-1" href="#block-43" data-block-id="43">7. Application: The Hat Problem</a>
+                <a class="outline-item outline-level-2" href="#block-46" data-block-id="46">7.1. Expected Value</a>
+                <a class="outline-item outline-level-2" href="#block-50" data-block-id="50">7.2. Variance (Handling Dependence)</a>
+                <a class="outline-item outline-level-1" href="#block-59" data-block-id="59">Key Takeaways</a>
+        </nav>
+    </div>
+    <button class="outline-toggle-btn" id="outlineToggleBtn" onclick="toggleOutline()" title="Show outline">☰</button>
+
+    
+    <script>
+        
+        // Detect annotations that wrapped below their math and add .wrapped class
+        function detectWrappedAnnotations() {
+            document.querySelectorAll('.block-content-row').forEach(row => {
+                const math = row.querySelector('.block-math');
+                const annotation = row.querySelector('.block-annotation');
+                if (math && annotation) {
+                    if (annotation.offsetTop > math.offsetTop + 10) {
+                        annotation.classList.add('wrapped');
+                    } else {
+                        annotation.classList.remove('wrapped');
+                    }
+                }
+            });
+        }
+
+        // Scroll fade indicators for overflowing math blocks
+        function initScrollIndicators() {
+            document.querySelectorAll('.block-math').forEach(el => {
+                const updateIndicators = () => {
+                    const hasOverflow = el.scrollWidth > el.clientWidth;
+                    const scrolledRight = el.scrollLeft > 0;
+                    const scrolledEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+
+                    el.classList.toggle('has-overflow', hasOverflow);
+                    el.classList.toggle('scrolled-right', scrolledRight);
+                    el.classList.toggle('scrolled-end', scrolledEnd);
+                };
+
+                updateIndicators();
+                el.addEventListener('scroll', updateIndicators);
+            });
+        }
+
+        // Outline toggle
+        let outlineVisible = true;
+        function toggleOutline() {
+            const panel = document.getElementById('outlinePanel');
+            const btn = document.getElementById('outlineToggleBtn');
+            if (!panel) return;
+
+            outlineVisible = !outlineVisible;
+            if (outlineVisible) {
+                panel.classList.remove('hidden');
+                btn.classList.remove('visible');
+            } else {
+                panel.classList.add('hidden');
+                btn.classList.add('visible');
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            
+        // Render math with KaTeX
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            throwOnError: false
+        });
+
+
+            document.fonts.ready.then(() => {
+                requestAnimationFrame(() => {
+                    document.body.style.visibility = 'visible';
+                    detectWrappedAnnotations();initScrollIndicators();
+                });
+            });
+
+            // Outline navigation
+            
+        // Smooth scroll for outline links - accounts for nav bar and sticky headers
+        // Skip in PyQt viewer (viewer has its own implementation via QWebChannel)
+        if (typeof qt === 'undefined') {
+            function staticSiteScrollToSection(target) {
+                // Check if we're on mobile (sticky headers disabled)
+                const isMobile = window.matchMedia('(max-width: 600px)').matches;
+                const navHeight = parseInt(getComputedStyle(document.documentElement)
+                    .getPropertyValue('--nav-height')) || 44;
+
+                // Temporarily remove sticky to get true positions
+                const allHeaders = document.querySelectorAll('.section-header');
+                allHeaders.forEach(h => h.style.position = 'static');
+
+                // Force reflow
+                void target.offsetTop;
+
+                // Get target position
+                const rect = target.getBoundingClientRect();
+                const targetPosition = rect.top + window.scrollY;
+
+                let scrollTarget;
+                if (isMobile) {
+                    // Mobile: position element top just below nav bar
+                    // Element's internal padding provides natural visual spacing
+                    scrollTarget = targetPosition - navHeight;
+                } else {
+                    // Desktop: calculate sticky offset based on section level
+                    // Each level stacks below the headers above it
+                    const root = getComputedStyle(document.documentElement);
+                    const sectionHeight = parseInt(root.getPropertyValue('--section-height')) || 70;
+                    const subsectionHeight = parseInt(root.getPropertyValue('--subsection-height')) || 64;
+
+                    let stickyOffset = navHeight;
+                    if (target.classList.contains('section-level-2')) {
+                        // Level 2 sits below nav + level 1
+                        stickyOffset += sectionHeight;
+                    } else if (target.classList.contains('section-level-3')) {
+                        // Level 3 sits below nav + level 1 + level 2
+                        stickyOffset += sectionHeight + subsectionHeight;
+                    }
+                    // Level 1 just needs navHeight (already set)
+
+                    // Position header at its sticky offset
+                    scrollTarget = targetPosition - stickyOffset;
+                }
+
+                // Restore sticky positioning
+                allHeaders.forEach(h => h.style.position = '');
+
+                window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+            }
+
+            document.querySelectorAll('.outline-item').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const blockId = this.dataset.blockId;
+                    if (blockId === 'top') {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        const target = document.getElementById('block-' + blockId);
+                        if (target) {
+                            staticSiteScrollToSection(target);
+                        }
+                    }
+                });
+            });
+        }
+
+            
+        // Track active section in outline
+        const observerOptions = {
+            rootMargin: '-100px 0px -70% 0px',
+            threshold: 0
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const blockId = entry.target.id.replace('block-', '');
+                    document.querySelectorAll('.outline-item').forEach(item => {
+                        item.classList.remove('active');
+                        if (item.dataset.blockId === blockId) {
+                            item.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-header').forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+            
+
+            // Section collapse and title click
+            
+        // Section collapse functionality - skip in PyQt viewer (has its own implementation)
+        if (typeof qt === 'undefined') {
+            document.querySelectorAll('.section-collapse-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const header = btn.closest('.section-header');
+                    if (!header) return;
+
+                    const isCollapsed = header.classList.toggle('collapsed');
+                    btn.title = isCollapsed ? 'Expand section' : 'Collapse section';
+
+                    const headerLevel = header.classList.contains('section-level-1') ? 1
+                        : header.classList.contains('section-level-2') ? 2 : 3;
+
+                    let sibling = header.nextElementSibling;
+                    while (sibling) {
+                        if (sibling.classList.contains('section-header')) {
+                            const siblingLevel = sibling.classList.contains('section-level-1') ? 1
+                                : sibling.classList.contains('section-level-2') ? 2 : 3;
+                            if (siblingLevel <= headerLevel) break;
+                        }
+                        sibling.classList.toggle('section-collapsed-hidden', isCollapsed);
+                        sibling = sibling.nextElementSibling;
+                    }
+                });
+            });
+        }
+
+            
+        // Section title click to scroll - skip in PyQt viewer (has its own implementation)
+        if (typeof qt === 'undefined') {
+            document.querySelectorAll('.section-title').forEach(title => {
+                title.addEventListener('click', (e) => {
+                    if (window.getSelection().toString()) return;
+                    const header = title.closest('.section-header');
+                    if (header) {
+                        staticSiteScrollToSection(header);
+                    }
+                });
+            });
+        }
+
+        });
+
+        window.addEventListener('resize', detectWrappedAnnotations);
+        window.addEventListener('resize', initScrollIndicators);
+        
+        
+    </script>
+</body>
+</html>
