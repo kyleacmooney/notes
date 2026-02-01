@@ -981,6 +981,24 @@ $$\ulcorner 0 = 0 \urcorner = 2^1 \times 3^3 \times 5^1 = 2 \times 27 \times 5 =
     
     <script>
         
+        // Shared KaTeX configuration
+        // Custom macros for commands not natively supported by KaTeX
+        const KATEX_MACROS = {
+            "\\lightning": "\\bot"  // Contradiction symbol (from stmaryrd/wasysym)
+        };
+
+        const KATEX_OPTIONS = {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            throwOnError: false,
+            macros: KATEX_MACROS
+        };
+
+        
         // Detect annotations that wrapped below their math and add .wrapped class
         function detectWrappedAnnotations() {
             document.querySelectorAll('.block-content-row').forEach(row => {
@@ -1035,15 +1053,7 @@ $$\ulcorner 0 = 0 \urcorner = 2^1 \times 3^3 \times 5^1 = 2 \times 27 \times 5 =
         document.addEventListener('DOMContentLoaded', function() {
             
         // Render math with KaTeX
-        renderMathInElement(document.body, {
-            delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false},
-                {left: "\\[", right: "\\]", display: true},
-                {left: "\\(", right: "\\)", display: false}
-            ],
-            throwOnError: false
-        });
+        renderMathInElement(document.body, KATEX_OPTIONS);
 
 
             document.fonts.ready.then(() => {

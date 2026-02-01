@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#1a1a1e">
-    <title>Variance Vs Standard Deviation</title>
+    <title>Rational Root Theorem</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
@@ -861,100 +861,202 @@
 <body>
     
     <nav class="nav-header">
-        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Quick Notes</a> / <a href="#">Variance Vs Standard Deviation</a></div>
+        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Quick Notes</a> / <a href="#">Rational Root Theorem</a></div>
     </nav>
     <div class="header">
-        <h1>Variance Vs Standard Deviation</h1>
+        <h1>Rational Root Theorem</h1>
     </div>
     <div class="content">
         
         <div class="context-area">
-            <p class="context">Explains the relationship between variance and standard deviation, including why both measures exist and when to use each one.</p>
+            <p class="context">Constrains which rational numbers can possibly be roots of a polynomial with integer coefficients, narrowing the search space for factoring.</p>
         </div>
         <div class="section-container">
 
         <div class="section-header section-level-1" id="block-0" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="0" title="Collapse section">▾</button><h2 class="section-title" data-block-id="0">Notation</h2>
+            <button class="section-collapse-btn" data-block-id="0" title="Collapse section">▾</button><h2 class="section-title" data-block-id="0">Statement</h2>
         </div>
         
-        <div class="math-block block-definition" id="block-1" data-latex="\sigma_X = \text{standard deviation of random variable } X" data-label="Standard Deviation" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Standard Deviation</div>
+        <div class="math-block block-definition" id="block-1" data-latex="P(x) = a_n x^n + a_{n-1}x^{n-1} + \cdots + a_1 x + a_0" data-label="Polynomial Form" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Polynomial Form</div>
             <div class="block-content-row">
-                <div class="block-math">$$\sigma_X = \text{standard deviation of random variable } X$$</div>
-                <div class="block-annotation">Measures spread in the same units as the data.</div>
+                <div class="block-math">$$P(x) = a_n x^n + a_{n-1}x^{n-1} + \cdots + a_1 x + a_0$$</div>
+                <div class="block-annotation">A polynomial with integer coefficients.</div>
             </div>
             
         </div>
         
-        <div class="math-block block-definition" id="block-2" data-latex="\sigma_X^2 = \text{var}(X)" data-label="Variance" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Variance</div>
+        <div class="math-block block-theorem" id="block-2" data-latex="\text{If } \frac{p}{q} \text{ is a root (in lowest terms), then } p \mid a_0 \text{ and } q \mid a_n" data-label="Rational Root Theorem" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Rational Root Theorem</div>
             <div class="block-content-row">
-                <div class="block-math">$$\sigma_X^2 = \text{var}(X)$$</div>
-                <div class="block-annotation">The square of standard deviation—two notations for the same quantity.</div>
+                <div class="block-math">$$\text{If } \frac{p}{q} \text{ is a root (in lowest terms), then } p \mid a_0 \text{ and } q \mid a_n$$</div>
+                <div class="block-annotation">The numerator must divide the constant term; the denominator must divide the leading coefficient.</div>
             </div>
             
+        <div class="block-explanation">
+            <div class="explanation-header">
+                <span class="toggle-icon">▶</span>
+                <span class="icon">✦</span>
+                <span>Understanding &quot;Divides&quot; Notation</span>
+            </div>
+            <div class="explanation-content"><p>In this context, the notation $p \mid a_0$ means "$p$ divides $a_0$" — that is, $a_0$ is a multiple of $p$, or equivalently, when you divide $a_0$ by $p$, you get an integer with no remainder.</p>
+
+<p>For example, $3 \mid 12$ is true because $12 = 3 \times 4$. But $3 \mid 10$ is false because $10 \div 3$ leaves a remainder.</p>
+
+<p>So in the Rational Root Theorem, when it says $p \mid a_0$ and $q \mid a_n$, it's telling you that any rational root $\frac{p}{q}$ must have its numerator $p$ be a divisor of the constant term $a_0$, and its denominator $q$ be a divisor of the leading coefficient $a_n$. This dramatically limits which rational numbers you need to test as potential roots.</p></div>
+        </div>
+
+        <div class="block-explanation">
+            <div class="explanation-header">
+                <span class="toggle-icon">▶</span>
+                <span class="icon">✦</span>
+                <span>Monic Polynomials and Integer Roots</span>
+            </div>
+            <div class="explanation-content"><p>Exactly right! When $a_n = 1$, the polynomial is called <strong>monic</strong>, and this simplifies root-finding considerably. Since $q \mid a_n$ and $a_n = 1$, the only divisors of 1 are $\pm 1$. This forces $q = \pm 1$, meaning any rational root $\frac{p}{q}$ must actually be an integer.</p>
+
+<p>This is why monic polynomials are so nice to work with: you only need to check integer divisors of the constant term $a_0$. For example, if you have $x^3 - 6x^2 + 11x - 6 = 0$, the possible rational roots are just $\pm 1, \pm 2, \pm 3, \pm 6$ — a small, finite list of integers to test.</p>
+
+<p>This property appears frequently in algebra courses, where problems are often engineered to have $a_n = 1$ specifically to keep the search space manageable. It's also why the <strong>Integer Root Theorem</strong> is sometimes stated as a special case: for monic polynomials with integer coefficients, any rational root must be an integer that divides the constant term.</p></div>
+        </div>
+
+        <div class="block-explanation">
+            <div class="explanation-header">
+                <span class="toggle-icon">▶</span>
+                <span class="icon">✦</span>
+                <span>Non-Monic Search Space Explosion</span>
+            </div>
+            <div class="explanation-content"><p>Let's compare two polynomials with the same constant term but different leading coefficients:</p>
+
+<p><strong>Monic case:</strong> $x^3 - 6x^2 + 11x - 6 = 0$<br/>
+Here $a_n = 1$ and $a_0 = -6$. Possible rational roots: divisors of 6 over divisors of 1, giving us just $\pm 1, \pm 2, \pm 3, \pm 6$ — only <strong>8 candidates</strong>.</p>
+
+<p><strong>Non-monic case:</strong> $6x^3 - 6x^2 + 11x - 6 = 0$<br/>
+Now $a_n = 6$ and $a_0 = -6$. The divisors of 6 are $\pm 1, \pm 2, \pm 3, \pm 6$. Every combination $\frac{p}{q}$ where $p \mid 6$ and $q \mid 6$ is a candidate:
+$$\pm 1, \pm 2, \pm 3, \pm 6, \pm \frac{1}{2}, \pm \frac{1}{3}, \pm \frac{1}{6}, \pm \frac{2}{3}, \pm \frac{3}{2}...$$
+This gives us <strong>24 candidates</strong> to check — three times as many!</p>
+
+<p>The explosion gets worse with larger leading coefficients. For a polynomial like $12x^3 + \ldots - 30 = 0$, you'd have divisors of 30 (eight values: $\pm 1, \pm 2, \pm 3, \pm 5, \pm 6, \pm 10, \pm 15, \pm 30$) combined with divisors of 12 (six values: $\pm 1, \pm 2, \pm 3, \pm 4, \pm 6, \pm 12$), potentially yielding dozens of fractions to test. This is why factoring out common factors first and reducing $a_n$ when possible saves significant effort.</p></div>
+        </div>
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
         <div class="section-header section-level-1" id="block-3" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="3" title="Collapse section">▾</button><h2 class="section-title" data-block-id="3">Definitions</h2>
+            <button class="section-collapse-btn" data-block-id="3" title="Collapse section">▾</button><h2 class="section-title" data-block-id="3">Proof</h2>
         </div>
         
         <div class="text-block block-text" id="block-4"  style="--accent-color: #909098">
-            
-            <div class="block-content"><p>Variance came first historically. It&#x27;s defined as the expected squared deviation from the mean.</p></div>
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Setup</div>
+            <div class="block-content"><p>Let p/q be a root of P(x) where gcd(p, q) = 1 (the fraction is in lowest terms). We&#x27;ll show the divisibility constraints by clearing denominators and using coprimality.</p></div>
         </div>
         
-        <div class="math-block block-definition" id="block-5" data-latex="\text{var}(X) = \sigma_X^2 = E[(X - E[X])^2]" data-label="Variance Formula" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Variance Formula</div>
+        <div class="math-block block-proof-step" id="block-5" data-latex="a_n\left(\frac{p}{q}\right)^n + a_{n-1}\left(\frac{p}{q}\right)^{n-1} + \cdots + a_1\left(\frac{p}{q}\right) + a_0 = 0" data-label="Step 1: Substitute" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 1: Substitute</div>
             <div class="block-content-row">
-                <div class="block-math">$$\text{var}(X) = \sigma_X^2 = E[(X - E[X])^2]$$</div>
-                <div class="block-annotation">Measures how spread out values are from the mean.</div>
+                <div class="block-math">$$a_n\left(\frac{p}{q}\right)^n + a_{n-1}\left(\frac{p}{q}\right)^{n-1} + \cdots + a_1\left(\frac{p}{q}\right) + a_0 = 0$$</div>
+                <div class="block-annotation">Plug the rational root into P(x) and set equal to zero.</div>
             </div>
             
         </div>
         
-        <div class="math-block block-definition" id="block-6" data-latex="\sigma_X = \sqrt{\text{var}(X)}" data-label="Standard Deviation Formula" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Standard Deviation Formula</div>
+        <div class="math-block block-proof-step" id="block-6" data-latex="a_n p^n + a_{n-1}p^{n-1}q + \cdots + a_1 p q^{n-1} + a_0 q^n = 0" data-label="Step 2: Clear denominators" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 2: Clear denominators</div>
             <div class="block-content-row">
-                <div class="block-math">$$\sigma_X = \sqrt{\text{var}(X)}$$</div>
-                <div class="block-annotation">Takes the square root to return to the original units.</div>
+                <div class="block-math">$$a_n p^n + a_{n-1}p^{n-1}q + \cdots + a_1 p q^{n-1} + a_0 q^n = 0$$</div>
+                <div class="block-annotation">Multiply through by q^n to get an equation with all integer terms.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-7" data-latex="a_0 q^n = -p\left(a_n p^{n-1} + a_{n-1}p^{n-2}q + \cdots + a_1 q^{n-1}\right)" data-label="Step 3: Isolate constant term" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 3: Isolate constant term</div>
+            <div class="block-content-row">
+                <div class="block-math">$$a_0 q^n = -p\left(a_n p^{n-1} + a_{n-1}p^{n-2}q + \cdots + a_1 q^{n-1}\right)$$</div>
+                <div class="block-annotation">Move all terms with factor p to the right side.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-8" data-latex="p \mid a_0 q^n \text{ and } \gcd(p, q^n) = 1 \implies p \mid a_0" data-label="Step 3 (cont.): Apply coprimality" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 3 (cont.): Apply coprimality</div>
+            <div class="block-content-row">
+                <div class="block-math">$$p \mid a_0 q^n \text{ and } \gcd(p, q^n) = 1 \implies p \mid a_0$$</div>
+                <div class="block-annotation">Since p and q share no factors, p must divide a₀ itself.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-9" data-latex="a_n p^n = -q\left(a_{n-1}p^{n-1} + \cdots + a_1 p q^{n-2} + a_0 q^{n-1}\right)" data-label="Step 4: Isolate leading term" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 4: Isolate leading term</div>
+            <div class="block-content-row">
+                <div class="block-math">$$a_n p^n = -q\left(a_{n-1}p^{n-1} + \cdots + a_1 p q^{n-2} + a_0 q^{n-1}\right)$$</div>
+                <div class="block-annotation">Move all terms with factor q to the right side.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-10" data-latex="q \mid a_n p^n \text{ and } \gcd(q, p^n) = 1 \implies q \mid a_n" data-label="Step 4 (cont.): Apply coprimality" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 4 (cont.): Apply coprimality</div>
+            <div class="block-content-row">
+                <div class="block-math">$$q \mid a_n p^n \text{ and } \gcd(q, p^n) = 1 \implies q \mid a_n$$</div>
+                <div class="block-annotation">Since q and p share no factors, q must divide aₙ itself.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-11" data-latex="\frac{p}{q} \text{ rational root} \implies p \mid a_0 \text{ and } q \mid a_n \quad \blacksquare" data-label="Conclusion" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Conclusion</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\frac{p}{q} \text{ rational root} \implies p \mid a_0 \text{ and } q \mid a_n \quad \blacksquare$$</div>
+                <div class="block-annotation">Both divisibility conditions are established.</div>
             </div>
             
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
-        <div class="section-header section-level-1" id="block-7" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="7" title="Collapse section">▾</button><h2 class="section-title" data-block-id="7">When to Use Each</h2>
+        <div class="section-header section-level-1" id="block-12" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="12" title="Collapse section">▾</button><h2 class="section-title" data-block-id="12">Example Application</h2>
         </div>
         
-        <div class="text-block block-text" id="block-8"  style="--accent-color: #909098">
-            
-            <div class="block-content"><p>Variance (σ²) has squared units (e.g., dollars²) but is mathematically convenient—it&#x27;s additive for independent variables. Standard deviation (σ) has the same units as X (e.g., dollars), making it more interpretable and on the same scale as your data.</p></div>
-        </div>
-        
-        <div class="math-block block-note" id="block-9" data-latex="\sigma_X^2 \text{ vs } \sigma^2" data-label="Subscript Convention" style="--accent-color: #707078">
-            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Subscript Convention</div>
+        <div class="math-block block-equation" id="block-13" data-latex="P(x) = x^3 + x^2 - 5x + 3, \quad a_n = 1, \quad a_0 = 3" data-label="Target polynomial" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Target polynomial</div>
             <div class="block-content-row">
-                <div class="block-math">$$\sigma_X^2 \text{ vs } \sigma^2$$</div>
-                <div class="block-annotation">The subscript X clarifies which random variable; it&#x27;s often dropped when context is clear.</div>
+                <div class="block-math">$$P(x) = x^3 + x^2 - 5x + 3, \quad a_n = 1, \quad a_0 = 3$$</div>
+                <div class="block-annotation">The polynomial we want to factor.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-equation" id="block-14" data-latex="\frac{p}{q} \in \left\{\pm 1, \pm 3\right\}" data-label="Candidate roots" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Candidate roots</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\frac{p}{q} \in \left\{\pm 1, \pm 3\right\}$$</div>
+                <div class="block-annotation">p divides 3, q divides 1, giving only four candidates to test.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-15" data-latex="P(1) = 1 + 1 - 5 + 3 = 0 \implies (x-1) \text{ is a factor}" data-label="Verification" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Verification</div>
+            <div class="block-content-row">
+                <div class="block-math">$$P(1) = 1 + 1 - 5 + 3 = 0 \implies (x-1) \text{ is a factor}$$</div>
+                <div class="block-annotation">Testing x=1 confirms it&#x27;s a root.</div>
             </div>
             
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
-        <div class="section-header section-level-1" id="block-10" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="10" title="Collapse section">▾</button><h2 class="section-title" data-block-id="10">Computational Shortcut</h2>
+        <div class="section-header section-level-1" id="block-16" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="16" title="Collapse section">▾</button><h2 class="section-title" data-block-id="16">Limitations</h2>
         </div>
         
-        <div class="math-block block-equation" id="block-11" data-latex="\text{var}(X) = E[X^2] - (E[X])^2" data-label="Variance Shortcut" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Variance Shortcut</div>
+        <div class="math-block block-note" id="block-17" data-latex="x^2 - 2 = 0 \text{ has candidates } \pm 1, \pm 2 \text{, but roots are } \pm\sqrt{2}" data-label="No guarantee of rational roots" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> No guarantee of rational roots</div>
             <div class="block-content-row">
-                <div class="block-math">$$\text{var}(X) = E[X^2] - (E[X])^2$$</div>
-                <div class="block-annotation">Often much easier to calculate than the definition directly—you&#x27;ll use this constantly.</div>
+                <div class="block-math">$$x^2 - 2 = 0 \text{ has candidates } \pm 1, \pm 2 \text{, but roots are } \pm\sqrt{2}$$</div>
+                <div class="block-annotation">The theorem narrows the search but doesn&#x27;t promise rational roots exist.</div>
             </div>
             
         </div>
@@ -970,10 +1072,10 @@
         <nav class="outline-nav">
             <a class="outline-item outline-top" href="#" data-block-id="top">Top</a>
                 <div class="outline-divider"></div>
-                <a class="outline-item outline-level-1" href="#block-0" data-block-id="0">Notation</a>
-                <a class="outline-item outline-level-1" href="#block-3" data-block-id="3">Definitions</a>
-                <a class="outline-item outline-level-1" href="#block-7" data-block-id="7">When to Use Each</a>
-                <a class="outline-item outline-level-1" href="#block-10" data-block-id="10">Computational Shortcut</a>
+                <a class="outline-item outline-level-1" href="#block-0" data-block-id="0">Statement</a>
+                <a class="outline-item outline-level-1" href="#block-3" data-block-id="3">Proof</a>
+                <a class="outline-item outline-level-1" href="#block-12" data-block-id="12">Example Application</a>
+                <a class="outline-item outline-level-1" href="#block-16" data-block-id="16">Limitations</a>
         </nav>
     </div>
     <button class="outline-toggle-btn" id="outlineToggleBtn" onclick="toggleOutline()" title="Show outline">☰</button>
@@ -1159,6 +1261,13 @@
         });
 
             
+        // Toggle explanation expanded/collapsed on header click
+        document.querySelectorAll('.explanation-header').forEach(header => {
+            header.addEventListener('click', function() {
+                this.parentElement.classList.toggle('expanded');
+            });
+        });
+
 
             // Section collapse and title click
             

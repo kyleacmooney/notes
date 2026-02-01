@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#1a1a1e">
-    <title>Variance Vs Standard Deviation</title>
+    <title>Hyperbola From Radical Function</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
@@ -861,65 +861,65 @@
 <body>
     
     <nav class="nav-header">
-        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Quick Notes</a> / <a href="#">Variance Vs Standard Deviation</a></div>
+        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Quick Notes</a> / <a href="#">Hyperbola From Radical Function</a></div>
     </nav>
     <div class="header">
-        <h1>Variance Vs Standard Deviation</h1>
+        <h1>Hyperbola From Radical Function</h1>
     </div>
     <div class="content">
         
         <div class="context-area">
-            <p class="context">Explains the relationship between variance and standard deviation, including why both measures exist and when to use each one.</p>
+            <p class="context">Simplifying a radical function to reveal it traces the upper half of a hyperbola, with domain analysis and geometric interpretation.</p>
         </div>
         <div class="section-container">
 
         <div class="section-header section-level-1" id="block-0" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="0" title="Collapse section">▾</button><h2 class="section-title" data-block-id="0">Notation</h2>
+            <button class="section-collapse-btn" data-block-id="0" title="Collapse section">▾</button><h2 class="section-title" data-block-id="0">Original Function</h2>
         </div>
         
-        <div class="math-block block-definition" id="block-1" data-latex="\sigma_X = \text{standard deviation of random variable } X" data-label="Standard Deviation" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Standard Deviation</div>
+        <div class="math-block block-equation" id="block-1" data-latex="f(x) = \sqrt{\frac{3 - 5x + x^2 + x^3}{x - 1}}" data-label="Given" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Given</div>
             <div class="block-content-row">
-                <div class="block-math">$$\sigma_X = \text{standard deviation of random variable } X$$</div>
-                <div class="block-annotation">Measures spread in the same units as the data.</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-definition" id="block-2" data-latex="\sigma_X^2 = \text{var}(X)" data-label="Variance" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Variance</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\sigma_X^2 = \text{var}(X)$$</div>
-                <div class="block-annotation">The square of standard deviation—two notations for the same quantity.</div>
+                <div class="block-math">$$f(x) = \sqrt{\frac{3 - 5x + x^2 + x^3}{x - 1}}$$</div>
+                <div class="block-annotation">The function to analyze and simplify.</div>
             </div>
             
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
-        <div class="section-header section-level-1" id="block-3" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="3" title="Collapse section">▾</button><h2 class="section-title" data-block-id="3">Definitions</h2>
+        <div class="section-header section-level-1" id="block-2" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="2" title="Collapse section">▾</button><h2 class="section-title" data-block-id="2">Simplification</h2>
         </div>
         
-        <div class="text-block block-text" id="block-4"  style="--accent-color: #909098">
+        <div class="text-block block-text" id="block-3"  style="--accent-color: #909098">
             
-            <div class="block-content"><p>Variance came first historically. It&#x27;s defined as the expected squared deviation from the mean.</p></div>
+            <div class="block-content"><p>The numerator is x³ + x² − 5x + 3. Let&#x27;s check if (x−1) is a factor by evaluating at x = 1:</p></div>
         </div>
         
-        <div class="math-block block-definition" id="block-5" data-latex="\text{var}(X) = \sigma_X^2 = E[(X - E[X])^2]" data-label="Variance Formula" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Variance Formula</div>
+        <div class="math-block block-proof-step" id="block-4" data-latex="1 + 1 - 5 + 3 = 0 \;\checkmark" data-label="Factor Test" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Factor Test</div>
             <div class="block-content-row">
-                <div class="block-math">$$\text{var}(X) = \sigma_X^2 = E[(X - E[X])^2]$$</div>
-                <div class="block-annotation">Measures how spread out values are from the mean.</div>
+                <div class="block-math">$$1 + 1 - 5 + 3 = 0 \;\checkmark$$</div>
+                <div class="block-annotation">Confirms (x−1) divides the numerator.</div>
             </div>
             
         </div>
         
-        <div class="math-block block-definition" id="block-6" data-latex="\sigma_X = \sqrt{\text{var}(X)}" data-label="Standard Deviation Formula" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Standard Deviation Formula</div>
+        <div class="math-block block-proof-step" id="block-5" data-latex="x^3 + x^2 - 5x + 3 = (x-1)^2(x+3)" data-label="Complete Factorization" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Complete Factorization</div>
             <div class="block-content-row">
-                <div class="block-math">$$\sigma_X = \sqrt{\text{var}(X)}$$</div>
-                <div class="block-annotation">Takes the square root to return to the original units.</div>
+                <div class="block-math">$$x^3 + x^2 - 5x + 3 = (x-1)^2(x+3)$$</div>
+                <div class="block-annotation">The numerator factors with (x−1)² as a factor.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-6" data-latex="f(x) = \sqrt{\frac{(x-1)^2(x+3)}{x-1}} = \sqrt{(x-1)(x+3)} = \sqrt{x^2 + 2x - 3}" data-label="Simplified Form" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Simplified Form</div>
+            <div class="block-content-row">
+                <div class="block-math">$$f(x) = \sqrt{\frac{(x-1)^2(x+3)}{x-1}} = \sqrt{(x-1)(x+3)} = \sqrt{x^2 + 2x - 3}$$</div>
+                <div class="block-annotation">One (x−1) cancels, leaving a simpler radical (with x ≠ 1).</div>
             </div>
             
         </div>
@@ -927,36 +927,130 @@
 <div class="section-container">
 
         <div class="section-header section-level-1" id="block-7" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="7" title="Collapse section">▾</button><h2 class="section-title" data-block-id="7">When to Use Each</h2>
+            <button class="section-collapse-btn" data-block-id="7" title="Collapse section">▾</button><h2 class="section-title" data-block-id="7">Domain Analysis</h2>
         </div>
         
         <div class="text-block block-text" id="block-8"  style="--accent-color: #909098">
             
-            <div class="block-content"><p>Variance (σ²) has squared units (e.g., dollars²) but is mathematically convenient—it&#x27;s additive for independent variables. Standard deviation (σ) has the same units as X (e.g., dollars), making it more interpretable and on the same scale as your data.</p></div>
+            <div class="block-content"><p>We need (x−1)(x+3) ≥ 0 for the square root to be defined. This requires both factors to have the same sign:</p></div>
         </div>
         
-        <div class="math-block block-note" id="block-9" data-latex="\sigma_X^2 \text{ vs } \sigma^2" data-label="Subscript Convention" style="--accent-color: #707078">
-            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Subscript Convention</div>
+        <div class="math-block block-proof-step" id="block-9" data-latex="x \geq 1 \implies \text{both factors positive}" data-label="Case 1" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Case 1</div>
             <div class="block-content-row">
-                <div class="block-math">$$\sigma_X^2 \text{ vs } \sigma^2$$</div>
-                <div class="block-annotation">The subscript X clarifies which random variable; it&#x27;s often dropped when context is clear.</div>
+                <div class="block-math">$$x \geq 1 \implies \text{both factors positive}$$</div>
+                <div class="block-annotation">Right portion of the domain.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-10" data-latex="x \leq -3 \implies \text{both factors negative}" data-label="Case 2" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Case 2</div>
+            <div class="block-content-row">
+                <div class="block-math">$$x \leq -3 \implies \text{both factors negative}$$</div>
+                <div class="block-annotation">Left portion of the domain.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-11" data-latex="\text{Domain: } (-\infty, -3] \cup (1, \infty)" data-label="Domain" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Domain</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Domain: } (-\infty, -3] \cup (1, \infty)$$</div>
+                <div class="block-annotation">Note the hole at x = 1 from the original denominator.</div>
             </div>
             
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
-        <div class="section-header section-level-1" id="block-10" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="10" title="Collapse section">▾</button><h2 class="section-title" data-block-id="10">Computational Shortcut</h2>
+        <div class="section-header section-level-1" id="block-12" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="12" title="Collapse section">▾</button><h2 class="section-title" data-block-id="12">Geometric Structure</h2>
         </div>
         
-        <div class="math-block block-equation" id="block-11" data-latex="\text{var}(X) = E[X^2] - (E[X])^2" data-label="Variance Shortcut" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Variance Shortcut</div>
+        <div class="text-block block-text" id="block-13"  style="--accent-color: #909098">
+            
+            <div class="block-content"><p>Setting y = f(x) and squaring both sides reveals the underlying conic section:</p></div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-14" data-latex="y^2 = x^2 + 2x - 3" data-label="Square Both Sides" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Square Both Sides</div>
             <div class="block-content-row">
-                <div class="block-math">$$\text{var}(X) = E[X^2] - (E[X])^2$$</div>
-                <div class="block-annotation">Often much easier to calculate than the definition directly—you&#x27;ll use this constantly.</div>
+                <div class="block-math">$$y^2 = x^2 + 2x - 3$$</div>
+                <div class="block-annotation">Relates y² to a quadratic in x.</div>
             </div>
             
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-15" data-latex="y^2 = (x+1)^2 - 4" data-label="Complete the Square" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Complete the Square</div>
+            <div class="block-content-row">
+                <div class="block-math">$$y^2 = (x+1)^2 - 4$$</div>
+                <div class="block-annotation">Rewrite to identify the conic.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-16" data-latex="\frac{(x+1)^2}{4} - \frac{y^2}{4} = 1" data-label="Standard Form" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Standard Form</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\frac{(x+1)^2}{4} - \frac{y^2}{4} = 1$$</div>
+                <div class="block-annotation">This is a hyperbola centered at (−1, 0) with a = b = 2.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-17" data-latex="f(x) \text{ traces the upper half } (y \geq 0)" data-label="Interpretation" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Interpretation</div>
+            <div class="block-content-row">
+                <div class="block-math">$$f(x) \text{ traces the upper half } (y \geq 0)$$</div>
+                <div class="block-annotation">The square root restricts us to non-negative y values.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-18" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="18" title="Collapse section">▾</button><h2 class="section-title" data-block-id="18">Key Features</h2>
+        </div>
+        
+        <div class="math-block block-equation" id="block-19" data-latex="\text{Center: } (-1, 0)" data-label="Center" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Center</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Center: } (-1, 0)$$</div>
+                <div class="block-annotation">The hyperbola&#x27;s center from completing the square.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-equation" id="block-20" data-latex="x = -3 \text{ (left branch)}, \quad x = 1 \text{ (hole, right branch)}" data-label="X-Intercepts" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> X-Intercepts</div>
+            <div class="block-content-row">
+                <div class="block-math">$$x = -3 \text{ (left branch)}, \quad x = 1 \text{ (hole, right branch)}$$</div>
+                <div class="block-annotation">Where the curve meets or approaches the x-axis.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-equation" id="block-21" data-latex="y = x + 1 \;\text{(right branch)}, \quad y = -x - 1 \;\text{(left branch)}" data-label="Asymptotes" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Asymptotes</div>
+            <div class="block-content-row">
+                <div class="block-math">$$y = x + 1 \;\text{(right branch)}, \quad y = -x - 1 \;\text{(left branch)}$$</div>
+                <div class="block-annotation">The function approaches these lines as |x| → ∞.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-22" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="22" title="Collapse section">▾</button><h2 class="section-title" data-block-id="22">Visual Summary</h2>
+        </div>
+        
+        <div class="text-block block-text" id="block-23"  style="--accent-color: #909098">
+            
+            <div class="block-content"><p>The graph consists of two separate curves: (1) Left branch starting at (−3, 0), rising toward the asymptote y = −x − 1 as x → −∞. (2) Right branch starting just right of x = 1 (with a hole at (1,0)), rising toward the asymptote y = x + 1 as x → +∞. For large |x|, the function grows approximately linearly—it&#x27;s &#x27;almost&#x27; |x+1| but curves slightly below.</p></div>
         </div>
         </div><!-- end section-container -->
     </div>
@@ -970,10 +1064,12 @@
         <nav class="outline-nav">
             <a class="outline-item outline-top" href="#" data-block-id="top">Top</a>
                 <div class="outline-divider"></div>
-                <a class="outline-item outline-level-1" href="#block-0" data-block-id="0">Notation</a>
-                <a class="outline-item outline-level-1" href="#block-3" data-block-id="3">Definitions</a>
-                <a class="outline-item outline-level-1" href="#block-7" data-block-id="7">When to Use Each</a>
-                <a class="outline-item outline-level-1" href="#block-10" data-block-id="10">Computational Shortcut</a>
+                <a class="outline-item outline-level-1" href="#block-0" data-block-id="0">Original Function</a>
+                <a class="outline-item outline-level-1" href="#block-2" data-block-id="2">Simplification</a>
+                <a class="outline-item outline-level-1" href="#block-7" data-block-id="7">Domain Analysis</a>
+                <a class="outline-item outline-level-1" href="#block-12" data-block-id="12">Geometric Structure</a>
+                <a class="outline-item outline-level-1" href="#block-18" data-block-id="18">Key Features</a>
+                <a class="outline-item outline-level-1" href="#block-22" data-block-id="22">Visual Summary</a>
         </nav>
     </div>
     <button class="outline-toggle-btn" id="outlineToggleBtn" onclick="toggleOutline()" title="Show outline">☰</button>
