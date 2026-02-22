@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a1a1e">
+    <title>Calculus - Lecture Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Source Sans 3", -apple-system, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(165deg, #1a1a1e 0%, #222226 40%, #1e1e22 100%);
+            color: #c8c8d0;
+            padding: 48px;
+            padding-top: 80px;
+            line-height: 1.7;
+        }
+
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 30, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(139, 69, 79, 0.2);
+            padding: 12px 48px;
+            z-index: 1000;
+        }
+
+        .breadcrumbs {
+            font-size: 13px;
+            color: #909098;
+        }
+
+        .breadcrumbs a {
+            color: #6b8cce;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .breadcrumbs a:hover {
+            color: #8bacd0;
+            text-decoration: underline;
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 32px;
+            font-weight: 500;
+            color: #f0ebe3;
+            letter-spacing: 0.01em;
+            margin-bottom: 8px;
+        }
+
+        .header::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #8b454f 0%, transparent 100%);
+            margin-top: 16px;
+        }
+
+        .lectures {
+            display: grid;
+            gap: 16px;
+            max-width: 800px;
+        }
+
+        .lecture-card {
+            display: block;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(139, 69, 79, 0.2);
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .lecture-card:hover {
+            background: rgba(139, 69, 79, 0.08);
+            border-color: rgba(139, 69, 79, 0.4);
+            transform: translateX(4px);
+        }
+
+        .lecture-card h3 {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 18px;
+            font-weight: 500;
+            color: #f0ebe3;
+            margin-bottom: 4px;
+        }
+
+        .block-count {
+            font-size: 12px;
+            color: #707078;
+        }
+
+        .card-preview {
+            display: none;
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 12px 0;
+            font-size: 13px;
+            color: #909098;
+            line-height: 1.5;
+        }
+
+        .card-preview li {
+            padding-left: 14px;
+            position: relative;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-preview li::before {
+            content: "\2022";
+            position: absolute;
+            left: 0;
+            color: #8b454f;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+                padding-top: 70px;
+            }
+
+            .nav-header {
+                padding: 10px 20px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .lecture-card {
+                padding: 16px 20px;
+            }
+
+            .lecture-card h3 {
+                font-size: 16px;
+            }
+        }
+
+        @media (min-width: 601px) {
+            .card-preview {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-header">
+        <div class="breadcrumbs"><a href="../index.html">Notes</a> / Calculus</div>
+    </nav>
+    <div class="header">
+        <h1>Calculus</h1>
+    </div>
+    <div class="lectures">
+        
+        <a href="lecture-1-derivatives-slope-velocity-rate-of-change.html" class="lecture-card">
+            <h3>Lecture 1 Derivatives Slope Velocity Rate Of Change</h3>
+            <ul class="card-preview"><li>The Tangent Line Problem</li><li>The Difference Quotient</li><li>Example: Derivative of 1/x</li><li>Application: Triangle Under the Tangent to y = 1/x</li></ul>
+            <span class="block-count">33 blocks</span>
+        </a>
+    </div>
+</body>
+</html>

@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#1a1a1e">
-    <title>Rational Root Theorem</title>
+    <title>Euclids Lemma</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
@@ -861,15 +861,15 @@
 <body>
     
     <nav class="nav-header">
-        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Quick Notes</a> / <a href="#">Rational Root Theorem</a></div>
+        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Quick Notes</a> / <a href="#">Euclids Lemma</a></div>
     </nav>
     <div class="header">
-        <h1>Rational Root Theorem</h1>
+        <h1>Euclids Lemma</h1>
     </div>
     <div class="content">
         
         <div class="context-area">
-            <p class="context">Constrains which rational numbers can possibly be roots of a polynomial with integer coefficients, narrowing the search space for factoring.</p>
+            <p class="context">Foundational number theory result connecting coprimality to divisibility, essential for proofs like the Rational Root Theorem</p>
         </div>
         <div class="section-container">
 
@@ -877,200 +877,214 @@
             <button class="section-collapse-btn" data-block-id="0" title="Collapse section">▾</button><h2 class="section-title" data-block-id="0">Statement</h2>
         </div>
         
-        <div class="math-block block-definition" id="block-1" data-latex="P(x) = a_n x^n + a_{n-1}x^{n-1} + \cdots + a_1 x + a_0" data-label="Polynomial Form" style="--accent-color: #6b8cce">
-            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Polynomial Form</div>
+        <div class="math-block block-theorem" id="block-1" data-latex="p \text{ prime}, \; p \mid ab \;\Rightarrow\; p \mid a \;\text{ or }\; p \mid b" data-label="Prime Form" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Prime Form</div>
             <div class="block-content-row">
-                <div class="block-math">$$P(x) = a_n x^n + a_{n-1}x^{n-1} + \cdots + a_1 x + a_0$$</div>
-                <div class="block-annotation">A polynomial with integer coefficients.</div>
+                <div class="block-math">$$p \text{ prime}, \; p \mid ab \;\Rightarrow\; p \mid a \;\text{ or }\; p \mid b$$</div>
+                <div class="block-annotation">A prime dividing a product must divide at least one factor.</div>
             </div>
             
         </div>
         
-        <div class="math-block block-theorem" id="block-2" data-latex="\text{If } \frac{p}{q} \text{ is a root (in lowest terms), then } p \mid a_0 \text{ and } q \mid a_n" data-label="Rational Root Theorem" style="--accent-color: #c9a227">
-            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Rational Root Theorem</div>
+        <div class="math-block block-theorem" id="block-2" data-latex="\gcd(a, b) = 1 \;\text{ and }\; a \mid bc \;\Rightarrow\; a \mid c" data-label="General Form" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> General Form</div>
             <div class="block-content-row">
-                <div class="block-math">$$\text{If } \frac{p}{q} \text{ is a root (in lowest terms), then } p \mid a_0 \text{ and } q \mid a_n$$</div>
-                <div class="block-annotation">The numerator must divide the constant term; the denominator must divide the leading coefficient.</div>
+                <div class="block-math">$$\gcd(a, b) = 1 \;\text{ and }\; a \mid bc \;\Rightarrow\; a \mid c$$</div>
+                <div class="block-annotation">Coprimality with one factor forces divisibility of the other.</div>
             </div>
             
-        <div class="block-explanation">
-            <div class="explanation-header">
-                <span class="toggle-icon">▶</span>
-                <span class="icon">✦</span>
-                <span>Understanding &quot;Divides&quot; Notation</span>
-            </div>
-            <div class="explanation-content"><p>In this context, the notation $p \mid a_0$ means "$p$ divides $a_0$" — that is, $a_0$ is a multiple of $p$, or equivalently, when you divide $a_0$ by $p$, you get an integer with no remainder.</p>
-
-<p>For example, $3 \mid 12$ is true because $12 = 3 \times 4$. But $3 \mid 10$ is false because $10 \div 3$ leaves a remainder.</p>
-
-<p>So in the Rational Root Theorem, when it says $p \mid a_0$ and $q \mid a_n$, it's telling you that any rational root $\frac{p}{q}$ must have its numerator $p$ be a divisor of the constant term $a_0$, and its denominator $q$ be a divisor of the leading coefficient $a_n$. This dramatically limits which rational numbers you need to test as potential roots.</p></div>
         </div>
-
-        <div class="block-explanation">
-            <div class="explanation-header">
-                <span class="toggle-icon">▶</span>
-                <span class="icon">✦</span>
-                <span>Monic Polynomials and Integer Roots</span>
+        
+        <div class="math-block block-note" id="block-3" data-latex="p \nmid a \;\Rightarrow\; \gcd(p, a) = 1" data-label="Connection" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Connection</div>
+            <div class="block-content-row">
+                <div class="block-math">$$p \nmid a \;\Rightarrow\; \gcd(p, a) = 1$$</div>
+                <div class="block-annotation">The prime form follows from the general form since primes are coprime to non-multiples.</div>
             </div>
-            <div class="explanation-content"><p>Exactly right! When $a_n = 1$, the polynomial is called <strong>monic</strong>, and this simplifies root-finding considerably. Since $q \mid a_n$ and $a_n = 1$, the only divisors of 1 are $\pm 1$. This forces $q = \pm 1$, meaning any rational root $\frac{p}{q}$ must actually be an integer.</p>
-
-<p>This is why monic polynomials are so nice to work with: you only need to check integer divisors of the constant term $a_0$. For example, if you have $x^3 - 6x^2 + 11x - 6 = 0$, the possible rational roots are just $\pm 1, \pm 2, \pm 3, \pm 6$ — a small, finite list of integers to test.</p>
-
-<p>This property appears frequently in algebra courses, where problems are often engineered to have $a_n = 1$ specifically to keep the search space manageable. It's also why the <strong>Integer Root Theorem</strong> is sometimes stated as a special case: for monic polynomials with integer coefficients, any rational root must be an integer that divides the constant term.</p></div>
-        </div>
-
-        <div class="block-explanation">
-            <div class="explanation-header">
-                <span class="toggle-icon">▶</span>
-                <span class="icon">✦</span>
-                <span>Non-Monic Search Space Explosion</span>
-            </div>
-            <div class="explanation-content"><p>Let's compare two polynomials with the same constant term but different leading coefficients:</p>
-
-<p><strong>Monic case:</strong> $x^3 - 6x^2 + 11x - 6 = 0$<br/>
-Here $a_n = 1$ and $a_0 = -6$. Possible rational roots: divisors of 6 over divisors of 1, giving us just $\pm 1, \pm 2, \pm 3, \pm 6$ — only <strong>8 candidates</strong>.</p>
-
-<p><strong>Non-monic case:</strong> $6x^3 - 6x^2 + 11x - 6 = 0$<br/>
-Now $a_n = 6$ and $a_0 = -6$. The divisors of 6 are $\pm 1, \pm 2, \pm 3, \pm 6$. Every combination $\frac{p}{q}$ where $p \mid 6$ and $q \mid 6$ is a candidate:
-$$\pm 1, \pm 2, \pm 3, \pm 6, \pm \frac{1}{2}, \pm \frac{1}{3}, \pm \frac{1}{6}, \pm \frac{2}{3}, \pm \frac{3}{2}...$$
-This gives us <strong>24 candidates</strong> to check — three times as many!</p>
-
-<p>The explosion gets worse with larger leading coefficients. For a polynomial like $12x^3 + \ldots - 30 = 0$, you'd have divisors of 30 (eight values: $\pm 1, \pm 2, \pm 3, \pm 5, \pm 6, \pm 10, \pm 15, \pm 30$) combined with divisors of 12 (six values: $\pm 1, \pm 2, \pm 3, \pm 4, \pm 6, \pm 12$), potentially yielding dozens of fractions to test. This is why factoring out common factors first and reducing $a_n$ when possible saves significant effort.</p></div>
-        </div>
+            
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
-        <div class="section-header section-level-1" id="block-3" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="3" title="Collapse section">▾</button><h2 class="section-title" data-block-id="3">Proof</h2>
+        <div class="section-header section-level-1" id="block-4" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="4" title="Collapse section">▾</button><h2 class="section-title" data-block-id="4">Intuition</h2>
         </div>
         
-        <div class="text-block block-text" id="block-4"  style="--accent-color: #909098">
-            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Setup</div>
-            <div class="block-content"><p>Let p/q be a root of P(x) where gcd(p, q) = 1 (the fraction is in lowest terms). We&#x27;ll show the divisibility constraints by clearing denominators and using coprimality.</p></div>
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-5" data-latex="a_n\left(\frac{p}{q}\right)^n + a_{n-1}\left(\frac{p}{q}\right)^{n-1} + \cdots + a_1\left(\frac{p}{q}\right) + a_0 = 0" data-label="Step 1: Substitute" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 1: Substitute</div>
-            <div class="block-content-row">
-                <div class="block-math">$$a_n\left(\frac{p}{q}\right)^n + a_{n-1}\left(\frac{p}{q}\right)^{n-1} + \cdots + a_1\left(\frac{p}{q}\right) + a_0 = 0$$</div>
-                <div class="block-annotation">Plug the rational root into P(x) and set equal to zero.</div>
-            </div>
+        <div class="text-block block-text" id="block-5"  style="--accent-color: #909098">
             
+            <div class="block-content"><p>If a and b share no common factors, then a can&#x27;t &quot;use&quot; any part of b to divide bc — it must get everything it needs from c alone.</p><p>Analogy: Imagine a is a key that must fit into bc. If a shares no teeth pattern with b, then all the &quot;fitting&quot; must happen with c.</p></div>
         </div>
-        
-        <div class="math-block block-proof-step" id="block-6" data-latex="a_n p^n + a_{n-1}p^{n-1}q + \cdots + a_1 p q^{n-1} + a_0 q^n = 0" data-label="Step 2: Clear denominators" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 2: Clear denominators</div>
-            <div class="block-content-row">
-                <div class="block-math">$$a_n p^n + a_{n-1}p^{n-1}q + \cdots + a_1 p q^{n-1} + a_0 q^n = 0$$</div>
-                <div class="block-annotation">Multiply through by q^n to get an equation with all integer terms.</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-7" data-latex="a_0 q^n = -p\left(a_n p^{n-1} + a_{n-1}p^{n-2}q + \cdots + a_1 q^{n-1}\right)" data-label="Step 3: Isolate constant term" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 3: Isolate constant term</div>
-            <div class="block-content-row">
-                <div class="block-math">$$a_0 q^n = -p\left(a_n p^{n-1} + a_{n-1}p^{n-2}q + \cdots + a_1 q^{n-1}\right)$$</div>
-                <div class="block-annotation">Move all terms with factor p to the right side.</div>
-            </div>
-            
-        </div>
-        
-        <div class="math-block block-proof-step" id="block-8" data-latex="p \mid a_0 q^n \text{ and } \gcd(p, q^n) = 1 \implies p \mid a_0" data-label="Step 3 (cont.): Apply coprimality" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 3 (cont.): Apply coprimality</div>
-            <div class="block-content-row">
-                <div class="block-math">$$p \mid a_0 q^n \text{ and } \gcd(p, q^n) = 1 \implies p \mid a_0$$</div>
-                <div class="block-annotation">Since p and q share no factors, p must divide a₀ itself.</div>
-            </div>
-            
-        <div class="block-explanation">
-            <div class="explanation-header">
-                <span class="toggle-icon">▶</span>
-                <span class="icon">✦</span>
-                <span>Coprimality and Divisibility</span>
-            </div>
-            <div class="explanation-content"><p><strong>Coprimality</strong> means two integers share no common factors other than 1. We say $p$ and $q$ are <em>coprime</em> (or "relatively prime") when $\gcd(p, q) = 1$. For example, 8 and 15 are coprime because their only common divisor is 1, even though neither is prime itself.</p>
+        </div><!-- end section-container -->
+<div class="section-container">
 
-<p><strong>Why $p \mid a_0 q^n$:</strong> This comes from the earlier step in the Rational Root Theorem proof. When you substitute $x = \frac{p}{q}$ into the polynomial equation $a_n x^n + \cdots + a_1 x + a_0 = 0$ and multiply through by $q^n$ to clear denominators, you can rearrange to get:
-$$a_0 q^n = -p(a_n p^{n-1} + a_{n-1} p^{n-2} q + \cdots + a_1 q^{n-1})$$
-The right side is clearly divisible by $p$, so the left side $a_0 q^n$ must also be divisible by $p$.</p>
-
-<p><strong>The key inference:</strong> Since $p \mid a_0 q^n$ and $\gcd(p, q^n) = 1$ (they're coprime), all of $p$'s "divisibility pressure" must fall on $a_0$. This is <strong>Euclid's Lemma</strong>: if $p \mid bc$ and $\gcd(p, b) = 1$, then $p \mid c$. The coprimality of $p$ and $q^n$ guarantees that $p$ cannot "use up" any of its factors dividing $q^n$, so it must divide $a_0$ entirely.</p></div>
-        </div>
+        <div class="section-header section-level-1" id="block-6" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="6" title="Collapse section">▾</button><h2 class="section-title" data-block-id="6">Proof via Bézout&#x27;s Identity</h2>
         </div>
         
-        <div class="math-block block-proof-step" id="block-9" data-latex="a_n p^n = -q\left(a_{n-1}p^{n-1} + \cdots + a_1 p q^{n-2} + a_0 q^{n-1}\right)" data-label="Step 4: Isolate leading term" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 4: Isolate leading term</div>
+        <div class="math-block block-lemma" id="block-7" data-latex="\gcd(a, b) = 1 \;\Rightarrow\; \exists\, x, y \in \mathbb{Z} : ax + by = 1" data-label="Bézout&#x27;s Identity" style="--accent-color: #8ba870">
+            <div class="block-label" style="color: #8ba870"><span class="block-icon">◆</span> Bézout&#x27;s Identity</div>
             <div class="block-content-row">
-                <div class="block-math">$$a_n p^n = -q\left(a_{n-1}p^{n-1} + \cdots + a_1 p q^{n-2} + a_0 q^{n-1}\right)$$</div>
-                <div class="block-annotation">Move all terms with factor q to the right side.</div>
+                <div class="block-math">$$\gcd(a, b) = 1 \;\Rightarrow\; \exists\, x, y \in \mathbb{Z} : ax + by = 1$$</div>
+                <div class="block-annotation">Coprimality guarantees a linear combination equals 1.</div>
             </div>
             
         </div>
         
-        <div class="math-block block-proof-step" id="block-10" data-latex="q \mid a_n p^n \text{ and } \gcd(q, p^n) = 1 \implies q \mid a_n" data-label="Step 4 (cont.): Apply coprimality" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 4 (cont.): Apply coprimality</div>
+        <div class="text-block block-text" id="block-8"  style="--accent-color: #909098">
+            
+            <div class="block-content"><p>Given: gcd(a, b) = 1 and a | bc. We show a | c.</p></div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-9" data-latex="ax + by = 1 \quad \text{for some } x, y \in \mathbb{Z}" data-label="Step 1: Apply Bézout" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 1: Apply Bézout</div>
             <div class="block-content-row">
-                <div class="block-math">$$q \mid a_n p^n \text{ and } \gcd(q, p^n) = 1 \implies q \mid a_n$$</div>
-                <div class="block-annotation">Since q and p share no factors, q must divide aₙ itself.</div>
+                <div class="block-math">$$ax + by = 1 \quad \text{for some } x, y \in \mathbb{Z}$$</div>
+                <div class="block-annotation">Coprimality gives us integers to work with.</div>
             </div>
             
         </div>
         
-        <div class="math-block block-result" id="block-11" data-latex="\frac{p}{q} \text{ rational root} \implies p \mid a_0 \text{ and } q \mid a_n \quad \blacksquare" data-label="Conclusion" style="--accent-color: #d4a574">
+        <div class="math-block block-proof-step" id="block-10" data-latex="acx + bcy = c" data-label="Step 2: Multiply by c" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 2: Multiply by c</div>
+            <div class="block-content-row">
+                <div class="block-math">$$acx + bcy = c$$</div>
+                <div class="block-annotation">Scale the identity to involve c.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-11" data-latex="a \mid acx \;\text{ (obvious)}\quad \text{and} \quad a \mid bcy \;\text{ (since } a \mid bc\text{)}" data-label="Step 3: Check divisibility" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 3: Check divisibility</div>
+            <div class="block-content-row">
+                <div class="block-math">$$a \mid acx \;\text{ (obvious)}\quad \text{and} \quad a \mid bcy \;\text{ (since } a \mid bc\text{)}$$</div>
+                <div class="block-annotation">Both terms on the left are divisible by a.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-12" data-latex="a \mid (acx + bcy) = c \quad \blacksquare" data-label="Conclusion" style="--accent-color: #d4a574">
             <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Conclusion</div>
             <div class="block-content-row">
-                <div class="block-math">$$\frac{p}{q} \text{ rational root} \implies p \mid a_0 \text{ and } q \mid a_n \quad \blacksquare$$</div>
-                <div class="block-annotation">Both divisibility conditions are established.</div>
+                <div class="block-math">$$a \mid (acx + bcy) = c \quad \blacksquare$$</div>
+                <div class="block-annotation">Divisibility of both terms implies divisibility of their sum.</div>
             </div>
             
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
-        <div class="section-header section-level-1" id="block-12" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="12" title="Collapse section">▾</button><h2 class="section-title" data-block-id="12">Example Application</h2>
+        <div class="section-header section-level-1" id="block-13" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="13" title="Collapse section">▾</button><h2 class="section-title" data-block-id="13">Application: Rational Root Theorem</h2>
         </div>
         
-        <div class="math-block block-equation" id="block-13" data-latex="P(x) = x^3 + x^2 - 5x + 3, \quad a_n = 1, \quad a_0 = 3" data-label="Target polynomial" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Target polynomial</div>
+        <div class="text-block block-text" id="block-14"  style="--accent-color: #909098">
+            
+            <div class="block-content"><p>In the Rational Root Theorem proof, we need: if gcd(p, q) = 1, then gcd(p, qⁿ) = 1.</p></div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-15" data-latex="\text{Suppose prime } r \mid p \text{ and } r \mid q^n" data-label="Setup" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Setup</div>
             <div class="block-content-row">
-                <div class="block-math">$$P(x) = x^3 + x^2 - 5x + 3, \quad a_n = 1, \quad a_0 = 3$$</div>
-                <div class="block-annotation">The polynomial we want to factor.</div>
+                <div class="block-math">$$\text{Suppose prime } r \mid p \text{ and } r \mid q^n$$</div>
+                <div class="block-annotation">Assume a common prime factor exists for contradiction.</div>
             </div>
             
         </div>
         
-        <div class="math-block block-equation" id="block-14" data-latex="\frac{p}{q} \in \left\{\pm 1, \pm 3\right\}" data-label="Candidate roots" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Candidate roots</div>
+        <div class="math-block block-proof-step" id="block-16" data-latex="r \mid q^n \;\Rightarrow\; r \mid q^{n-1} \cdot q \;\Rightarrow\; r \mid q" data-label="Apply Euclid Repeatedly" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Apply Euclid Repeatedly</div>
             <div class="block-content-row">
-                <div class="block-math">$$\frac{p}{q} \in \left\{\pm 1, \pm 3\right\}$$</div>
-                <div class="block-annotation">p divides 3, q divides 1, giving only four candidates to test.</div>
+                <div class="block-math">$$r \mid q^n \;\Rightarrow\; r \mid q^{n-1} \cdot q \;\Rightarrow\; r \mid q$$</div>
+                <div class="block-annotation">Euclid&#x27;s Lemma propagates divisibility down the power.</div>
             </div>
             
         </div>
         
-        <div class="math-block block-proof-step" id="block-15" data-latex="P(1) = 1 + 1 - 5 + 3 = 0 \implies (x-1) \text{ is a factor}" data-label="Verification" style="--accent-color: #8b454f">
-            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Verification</div>
+        <div class="math-block block-result" id="block-17" data-latex="r \mid p \text{ and } r \mid q \;\Rightarrow\; \gcd(p,q) \geq r > 1 \;\lightning" data-label="Contradiction" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Contradiction</div>
             <div class="block-content-row">
-                <div class="block-math">$$P(1) = 1 + 1 - 5 + 3 = 0 \implies (x-1) \text{ is a factor}$$</div>
-                <div class="block-annotation">Testing x=1 confirms it&#x27;s a root.</div>
+                <div class="block-math">$$r \mid p \text{ and } r \mid q \;\Rightarrow\; \gcd(p,q) \geq r > 1 \;\lightning$$</div>
+                <div class="block-annotation">This contradicts gcd(p, q) = 1.</div>
             </div>
             
         </div>
         </div><!-- end section-container -->
 <div class="section-container">
 
-        <div class="section-header section-level-1" id="block-16" style="--z-index: 103;">
-            <button class="section-collapse-btn" data-block-id="16" title="Collapse section">▾</button><h2 class="section-title" data-block-id="16">Limitations</h2>
+        <div class="section-header section-level-1" id="block-18" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="18" title="Collapse section">▾</button><h2 class="section-title" data-block-id="18">Proving Bézout&#x27;s Identity</h2>
         </div>
         
-        <div class="math-block block-note" id="block-17" data-latex="x^2 - 2 = 0 \text{ has candidates } \pm 1, \pm 2 \text{, but roots are } \pm\sqrt{2}" data-label="No guarantee of rational roots" style="--accent-color: #707078">
-            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> No guarantee of rational roots</div>
+        <div class="text-block block-text" id="block-19"  style="--accent-color: #909098">
+            
+            <div class="block-content"><p>The proof uses the Extended Euclidean Algorithm by induction.</p></div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-20" data-latex="\gcd(a, 0) = a = a \cdot 1 + 0 \cdot 0 \;\checkmark" data-label="Base Case" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Base Case</div>
             <div class="block-content-row">
-                <div class="block-math">$$x^2 - 2 = 0 \text{ has candidates } \pm 1, \pm 2 \text{, but roots are } \pm\sqrt{2}$$</div>
-                <div class="block-annotation">The theorem narrows the search but doesn&#x27;t promise rational roots exist.</div>
+                <div class="block-math">$$\gcd(a, 0) = a = a \cdot 1 + 0 \cdot 0 \;\checkmark$$</div>
+                <div class="block-annotation">When b = 0, the identity holds trivially.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-21" data-latex="\gcd(a, b) = \gcd(b, a \bmod b)" data-label="Euclidean Step" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Euclidean Step</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\gcd(a, b) = \gcd(b, a \bmod b)$$</div>
+                <div class="block-annotation">The algorithm reduces to a smaller problem.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-22" data-latex="bx' + (a \bmod b)y' = \gcd(a, b)" data-label="Inductive Hypothesis" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Inductive Hypothesis</div>
+            <div class="block-content-row">
+                <div class="block-math">$$bx' + (a \bmod b)y' = \gcd(a, b)$$</div>
+                <div class="block-annotation">Assume Bézout holds for the reduced problem.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-23" data-latex="bx' + \bigl(a - \lfloor a/b \rfloor \cdot b\bigr)y' = \gcd(a,b)" data-label="Expand mod" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Expand mod</div>
+            <div class="block-content-row">
+                <div class="block-math">$$bx' + \bigl(a - \lfloor a/b \rfloor \cdot b\bigr)y' = \gcd(a,b)$$</div>
+                <div class="block-annotation">Substitute the definition of mod.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-24" data-latex="a \cdot y' + b \cdot \bigl(x' - \lfloor a/b \rfloor y'\bigr) = \gcd(a,b)" data-label="Rearrange" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Rearrange</div>
+            <div class="block-content-row">
+                <div class="block-math">$$a \cdot y' + b \cdot \bigl(x' - \lfloor a/b \rfloor y'\bigr) = \gcd(a,b)$$</div>
+                <div class="block-annotation">Collect terms to match Bézout form for a, b.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-result" id="block-25" data-latex="x = y', \quad y = x' - \lfloor a/b \rfloor y' \quad \blacksquare" data-label="Coefficient Extraction" style="--accent-color: #d4a574">
+            <div class="block-label" style="color: #d4a574"><span class="block-icon">∴</span> Coefficient Extraction</div>
+            <div class="block-content-row">
+                <div class="block-math">$$x = y', \quad y = x' - \lfloor a/b \rfloor y' \quad \blacksquare$$</div>
+                <div class="block-annotation">The back-substitution formula completes the induction.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-26" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="26" title="Collapse section">▾</button><h2 class="section-title" data-block-id="26">Key Insight</h2>
+        </div>
+        
+        <div class="math-block block-note" id="block-27" data-latex="\gcd(a,b) = 1 \;\longleftrightarrow\; \exists\, x,y : ax + by = 1" data-label="The Power of Bézout" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> The Power of Bézout</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\gcd(a,b) = 1 \;\longleftrightarrow\; \exists\, x,y : ax + by = 1$$</div>
+                <div class="block-annotation">Bézout converts abstract coprimality into a manipulable algebraic equation — the &quot;secret weapon&quot; of elementary number theory.</div>
             </div>
             
         </div>
@@ -1087,9 +1101,11 @@ The right side is clearly divisible by $p$, so the left side $a_0 q^n$ must also
             <a class="outline-item outline-top" href="#" data-block-id="top">Top</a>
                 <div class="outline-divider"></div>
                 <a class="outline-item outline-level-1" href="#block-0" data-block-id="0">Statement</a>
-                <a class="outline-item outline-level-1" href="#block-3" data-block-id="3">Proof</a>
-                <a class="outline-item outline-level-1" href="#block-12" data-block-id="12">Example Application</a>
-                <a class="outline-item outline-level-1" href="#block-16" data-block-id="16">Limitations</a>
+                <a class="outline-item outline-level-1" href="#block-4" data-block-id="4">Intuition</a>
+                <a class="outline-item outline-level-1" href="#block-6" data-block-id="6">Proof via Bézout&#x27;s Identity</a>
+                <a class="outline-item outline-level-1" href="#block-13" data-block-id="13">Application: Rational Root Theorem</a>
+                <a class="outline-item outline-level-1" href="#block-18" data-block-id="18">Proving Bézout&#x27;s Identity</a>
+                <a class="outline-item outline-level-1" href="#block-26" data-block-id="26">Key Insight</a>
         </nav>
     </div>
     <button class="outline-toggle-btn" id="outlineToggleBtn" onclick="toggleOutline()" title="Show outline">☰</button>
@@ -1275,13 +1291,6 @@ The right side is clearly divisible by $p$, so the left side $a_0 q^n$ must also
         });
 
             
-        // Toggle explanation expanded/collapsed on header click
-        document.querySelectorAll('.explanation-header').forEach(header => {
-            header.addEventListener('click', function() {
-                this.parentElement.classList.toggle('expanded');
-            });
-        });
-
 
             // Section collapse and title click
             
