@@ -226,6 +226,36 @@
             margin-top: 12px;
         }
 
+        /* LaTeX list fallback (enumerate/itemize converted to HTML) */
+        .latex-list {
+            margin: 4px 0;
+            padding-left: 24px;
+            font-size: 14px;
+            line-height: 1.75;
+            color: #c8c8d0;
+        }
+
+        .latex-list li {
+            margin-bottom: 6px;
+        }
+
+        .latex-list li::marker {
+            color: #606068;
+        }
+
+        .latex-list strong {
+            color: #f0ebe3;
+            font-weight: 600;
+        }
+
+        .latex-list em {
+            color: #909098;
+        }
+
+        .latex-list .katex-inline .katex {
+            font-size: 1em;
+        }
+
         /* KaTeX */
         .katex-display {
             margin: 0;
@@ -1162,13 +1192,15 @@
             <button class="section-collapse-btn" data-block-id="37" title="Collapse section">▾</button><h2 class="section-title" data-block-id="37">Key Takeaways</h2>
         </div>
         
-        <div class="math-block block-note" id="block-38" data-latex="\begin{enumerate} \item \text{Continuous RVs spread probability via density, not point masses} \item \text{Translation rule: sums} \to \text{integrals, PMF} \to \text{PDF} \item \text{PDF is probability per unit length (can exceed 1)} \item \text{CDF } F_X(x) = P(X \leq x) \text{ unifies all RV types} \item \text{Normal distribution arises from sums of independent contributions (CLT)} \item \text{Standardize } N(\mu, \sigma^2) \to N(0,1) \text{ to use a single table} \end{enumerate}" data-label="Summary" style="--accent-color: #707078">
+        <div class="math-block block-note" id="block-38" data-label="Summary" style="--accent-color: #707078">
             <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Summary</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\begin{enumerate} \item \text{Continuous RVs spread probability via density, not point masses} \item \text{Translation rule: sums} \to \text{integrals, PMF} \to \text{PDF} \item \text{PDF is probability per unit length (can exceed 1)} \item \text{CDF } F_X(x) = P(X \leq x) \text{ unifies all RV types} \item \text{Normal distribution arises from sums of independent contributions (CLT)} \item \text{Standardize } N(\mu, \sigma^2) \to N(0,1) \text{ to use a single table} \end{enumerate}$$</div>
-                <div class="block-annotation">These six points capture the essential content of this lecture.</div>
-            </div>
-            
+            <div class="block-content"><ol class="latex-list"><li>Continuous RVs spread probability via density, not point masses</li>
+<li>Translation rule: sums<span class="katex-inline">$\to$</span>integrals, PMF<span class="katex-inline">$\to$</span>PDF</li>
+<li>PDF is probability per unit length (can exceed 1)</li>
+<li>CDF <span class="katex-inline">$F_X(x) = P(X \leq x)$</span> unifies all RV types</li>
+<li>Normal distribution arises from sums of independent contributions (CLT)</li>
+<li>Standardize <span class="katex-inline">$N(\mu, \sigma^2) \to N(0,1)$</span> to use a single table</li></ol></div>
+            <div class="block-annotation">These six points capture the essential content of this lecture.</div>
         </div>
         </div><!-- end section-container -->
     </div>

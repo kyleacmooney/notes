@@ -226,6 +226,36 @@
             margin-top: 12px;
         }
 
+        /* LaTeX list fallback (enumerate/itemize converted to HTML) */
+        .latex-list {
+            margin: 4px 0;
+            padding-left: 24px;
+            font-size: 14px;
+            line-height: 1.75;
+            color: #c8c8d0;
+        }
+
+        .latex-list li {
+            margin-bottom: 6px;
+        }
+
+        .latex-list li::marker {
+            color: #606068;
+        }
+
+        .latex-list strong {
+            color: #f0ebe3;
+            font-weight: 600;
+        }
+
+        .latex-list em {
+            color: #909098;
+        }
+
+        .latex-list .katex-inline .katex {
+            font-size: 1em;
+        }
+
         /* KaTeX */
         .katex-display {
             margin: 0;

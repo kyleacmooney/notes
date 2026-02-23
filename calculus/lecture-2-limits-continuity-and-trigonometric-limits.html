@@ -226,6 +226,36 @@
             margin-top: 12px;
         }
 
+        /* LaTeX list fallback (enumerate/itemize converted to HTML) */
+        .latex-list {
+            margin: 4px 0;
+            padding-left: 24px;
+            font-size: 14px;
+            line-height: 1.75;
+            color: #c8c8d0;
+        }
+
+        .latex-list li {
+            margin-bottom: 6px;
+        }
+
+        .latex-list li::marker {
+            color: #606068;
+        }
+
+        .latex-list strong {
+            color: #f0ebe3;
+            font-weight: 600;
+        }
+
+        .latex-list em {
+            color: #909098;
+        }
+
+        .latex-list .katex-inline .katex {
+            font-size: 1em;
+        }
+
         /* KaTeX */
         .katex-display {
             margin: 0;
@@ -1154,13 +1184,15 @@
             <button class="section-collapse-btn" data-block-id="38" title="Collapse section">▾</button><h2 class="section-title" data-block-id="38">Key Takeaways</h2>
         </div>
         
-        <div class="math-block block-note" id="block-39" data-latex="\begin{enumerate} \item \text{The derivative has two interpretations: \textbf{geometric} (tangent slope) and \textbf{physical} (rate of change).} \item \text{Error propagation: } \Delta L \approx (dL/dh)\,\Delta h \text{ converts measurement error into real-world uncertainty.} \item \text{Derivative limits always produce } 0/0 \text{ and require algebraic manipulation.} \item \text{Continuity requires three conditions; the limit avoids the point while the function value evaluates at it.} \item \text{Differentiability } \Rightarrow \text{ continuity, but not conversely.} \item \text{Discontinuities: jump, removable, infinite, oscillating — each violates continuity differently.} \end{enumerate}" data-label="Summary" style="--accent-color: #707078">
+        <div class="math-block block-note" id="block-39" data-label="Summary" style="--accent-color: #707078">
             <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Summary</div>
-            <div class="block-content-row">
-                <div class="block-math">$$\begin{enumerate} \item \text{The derivative has two interpretations: \textbf{geometric} (tangent slope) and \textbf{physical} (rate of change).} \item \text{Error propagation: } \Delta L \approx (dL/dh)\,\Delta h \text{ converts measurement error into real-world uncertainty.} \item \text{Derivative limits always produce } 0/0 \text{ and require algebraic manipulation.} \item \text{Continuity requires three conditions; the limit avoids the point while the function value evaluates at it.} \item \text{Differentiability } \Rightarrow \text{ continuity, but not conversely.} \item \text{Discontinuities: jump, removable, infinite, oscillating — each violates continuity differently.} \end{enumerate}$$</div>
-                <div class="block-annotation">Core concepts from Lecture 2 that underpin the differentiation rules derived in Lecture 3.</div>
-            </div>
-            
+            <div class="block-content"><ol class="latex-list"><li>The derivative has two interpretations: <strong>geometric</strong> (tangent slope) and <strong>physical</strong> (rate of change).</li>
+<li>Error propagation: <span class="katex-inline">$\Delta L \approx (dL/dh)\,\Delta h$</span> converts measurement error into real-world uncertainty.</li>
+<li>Derivative limits always produce <span class="katex-inline">$0/0$</span> and require algebraic manipulation.</li>
+<li>Continuity requires three conditions; the limit avoids the point while the function value evaluates at it.</li>
+<li>Differentiability <span class="katex-inline">$\Rightarrow$</span> continuity, but not conversely.</li>
+<li>Discontinuities: jump, removable, infinite, oscillating — each violates continuity differently.</li></ol></div>
+            <div class="block-annotation">Core concepts from Lecture 2 that underpin the differentiation rules derived in Lecture 3.</div>
         </div>
         </div><!-- end section-container -->
     </div>
