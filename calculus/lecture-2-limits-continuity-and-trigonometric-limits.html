@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a1a1e">
+    <title>Lecture 2 Limits Continuity And Trigonometric Limits</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    
+    <style>
+
+        :root {
+            --katex-base-size: 1.2em;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Source Sans 3", -apple-system, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(165deg, #1a1a1e 0%, #222226 40%, #1e1e22 100%);
+            color: #c8c8d0;
+            padding: 48px;
+            line-height: 1.7;
+            visibility: hidden;
+        }
+
+        .header {
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(139, 69, 79, 0.3);
+        }
+
+        h1 {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 28px;
+            font-weight: 500;
+            color: #f0ebe3;
+            letter-spacing: 0.01em;
+            margin-bottom: 4px;
+        }
+
+        .header::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #8b454f 0%, transparent 100%);
+            margin-top: 16px;
+        }
+
+        .content {
+            max-width: 800px;
+        }
+
+        /* Section containers */
+        .section-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Math blocks */
+        .math-block {
+            margin: 4px 0;
+            padding: 8px 0 8px 14px;
+            background: none;
+            border: none;
+            border-left: 2px solid var(--accent-color, #8b454f);
+            position: relative;
+        }
+
+        .block-content-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 4px 20px;
+        }
+
+        .block-content-row .block-math {
+            flex: 1 0 auto;
+        }
+
+        .math-block .block-annotation {
+            flex: 0 0 auto;
+            max-width: 220px;
+            font-size: 11px;
+            color: #606068;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .math-block .block-annotation.wrapped {
+            max-width: none;
+            flex-basis: 100%;
+        }
+
+        /* Block labels (Step 1, Theorem, etc.) */
+        .block-label {
+            font-size: 9px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0.7;
+        }
+
+        .block-icon {
+            font-size: 10px;
+            opacity: 0.9;
+        }
+
+        .block-note .block-math {
+            font-size: 0.95em;
+        }
+
+        .block-result {
+            border-left-width: 3px;
+            padding-left: 18px;
+        }
+
+        /* Text blocks */
+        .text-block {
+            margin: 12px 0;
+            padding: 0 4px;
+            background: none;
+            border: none;
+        }
+
+        .text-block .block-label {
+            font-size: 9px;
+            margin-bottom: 4px;
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .text-block .block-content {
+            font-size: 14px;
+            line-height: 1.65;
+            color: #a0a0a8;
+            font-style: italic;
+        }
+
+        .text-block .block-content p {
+            margin: 0 0 8px 0;
+        }
+
+        .text-block .block-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Section headers */
+        .section-header {
+            position: sticky;
+            top: var(--top-offset, 0);
+            z-index: var(--z-index, 100);
+            background: linear-gradient(165deg, #1a1a1e 0%, #222226 100%);
+            margin: 0 -48px;
+            padding: 0 48px;
+            border-bottom: 1px solid rgba(139, 69, 79, 0.2);
+        }
+
+        .section-header.section-level-1 {
+            padding-top: 32px;
+            padding-bottom: 16px;
+            margin-top: 40px;
+        }
+
+        .section-header.section-level-1:first-child {
+            margin-top: 0;
+        }
+
+        .section-header.section-level-2 {
+            padding-top: 20px;
+            padding-bottom: 12px;
+            margin-top: 28px;
+            border-bottom-color: rgba(139, 69, 79, 0.15);
+        }
+
+        .section-header.section-level-3 {
+            padding-top: 14px;
+            padding-bottom: 10px;
+            margin-top: 20px;
+            border-bottom-color: rgba(139, 69, 79, 0.1);
+        }
+
+        .section-title {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            margin: 0;
+        }
+
+        .section-level-1 .section-title {
+            font-size: 24px;
+            color: #f0ebe3;
+        }
+
+        .section-level-2 .section-title {
+            font-size: 20px;
+            color: #d8d3cb;
+        }
+
+        .section-level-3 .section-title {
+            font-size: 17px;
+            color: #c0bbb3;
+            font-weight: 400;
+        }
+
+        .section-level-1::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #8b454f 0%, transparent 100%);
+            margin-top: 12px;
+        }
+
+        /* KaTeX */
+        .katex-display {
+            margin: 0;
+        }
+
+        .katex {
+            font-size: var(--katex-base-size);
+            color: #f0ebe3;
+        }
+
+        .katex-display > .katex {
+            text-shadow: 0 0 40px rgba(139, 69, 79, 0.12);
+        }
+
+
+        .context-area {
+            margin-bottom: 28px;
+            background: rgba(139, 69, 79, 0.08);
+            border-radius: 8px;
+            border-left: 3px solid #8b454f;
+            overflow: hidden;
+        }
+
+        .context {
+            font-size: 15px;
+            font-weight: 300;
+            color: #909098;
+            padding: 16px 20px 12px 20px;
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        .chat-toggle-row {
+            padding: 0 20px 12px 20px;
+        }
+
+
+        /* Section header layout for collapse button */
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        /* Clickable section title - scrolls header to top */
+        .section-title {
+            cursor: pointer;
+            transition: color 0.15s;
+        }
+
+        .section-title:hover {
+            color: #8b454f !important;
+        }
+
+        /* Collapse/expand button */
+        .section-collapse-btn {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            border: none;
+            background: transparent;
+            color: #606068;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+            margin-left: -28px;
+        }
+
+        /* Mobile: position button inline instead of negative margin */
+        @media (max-width: 700px) {
+            .section-collapse-btn {
+                margin-left: 0;
+                margin-right: 4px;
+                width: 18px;
+                height: 18px;
+                font-size: 11px;
+                order: -1; /* Put button before title */
+            }
+        }
+
+        .section-collapse-btn:hover {
+            background: rgba(139, 69, 79, 0.2);
+            color: #c8c8d0;
+        }
+
+        /* Collapsed state - rotate arrow */
+        .section-header.collapsed .section-collapse-btn {
+            transform: rotate(-90deg);
+        }
+
+        /* Hidden by collapse - applied via JavaScript */
+        .section-collapsed-hidden {
+            display: none !important;
+        }
+
+
+        /* Outline panel */
+        .outline-panel {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            width: 220px;
+            max-height: calc(100vh - 120px);
+            background: rgba(26, 26, 30, 0.95);
+            border: 1px solid rgba(139, 69, 79, 0.25);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            overflow: hidden;
+            z-index: 500;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .outline-panel.hidden {
+            opacity: 0;
+            transform: translateX(20px);
+            pointer-events: none;
+        }
+
+        .outline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(139, 69, 79, 0.2);
+            background: rgba(139, 69, 79, 0.08);
+        }
+
+        .outline-title {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #c8c8d0;
+            letter-spacing: 0.03em;
+        }
+
+        .outline-close {
+            width: 20px;
+            height: 20px;
+            border: none;
+            background: transparent;
+            color: #707078;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+
+        .outline-close:hover {
+            background: rgba(139, 69, 79, 0.3);
+            color: #f0ebe3;
+        }
+
+        .outline-nav {
+            padding: 8px 0;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+
+        .outline-item {
+            display: block;
+            padding: 8px 16px;
+            color: #909098;
+            text-decoration: none;
+            font-size: 13px;
+            line-height: 1.4;
+            transition: all 0.15s;
+            border-left: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .outline-item:hover {
+            color: #d0d0d8;
+            background: rgba(139, 69, 79, 0.1);
+        }
+
+        .outline-item.active {
+            color: #f0ebe3;
+            background: rgba(139, 69, 79, 0.15);
+            border-left-color: #8b454f;
+        }
+
+        .outline-level-1 {
+            font-weight: 500;
+            color: #b8b8c0;
+        }
+
+        .outline-level-2 {
+            padding-left: 28px;
+            font-size: 12px;
+        }
+
+        .outline-level-3 {
+            padding-left: 40px;
+            font-size: 11px;
+            color: #808088;
+        }
+
+        .outline-top {
+            font-size: 12px;
+            color: #707078;
+            font-style: italic;
+        }
+
+        .outline-top:hover {
+            color: #b8b8c0;
+        }
+
+        .outline-top.active {
+            color: #c8c8d0;
+            border-left-color: #8b454f;
+        }
+
+        .outline-divider {
+            height: 1px;
+            background: rgba(139, 69, 79, 0.2);
+            margin: 6px 16px;
+        }
+
+        .outline-toggle-btn {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(139, 69, 79, 0.3);
+            border-radius: 8px;
+            background: rgba(26, 26, 30, 0.9);
+            color: #909098;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 499;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .outline-toggle-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .outline-toggle-btn:hover {
+            background: rgba(139, 69, 79, 0.2);
+            color: #f0ebe3;
+            border-color: rgba(139, 69, 79, 0.5);
+        }
+
+
+        /* Explanation blocks */
+        .block-explanation {
+            margin-top: 16px;
+            padding: 0;
+            background: transparent;
+            border-radius: 0;
+            position: relative;
+        }
+
+        .block-explanation::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            bottom: 4px;
+            width: 2px;
+            background: linear-gradient(180deg, rgba(107, 140, 206, 0.6) 0%, rgba(107, 140, 206, 0.1) 100%);
+            border-radius: 1px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .block-explanation.expanded::before {
+            opacity: 1;
+        }
+
+        .explanation-header {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: 15px;
+            font-weight: 500;
+            font-style: italic;
+            color: #8090a8;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            border-radius: 6px;
+            transition: background 0.15s;
+        }
+
+        .explanation-header:hover {
+            background: rgba(107, 140, 206, 0.08);
+        }
+
+        .explanation-header .toggle-icon {
+            font-style: normal;
+            font-size: 10px;
+            color: #606878;
+            transition: transform 0.2s;
+        }
+
+        .block-explanation.expanded .explanation-header .toggle-icon {
+            transform: rotate(90deg);
+        }
+
+        .explanation-header .icon {
+            font-style: normal;
+            opacity: 0.7;
+        }
+
+        .explanation-content {
+            display: none;
+            font-size: 14.5px;
+            color: #b0b0b8;
+            line-height: 1.85;
+            margin-left: 14px;
+            border-radius: 0 8px 8px 0;
+            padding: 16px 18px;
+            background: rgba(107, 140, 206, 0.03);
+        }
+
+        .block-explanation.expanded .explanation-content {
+            display: block;
+        }
+
+        .explanation-content p {
+            margin: 14px 0;
+        }
+
+        .explanation-content p:first-child {
+            margin-top: 0;
+        }
+
+        .explanation-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .explanation-content strong {
+            color: #d0d0d8;
+            font-weight: 500;
+        }
+
+        .explanation-content .katex {
+            font-size: 1.1em;
+        }
+
+        .block-explanation.is-error {
+            opacity: 0.8;
+        }
+
+        .block-explanation.is-error::before {
+            background: linear-gradient(180deg, rgba(180, 100, 100, 0.6) 0%, rgba(180, 100, 100, 0.1) 100%);
+        }
+
+        .block-explanation.is-error .explanation-header {
+            color: #b08080;
+        }
+
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(139, 69, 79, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(139, 69, 79, 0.5);
+        }
+
+
+        /* Scroll fade indicators for overflowing math blocks */
+        .block-math {
+            position: relative;
+            overflow-x: auto;
+            overflow-y: clip;
+            max-width: 100%;
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        .block-math::-webkit-scrollbar {
+            height: 0;  /* Chrome/Safari - hidden by default */
+        }
+
+        .block-math:hover {
+            scrollbar-width: thin;  /* Firefox */
+        }
+
+        .block-math:hover::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .block-math:hover::-webkit-scrollbar-thumb {
+            background: rgba(139, 69, 79, 0.4);
+            border-radius: 4px;
+        }
+
+        .block-math:hover::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .block-math::before,
+        .block-math::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 24px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+
+        .block-math::before {
+            left: 0;
+            background: linear-gradient(to right, #1a1a1e 0%, transparent 100%);
+        }
+
+        .block-math::after {
+            right: 0;
+            background: linear-gradient(to left, #1a1a1e 0%, transparent 100%);
+        }
+
+        .block-math.has-overflow::after { opacity: 1; }
+        .block-math.scrolled-right::before { opacity: 1; }
+        .block-math.scrolled-end::after { opacity: 0; }
+
+
+        /* Fixed navigation header (static site) */
+        :root {
+            --nav-height: 44px;
+            --section-height: 70px;  /* Must match actual level-1 header height: 12px + ~34px text + 24px = 70px */
+            --subsection-height: 64px;  /* Must match actual level-2 header height: 20px + ~26px text + 18px = 64px */
+            --body-padding: 48px;
+        }
+
+        html {
+            scroll-padding-top: calc(var(--nav-height) + 16px);
+        }
+
+        /* Offset for anchor scrolling to account for fixed nav */
+        [id^="block-"] {
+            scroll-margin-top: calc(var(--nav-height) + 16px);
+        }
+
+        body {
+            padding-top: calc(var(--nav-height) + 36px);
+            overflow-x: hidden;
+        }
+
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            background: rgba(26, 26, 30, 0.98);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(139, 69, 79, 0.2);
+            padding: 0 var(--body-padding);
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .breadcrumbs {
+            font-size: 13px;
+            color: #909098;
+        }
+
+        .breadcrumbs a {
+            color: #6b8cce;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .breadcrumbs a:hover {
+            color: #8bacd0;
+            text-decoration: underline;
+        }
+
+        .header {
+            margin-bottom: 1.5em;
+            padding-bottom: 8px;
+        }
+
+        .header::after {
+            margin-top: 4px;
+        }
+
+        /* Fixed sticky positions for nav header offset */
+        .section-header {
+            position: sticky;
+            z-index: 100;
+            margin-left: calc(-1 * var(--body-padding));
+            margin-right: calc(-1 * var(--body-padding));
+            padding-left: var(--body-padding);
+            padding-right: var(--body-padding);
+            box-sizing: border-box;
+        }
+
+        .section-header.section-level-1 {
+            z-index: 103;
+            top: var(--nav-height);
+            padding-top: 12px;
+            padding-bottom: 24px;
+            margin-top: 40px;
+            margin-bottom: 16px;
+        }
+
+        .section-container:first-child .section-header.section-level-1 {
+            margin-top: 24px;
+            margin-bottom: 24px;
+        }
+
+        .section-header.section-level-2 {
+            z-index: 102;
+            top: calc(var(--nav-height) + var(--section-height));
+            padding-top: 20px;
+            padding-bottom: 18px;
+            margin-top: 0; /* Override base margin - spacing comes from previous section's margin-bottom */
+        }
+
+        .section-header.section-level-3 {
+            z-index: 101;
+            top: calc(var(--nav-height) + var(--section-height) + var(--subsection-height));
+            padding-top: 14px;
+            padding-bottom: 14px;
+            margin-top: 0; /* Override base margin - spacing comes from previous section's margin-bottom */
+        }
+
+        @media (max-width: 900px) {
+            :root {
+                --katex-base-size: 1em;
+            }
+            .outline-panel {
+                display: none;
+            }
+            .outline-toggle-btn {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            :root {
+                --body-padding: 20px;
+                --nav-height: 40px;
+                --section-height: 90px;
+                --subsection-height: 60px;
+                --katex-base-size: 0.9em;
+            }
+
+            body {
+                padding: var(--body-padding);
+                padding-top: calc(var(--nav-height) + 30px);
+            }
+
+            .nav-header {
+                padding: 0 var(--body-padding);
+            }
+
+            .breadcrumbs {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100%;
+                font-size: 12px;
+            }
+
+            .section-header {
+                position: static;
+            }
+
+            .section-container:first-child .section-header.section-level-1 {
+                margin-top: 0;
+            }
+
+            .section-level-1 .section-title {
+                font-size: 20px;
+            }
+
+            .section-level-2 .section-title {
+                font-size: 17px;
+            }
+
+            .section-level-3 .section-title {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            :root {
+                --katex-base-size: 0.8em;
+                --section-height: 80px;
+                --subsection-height: 52px;
+            }
+
+            .section-level-1 .section-title {
+                font-size: 18px;
+            }
+
+            .section-level-2 .section-title {
+                font-size: 15px;
+            }
+
+            .section-level-3 .section-title {
+                font-size: 14px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    
+    <nav class="nav-header">
+        <div class="breadcrumbs"><a href="../index.html">Notes</a> / <a href="index.html">Calculus</a> / <a href="#">Lecture 2 Limits Continuity And Trigonometric Limits</a></div>
+    </nav>
+    <div class="header">
+        <h1>Lecture 2 Limits Continuity And Trigonometric Limits</h1>
+    </div>
+    
+    <div class="content">
+        
+        <div class="context-area">
+            <p class="context">Building the formal machinery of limits and continuity for single-variable calculus, transitioning from the geometric view of derivatives to their physical interpretation as rate of change, and proving the fundamental theorem that differentiability implies continuity.</p>
+        </div>
+        <div class="section-container">
+
+        <div class="section-header section-level-1" id="block-0" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="0" title="Collapse section">▾</button><h2 class="section-title" data-block-id="0">1. Recap and Derivative as Rate of Change</h2>
+        </div>
+        
+        <div class="math-block block-equation" id="block-1" data-latex="\frac{d}{dx}\!\left(\frac{1}{x}\right) = -\frac{1}{x^2}, \qquad \frac{d}{dx}(x^n) = n\,x^{n-1} \quad (n = 1,2,3,\dots)" data-label="Derivatives from Lecture 1" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Derivatives from Lecture 1</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\frac{d}{dx}\!\left(\frac{1}{x}\right) = -\frac{1}{x^2}, \qquad \frac{d}{dx}(x^n) = n\,x^{n-1} \quad (n = 1,2,3,\dots)$$</div>
+                <div class="block-annotation">The two derivative formulas computed geometrically in Lecture 1.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-definition" id="block-2" data-latex="\text{Given } y = f(x):\quad \frac{\Delta y}{\Delta x} = \text{average rate of change}, \qquad \frac{dy}{dx} = \lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} = \text{instantaneous rate of change.}" data-label="Instantaneous Rate of Change" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Instantaneous Rate of Change</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{Given } y = f(x):\quad \frac{\Delta y}{\Delta x} = \text{average rate of change}, \qquad \frac{dy}{dx} = \lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} = \text{instantaneous rate of change.}$$</div>
+                <div class="block-annotation">The second major interpretation of the derivative, complementing the geometric (tangent slope) view.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-3" data-latex="\begin{array}{lll} \textbf{Quantity} & \textbf{Rate of Change} & \textbf{Name} \\ \hline \text{Charge } q & dq/dt & \text{Current} \\ \text{Distance } s & ds/dt & \text{Speed} \\ \text{Temperature } T & dT/dx & \text{Temperature gradient} \end{array}" data-label="Physical Examples" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Physical Examples</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\begin{array}{lll} \textbf{Quantity} & \textbf{Rate of Change} & \textbf{Name} \\ \hline \text{Charge } q & dq/dt & \text{Current} \\ \text{Distance } s & ds/dt & \text{Speed} \\ \text{Temperature } T & dT/dx & \text{Temperature gradient} \end{array}$$</div>
+                <div class="block-annotation">The derivative appears throughout physics and engineering under different names.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-4" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="4" title="Collapse section">▾</button><h2 class="section-title" data-block-id="4">2. Example: The Pumpkin Drop</h2>
+        </div>
+        
+        <div class="text-block block-text" id="block-5"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Setup</div>
+            <div class="block-content"><p>MIT Halloween tradition: dropping pumpkins from the Green Building (~80 m). Model the height as h = 80 - 5t^2 meters (using g ≈ 10 m/s²). Impact occurs at t = 4 when h = 0.</p></div>
+        </div>
+        
+        <div class="math-block block-equation" id="block-6" data-latex="\frac{\Delta h}{\Delta t} = \frac{0 - 80}{4 - 0} = -20 \text{ m/s}" data-label="Average Speed" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Average Speed</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\frac{\Delta h}{\Delta t} = \frac{0 - 80}{4 - 0} = -20 \text{ m/s}$$</div>
+                <div class="block-annotation">The average speed over the entire fall.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-equation" id="block-7" data-latex="h'(t) = -10t \implies h'(4) = -40 \text{ m/s} \approx 90 \text{ mph}" data-label="Instantaneous Speed at Impact" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Instantaneous Speed at Impact</div>
+            <div class="block-content-row">
+                <div class="block-math">$$h'(t) = -10t \implies h'(4) = -40 \text{ m/s} \approx 90 \text{ mph}$$</div>
+                <div class="block-annotation">The instantaneous speed at impact is exactly twice the average speed — a general result for constant-acceleration motion.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-8" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="8" title="Collapse section">▾</button><h2 class="section-title" data-block-id="8">3. Sensitivity and Error Propagation</h2>
+        </div>
+        
+        <div class="math-block block-equation" id="block-9" data-latex="\Delta L \approx \frac{dL}{dh} \cdot \Delta h" data-label="Linear Approximation of Error" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Linear Approximation of Error</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\Delta L \approx \frac{dL}{dh} \cdot \Delta h$$</div>
+                <div class="block-annotation">The derivative converts measurement error (Δh) into real-world uncertainty (ΔL). Critical for applications like GPS and aircraft landing.</div>
+            </div>
+            
+        </div>
+        
+        <div class="text-block block-text" id="block-10"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> GPS Interpretation</div>
+            <div class="block-content"><p>In a simplified flat-Earth GPS model, a satellite at known altitude H measures line-of-sight distance h to deduce horizontal distance L. The derivative dL/dh quantifies how sensitive the deduced position is to measurement error — the &#x27;easy part&#x27; that&#x27;s just calculus.</p></div>
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-11" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="11" title="Collapse section">▾</button><h2 class="section-title" data-block-id="11">4. Limits: Easy vs. Hard</h2>
+        </div>
+        
+        <div class="section-header section-level-2" id="block-12" style="--z-index: 102;">
+            <button class="section-collapse-btn" data-block-id="12" title="Collapse section">▾</button><h3 class="section-title" data-block-id="12">4.1. Easy Limits (Direct Substitution)</h3>
+        </div>
+        
+        <div class="math-block block-equation" id="block-13" data-latex="\lim_{x \to 4} \frac{x+3}{x^2+1} = \frac{7}{17}" data-label="Substitution Example" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Substitution Example</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\lim_{x \to 4} \frac{x+3}{x^2+1} = \frac{7}{17}$$</div>
+                <div class="block-annotation">When a function is continuous at the limit point, simply plug in the value.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-14" style="--z-index: 102;">
+            <button class="section-collapse-btn" data-block-id="14" title="Collapse section">▾</button><h3 class="section-title" data-block-id="14">4.2. Derivative Limits Are Never Easy</h3>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-15" data-latex="f'(x_0) = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}" data-label="Derivative Limits Always Give 0/0" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Derivative Limits Always Give 0/0</div>
+            <div class="block-content-row">
+                <div class="block-math">$$f'(x_0) = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}$$</div>
+                <div class="block-annotation">Setting x = x₀ gives 0/0 — some algebraic manipulation (cancellation, conjugates, etc.) is always required to evaluate a derivative from the definition.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-16" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="16" title="Collapse section">▾</button><h2 class="section-title" data-block-id="16">5. One-Sided Limits</h2>
+        </div>
+        
+        <div class="math-block block-definition" id="block-17" data-latex="\lim_{x \to x_0^+} f(x) \;\text{(right-hand limit: } x > x_0\text{)}, \qquad \lim_{x \to x_0^-} f(x) \;\text{(left-hand limit: } x < x_0\text{)}" data-label="Left-Hand and Right-Hand Limits" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Left-Hand and Right-Hand Limits</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\lim_{x \to x_0^+} f(x) \;\text{(right-hand limit: } x > x_0\text{)}, \qquad \lim_{x \to x_0^-} f(x) \;\text{(left-hand limit: } x < x_0\text{)}$$</div>
+                <div class="block-annotation">The function&#x27;s value at x₀ itself is deliberately excluded from the limiting process — only the behavior approaching x₀ matters.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-equation" id="block-18" data-latex="f(x) = \begin{cases} x+1 & x > 0 \\ -x+2 & x < 0 \end{cases} \implies \lim_{x \to 0^+} f(x) = 1, \quad \lim_{x \to 0^-} f(x) = 2" data-label="Piecewise Example" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Piecewise Example</div>
+            <div class="block-content-row">
+                <div class="block-math">$$f(x) = \begin{cases} x+1 & x > 0 \\ -x+2 & x < 0 \end{cases} \implies \lim_{x \to 0^+} f(x) = 1, \quad \lim_{x \to 0^-} f(x) = 2$$</div>
+                <div class="block-annotation">Since 1 ≠ 2, the two-sided limit does not exist — this is a jump discontinuity.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-19" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="19" title="Collapse section">▾</button><h2 class="section-title" data-block-id="19">6. Continuity</h2>
+        </div>
+        
+        <div class="math-block block-definition" id="block-20" data-latex="f \text{ is \textbf{continuous} at } x_0 \iff \begin{cases} (1) & \displaystyle\lim_{x \to x_0} f(x) \text{ exists (left and right limits agree)} \\[6pt] (2) & f(x_0) \text{ is defined} \\[6pt] (3) & \displaystyle\lim_{x \to x_0} f(x) = f(x_0) \end{cases}" data-label="Continuity at a Point" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Continuity at a Point</div>
+            <div class="block-content-row">
+                <div class="block-math">$$f \text{ is \textbf{continuous} at } x_0 \iff \begin{cases} (1) & \displaystyle\lim_{x \to x_0} f(x) \text{ exists (left and right limits agree)} \\[6pt] (2) & f(x_0) \text{ is defined} \\[6pt] (3) & \displaystyle\lim_{x \to x_0} f(x) = f(x_0) \end{cases}$$</div>
+                <div class="block-annotation">The left side of condition (3) is computed by a process that completely avoids x₀; the right side is evaluated exactly at x₀. Without this distinction, the definition would be tautological.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-21" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="21" title="Collapse section">▾</button><h2 class="section-title" data-block-id="21">7. Zoo of Discontinuities</h2>
+        </div>
+        
+        <div class="section-header section-level-2" id="block-22" style="--z-index: 102;">
+            <button class="section-collapse-btn" data-block-id="22" title="Collapse section">▾</button><h3 class="section-title" data-block-id="22">7.1. Jump Discontinuity</h3>
+        </div>
+        
+        <div class="math-block block-definition" id="block-23" data-latex="\lim_{x \to x_0^-} f(x) \neq \lim_{x \to x_0^+} f(x)" data-label="Jump Discontinuity" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Jump Discontinuity</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\lim_{x \to x_0^-} f(x) \neq \lim_{x \to x_0^+} f(x)$$</div>
+                <div class="block-annotation">Both one-sided limits exist but disagree. This distinction matters in finance — Nobel laureate Bob Merton studied whether stock prices are continuous from the left or right.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-24" style="--z-index: 102;">
+            <button class="section-collapse-btn" data-block-id="24" title="Collapse section">▾</button><h3 class="section-title" data-block-id="24">7.2. Removable Discontinuity</h3>
+        </div>
+        
+        <div class="math-block block-definition" id="block-25" data-latex="\lim_{x \to x_0^-} f(x) = \lim_{x \to x_0^+} f(x), \quad \text{but } f(x_0) \text{ is undefined or } f(x_0) \neq \lim_{x \to x_0} f(x)" data-label="Removable Discontinuity" style="--accent-color: #6b8cce">
+            <div class="block-label" style="color: #6b8cce"><span class="block-icon">:=</span> Removable Discontinuity</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\lim_{x \to x_0^-} f(x) = \lim_{x \to x_0^+} f(x), \quad \text{but } f(x_0) \text{ is undefined or } f(x_0) \neq \lim_{x \to x_0} f(x)$$</div>
+                <div class="block-annotation">Can be &#x27;fixed&#x27; by (re)defining f(x₀) to equal the common limit value.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-equation" id="block-26" data-latex="\lim_{x \to 0} \frac{\sin x}{x} = 1, \qquad \lim_{x \to 0} \frac{1 - \cos x}{x} = 0" data-label="Key Trigonometric Limits" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Key Trigonometric Limits</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\lim_{x \to 0} \frac{\sin x}{x} = 1, \qquad \lim_{x \to 0} \frac{1 - \cos x}{x} = 0$$</div>
+                <div class="block-annotation">Both are removable discontinuities of the respective expressions at x = 0. These limits are essential for deriving the derivatives of sin and cos.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-27" style="--z-index: 102;">
+            <button class="section-collapse-btn" data-block-id="27" title="Collapse section">▾</button><h3 class="section-title" data-block-id="27">7.3. Infinite Discontinuity</h3>
+        </div>
+        
+        <div class="math-block block-equation" id="block-28" data-latex="\lim_{x \to 0^+} \frac{1}{x} = +\infty, \qquad \lim_{x \to 0^-} \frac{1}{x} = -\infty" data-label="Example: 1/x at the Origin" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Example: 1/x at the Origin</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\lim_{x \to 0^+} \frac{1}{x} = +\infty, \qquad \lim_{x \to 0^-} \frac{1}{x} = -\infty$$</div>
+                <div class="block-annotation">Writing lim_{x→0} (1/x) = ∞ is incorrect — the two sides diverge in opposite directions. Always specify the direction.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-equation" id="block-29" data-latex="\lim_{x \to 0^+} \frac{-1}{x^2} = \lim_{x \to 0^-} \frac{-1}{x^2} = -\infty" data-label="Contrast: -1/x² at the Origin" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Contrast: -1/x² at the Origin</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\lim_{x \to 0^+} \frac{-1}{x^2} = \lim_{x \to 0^-} \frac{-1}{x^2} = -\infty$$</div>
+                <div class="block-annotation">Both sides agree because -1/x² is an even function. Note: the derivative of the odd function 1/x is the even function -1/x² — the graph of a derivative can look nothing like the graph of the function.</div>
+            </div>
+            
+        </div>
+        
+        <div class="section-header section-level-2" id="block-30" style="--z-index: 102;">
+            <button class="section-collapse-btn" data-block-id="30" title="Collapse section">▾</button><h3 class="section-title" data-block-id="30">7.4. Oscillating (Ugly) Discontinuity</h3>
+        </div>
+        
+        <div class="math-block block-equation" id="block-31" data-latex="y = \sin\!\left(\frac{1}{x}\right) \quad \text{near } x = 0" data-label="Example: sin(1/x)" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">=</span> Example: sin(1/x)</div>
+            <div class="block-content-row">
+                <div class="block-math">$$y = \sin\!\left(\frac{1}{x}\right) \quad \text{near } x = 0$$</div>
+                <div class="block-annotation">Oscillates infinitely often between -1 and 1 as x → 0. Neither one-sided limit exists.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-32" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="32" title="Collapse section">▾</button><h2 class="section-title" data-block-id="32">8. Differentiability Implies Continuity</h2>
+        </div>
+        
+        <div class="math-block block-theorem" id="block-33" data-latex="f \text{ differentiable at } x_0 \implies f \text{ continuous at } x_0" data-label="Differentiability Implies Continuity" style="--accent-color: #c9a227">
+            <div class="block-label" style="color: #c9a227"><span class="block-icon">★</span> Differentiability Implies Continuity</div>
+            <div class="block-content-row">
+                <div class="block-math">$$f \text{ differentiable at } x_0 \implies f \text{ continuous at } x_0$$</div>
+                <div class="block-annotation">The converse is false: |x| is continuous at 0 but not differentiable there.</div>
+            </div>
+            
+        </div>
+        
+        <div class="text-block block-text" id="block-34"  style="--accent-color: #909098">
+            <div class="block-label" style="color: #909098"><span class="block-icon">¶</span> Proof Strategy</div>
+            <div class="block-content"><p>We must show lim_{x→x₀} (f(x) - f(x₀)) = 0. The trick is to multiply and divide by (x - x₀), which is valid because in the limit x → x₀ we never actually set x = x₀.</p></div>
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-35" data-latex="\lim_{x \to x_0} \bigl(f(x) - f(x_0)\bigr) = \lim_{x \to x_0} \left[\frac{f(x) - f(x_0)}{x - x_0} \cdot (x - x_0)\right]" data-label="Step 1: Rewrite Using the Difference Quotient" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 1: Rewrite Using the Difference Quotient</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\lim_{x \to x_0} \bigl(f(x) - f(x_0)\bigr) = \lim_{x \to x_0} \left[\frac{f(x) - f(x_0)}{x - x_0} \cdot (x - x_0)\right]$$</div>
+                <div class="block-annotation">Multiplying and dividing by (x - x₀) is valid because x ≠ x₀ throughout the limiting process.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-proof-step" id="block-36" data-latex="= \underbrace{\lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}}_{= \, f'(x_0) \text{ (by hypothesis)}} \;\cdot\; \underbrace{\lim_{x \to x_0}(x - x_0)}_{= \, 0} = f'(x_0) \cdot 0 = 0 \quad \checkmark" data-label="Step 2: Apply the Product Rule for Limits" style="--accent-color: #8b454f">
+            <div class="block-label" style="color: #8b454f"><span class="block-icon">→</span> Step 2: Apply the Product Rule for Limits</div>
+            <div class="block-content-row">
+                <div class="block-math">$$= \underbrace{\lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0}}_{= \, f'(x_0) \text{ (by hypothesis)}} \;\cdot\; \underbrace{\lim_{x \to x_0}(x - x_0)}_{= \, 0} = f'(x_0) \cdot 0 = 0 \quad \checkmark$$</div>
+                <div class="block-annotation">The first factor converges to f&#x27;(x₀) because f is differentiable; the second factor obviously tends to 0.</div>
+            </div>
+            
+        </div>
+        
+        <div class="math-block block-note" id="block-37" data-latex="\text{This result is a key ingredient in proving the \textbf{product rule} and \textbf{quotient rule} (Lecture 3).}" data-label="Why This Theorem Matters" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Why This Theorem Matters</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\text{This result is a key ingredient in proving the \textbf{product rule} and \textbf{quotient rule} (Lecture 3).}$$</div>
+                <div class="block-annotation">It guarantees that if we can differentiate the pieces of a product or quotient, those pieces are also continuous — a necessary step in the proofs.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+<div class="section-container">
+
+        <div class="section-header section-level-1" id="block-38" style="--z-index: 103;">
+            <button class="section-collapse-btn" data-block-id="38" title="Collapse section">▾</button><h2 class="section-title" data-block-id="38">Key Takeaways</h2>
+        </div>
+        
+        <div class="math-block block-note" id="block-39" data-latex="\begin{enumerate} \item \text{The derivative has two interpretations: \textbf{geometric} (tangent slope) and \textbf{physical} (rate of change).} \item \text{Error propagation: } \Delta L \approx (dL/dh)\,\Delta h \text{ converts measurement error into real-world uncertainty.} \item \text{Derivative limits always produce } 0/0 \text{ and require algebraic manipulation.} \item \text{Continuity requires three conditions; the limit avoids the point while the function value evaluates at it.} \item \text{Differentiability } \Rightarrow \text{ continuity, but not conversely.} \item \text{Discontinuities: jump, removable, infinite, oscillating — each violates continuity differently.} \end{enumerate}" data-label="Summary" style="--accent-color: #707078">
+            <div class="block-label" style="color: #707078"><span class="block-icon">✎</span> Summary</div>
+            <div class="block-content-row">
+                <div class="block-math">$$\begin{enumerate} \item \text{The derivative has two interpretations: \textbf{geometric} (tangent slope) and \textbf{physical} (rate of change).} \item \text{Error propagation: } \Delta L \approx (dL/dh)\,\Delta h \text{ converts measurement error into real-world uncertainty.} \item \text{Derivative limits always produce } 0/0 \text{ and require algebraic manipulation.} \item \text{Continuity requires three conditions; the limit avoids the point while the function value evaluates at it.} \item \text{Differentiability } \Rightarrow \text{ continuity, but not conversely.} \item \text{Discontinuities: jump, removable, infinite, oscillating — each violates continuity differently.} \end{enumerate}$$</div>
+                <div class="block-annotation">Core concepts from Lecture 2 that underpin the differentiation rules derived in Lecture 3.</div>
+            </div>
+            
+        </div>
+        </div><!-- end section-container -->
+    </div>
+    
+    <!-- Section Navigation Outline -->
+    <div class="outline-panel" id="outlinePanel">
+        <div class="outline-header">
+            <span class="outline-title">Contents</span>
+            <button class="outline-close" onclick="toggleOutline()" title="Hide outline">×</button>
+        </div>
+        <nav class="outline-nav">
+            <a class="outline-item outline-top" href="#" data-block-id="top">Top</a>
+                <div class="outline-divider"></div>
+                <a class="outline-item outline-level-1" href="#block-0" data-block-id="0">1. Recap and Derivative as Rate of Change</a>
+                <a class="outline-item outline-level-1" href="#block-4" data-block-id="4">2. Example: The Pumpkin Drop</a>
+                <a class="outline-item outline-level-1" href="#block-8" data-block-id="8">3. Sensitivity and Error Propagation</a>
+                <a class="outline-item outline-level-1" href="#block-11" data-block-id="11">4. Limits: Easy vs. Hard</a>
+                <a class="outline-item outline-level-2" href="#block-12" data-block-id="12">4.1. Easy Limits (Direct Substitution)</a>
+                <a class="outline-item outline-level-2" href="#block-14" data-block-id="14">4.2. Derivative Limits Are Never Easy</a>
+                <a class="outline-item outline-level-1" href="#block-16" data-block-id="16">5. One-Sided Limits</a>
+                <a class="outline-item outline-level-1" href="#block-19" data-block-id="19">6. Continuity</a>
+                <a class="outline-item outline-level-1" href="#block-21" data-block-id="21">7. Zoo of Discontinuities</a>
+                <a class="outline-item outline-level-2" href="#block-22" data-block-id="22">7.1. Jump Discontinuity</a>
+                <a class="outline-item outline-level-2" href="#block-24" data-block-id="24">7.2. Removable Discontinuity</a>
+                <a class="outline-item outline-level-2" href="#block-27" data-block-id="27">7.3. Infinite Discontinuity</a>
+                <a class="outline-item outline-level-2" href="#block-30" data-block-id="30">7.4. Oscillating (Ugly) Discontinuity</a>
+                <a class="outline-item outline-level-1" href="#block-32" data-block-id="32">8. Differentiability Implies Continuity</a>
+                <a class="outline-item outline-level-1" href="#block-38" data-block-id="38">Key Takeaways</a>
+        </nav>
+    </div>
+    <button class="outline-toggle-btn" id="outlineToggleBtn" onclick="toggleOutline()" title="Show outline">☰</button>
+
+    
+    <script>
+        
+        // Shared KaTeX configuration
+        // Custom macros for commands not natively supported by KaTeX
+        const KATEX_MACROS = {
+            "\\lightning": "\\bot"  // Contradiction symbol (from stmaryrd/wasysym)
+        };
+
+        const KATEX_OPTIONS = {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            throwOnError: false,
+            macros: KATEX_MACROS
+        };
+
+        
+        // Detect annotations that wrapped below their math and add .wrapped class
+        function detectWrappedAnnotations() {
+            document.querySelectorAll('.block-content-row').forEach(row => {
+                const math = row.querySelector('.block-math');
+                const annotation = row.querySelector('.block-annotation');
+                if (math && annotation) {
+                    if (annotation.offsetTop > math.offsetTop + 10) {
+                        annotation.classList.add('wrapped');
+                    } else {
+                        annotation.classList.remove('wrapped');
+                    }
+                }
+            });
+        }
+
+        // Scroll fade indicators for overflowing math blocks
+        function initScrollIndicators() {
+            document.querySelectorAll('.block-math').forEach(el => {
+                const updateIndicators = () => {
+                    const hasOverflow = el.scrollWidth > el.clientWidth;
+                    const scrolledRight = el.scrollLeft > 0;
+                    const scrolledEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+
+                    el.classList.toggle('has-overflow', hasOverflow);
+                    el.classList.toggle('scrolled-right', scrolledRight);
+                    el.classList.toggle('scrolled-end', scrolledEnd);
+                };
+
+                updateIndicators();
+                el.addEventListener('scroll', updateIndicators);
+            });
+        }
+
+        // Outline toggle
+        let outlineVisible = true;
+        function toggleOutline() {
+            const panel = document.getElementById('outlinePanel');
+            const btn = document.getElementById('outlineToggleBtn');
+            if (!panel) return;
+
+            outlineVisible = !outlineVisible;
+            if (outlineVisible) {
+                panel.classList.remove('hidden');
+                btn.classList.remove('visible');
+            } else {
+                panel.classList.add('hidden');
+                btn.classList.add('visible');
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            
+        // Render math with KaTeX
+        renderMathInElement(document.body, KATEX_OPTIONS);
+
+
+            document.fonts.ready.then(() => {
+                requestAnimationFrame(() => {
+                    document.body.style.visibility = 'visible';
+                    detectWrappedAnnotations();initScrollIndicators();
+                });
+            });
+
+            // Outline navigation
+            
+        // Smooth scroll for outline links - accounts for nav bar and sticky headers
+        // Skip in PyQt viewer (viewer has its own implementation via QWebChannel)
+        if (typeof qt === 'undefined') {
+            function staticSiteScrollToSection(target) {
+                // Check if we're on mobile (sticky headers disabled)
+                const isMobile = window.matchMedia('(max-width: 600px)').matches;
+                const navHeight = parseInt(getComputedStyle(document.documentElement)
+                    .getPropertyValue('--nav-height')) || 44;
+
+                // Temporarily remove sticky to get true positions
+                const allHeaders = document.querySelectorAll('.section-header');
+                allHeaders.forEach(h => h.style.position = 'static');
+
+                // Force reflow
+                void target.offsetTop;
+
+                // Get target position
+                const rect = target.getBoundingClientRect();
+                const targetPosition = rect.top + window.scrollY;
+
+                let scrollTarget;
+                if (isMobile) {
+                    // Mobile: position element top just below nav bar
+                    // Element's internal padding provides natural visual spacing
+                    scrollTarget = targetPosition - navHeight;
+                } else {
+                    // Desktop: calculate sticky offset based on section level
+                    // Each level stacks below the headers above it
+                    const root = getComputedStyle(document.documentElement);
+                    const sectionHeight = parseInt(root.getPropertyValue('--section-height')) || 70;
+                    const subsectionHeight = parseInt(root.getPropertyValue('--subsection-height')) || 64;
+
+                    let stickyOffset = navHeight;
+                    if (target.classList.contains('section-level-2')) {
+                        // Level 2 sits below nav + level 1
+                        stickyOffset += sectionHeight;
+                    } else if (target.classList.contains('section-level-3')) {
+                        // Level 3 sits below nav + level 1 + level 2
+                        stickyOffset += sectionHeight + subsectionHeight;
+                    }
+                    // Level 1 just needs navHeight (already set)
+
+                    // Position header at its sticky offset
+                    scrollTarget = targetPosition - stickyOffset;
+                }
+
+                // Restore sticky positioning
+                allHeaders.forEach(h => h.style.position = '');
+
+                window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+            }
+
+            document.querySelectorAll('.outline-item').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const blockId = this.dataset.blockId;
+                    if (blockId === 'top') {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        const target = document.getElementById('block-' + blockId);
+                        if (target) {
+                            staticSiteScrollToSection(target);
+                        }
+                    }
+                });
+            });
+        }
+
+            
+        // Track active section in outline
+        const observerOptions = {
+            rootMargin: '-100px 0px -70% 0px',
+            threshold: 0
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const blockId = entry.target.id.replace('block-', '');
+                    document.querySelectorAll('.outline-item').forEach(item => {
+                        item.classList.remove('active');
+                        if (item.dataset.blockId === blockId) {
+                            item.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-header').forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+            
+
+            // Section collapse and title click
+            
+        // Section collapse functionality - skip in PyQt viewer (has its own implementation)
+        if (typeof qt === 'undefined') {
+            document.querySelectorAll('.section-collapse-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const header = btn.closest('.section-header');
+                    if (!header) return;
+
+                    const isCollapsed = header.classList.toggle('collapsed');
+                    btn.title = isCollapsed ? 'Expand section' : 'Collapse section';
+
+                    const headerLevel = header.classList.contains('section-level-1') ? 1
+                        : header.classList.contains('section-level-2') ? 2 : 3;
+
+                    let sibling = header.nextElementSibling;
+                    while (sibling) {
+                        if (sibling.classList.contains('section-header')) {
+                            const siblingLevel = sibling.classList.contains('section-level-1') ? 1
+                                : sibling.classList.contains('section-level-2') ? 2 : 3;
+                            if (siblingLevel <= headerLevel) break;
+                        }
+                        sibling.classList.toggle('section-collapsed-hidden', isCollapsed);
+                        sibling = sibling.nextElementSibling;
+                    }
+                });
+            });
+        }
+
+            
+        // Section title click to scroll - skip in PyQt viewer (has its own implementation)
+        if (typeof qt === 'undefined') {
+            document.querySelectorAll('.section-title').forEach(title => {
+                title.addEventListener('click', (e) => {
+                    if (window.getSelection().toString()) return;
+                    const header = title.closest('.section-header');
+                    if (header) {
+                        staticSiteScrollToSection(header);
+                    }
+                });
+            });
+        }
+
+        });
+
+        window.addEventListener('resize', detectWrappedAnnotations);
+        window.addEventListener('resize', initScrollIndicators);
+        
+        
+    </script>
+</body>
+</html>
